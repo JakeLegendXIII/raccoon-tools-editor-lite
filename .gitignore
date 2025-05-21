@@ -1,3 +1,5 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
 # Logs
 logs
 *.log
@@ -22,6 +24,22 @@ lib-cov
 # Coverage directory used by tools like istanbul
 coverage
 *.lcov
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
 
 # nyc test coverage
 .nyc_output
@@ -79,6 +97,17 @@ web_modules/
 .env.production.local
 .env.local
 
+# misc
+/.sass-cache
+/connect.lock
+/libpeerconnection.log
+testem.log
+/typings
+
+# e2e
+/e2e/*.js
+/e2e/*.map
+
 # parcel-bundler cache (https://parceljs.org/)
 .cache
 .parcel-cache
@@ -90,6 +119,11 @@ out
 # Nuxt.js build / generate output
 .nuxt
 dist
+
+# compiled output for Angular
+/dist
+/tmp
+/out-tsc
 
 # Gatsby files
 .cache/
@@ -127,6 +161,10 @@ dist
 
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
+
+# System Files
+.DS_Store
+Thumbs.db
 
 # yarn v2
 .yarn/cache
