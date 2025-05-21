@@ -1,4 +1,3 @@
-
 /**
  * Represents a point in the level grid
  */
