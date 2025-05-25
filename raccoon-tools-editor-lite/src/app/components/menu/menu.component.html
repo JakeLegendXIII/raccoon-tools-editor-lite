@@ -1,1 +1,13 @@
-<p>menu works!</p>
+<button mat-button [matMenuTriggerFor]="aboveMenu">File</button>
+<mat-menu #aboveMenu="matMenu" yPosition="below">
+  <button mat-menu-item>Import</button>
+  <button mat-menu-item>Export</button>
+</mat-menu>
+
+<button mat-button [matMenuTriggerFor]="belowMenu">Section</button>
+<mat-menu #belowMenu="matMenu" yPosition="below">
+  <button mat-menu-item>Header</button>
+  <button mat-menu-item>Players</button>
+  <button mat-menu-item>Enemies</button>
+  <button mat-menu-item>Obstacles</button>
+</mat-menu>
