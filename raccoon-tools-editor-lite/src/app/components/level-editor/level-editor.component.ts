@@ -26,7 +26,7 @@ import * as LevelActions from '../../store/level.actions';
           <h3>Players ({{ (players$ | async)?.length || 0 }})</h3>
           <ul>
             <li *ngFor="let player of players$ | async">
-              Player {{ player.id }} - Type: {{ player.playerType }}
+              Player {{ player.ID }} - Type: {{ player.PlayerType }}
             </li>
           </ul>
         </div>
@@ -35,7 +35,7 @@ import * as LevelActions from '../../store/level.actions';
           <h3>Enemies ({{ (enemies$ | async)?.length || 0 }})</h3>
           <ul>
             <li *ngFor="let enemy of enemies$ | async">
-              Enemy {{ enemy.id }} - Type: {{ enemy.enemyType }}
+              Enemy {{ enemy.ID }} - Type: {{ enemy.EnemyType }}
             </li>
           </ul>
         </div>
@@ -44,7 +44,7 @@ import * as LevelActions from '../../store/level.actions';
           <h3>Obstacles ({{ (obstacles$ | async)?.length || 0 }})</h3>
           <ul>
             <li *ngFor="let obstacle of obstacles$ | async">
-              Obstacle {{ obstacle.id }} - Type: {{ obstacle.obstacleType }}
+              Obstacle {{ obstacle.ID }} - Type: {{ obstacle.ObstacleType }}
             </li>
           </ul>
         </div>
@@ -91,27 +91,27 @@ export class LevelEditorComponent {
 
   addPlayer() {
     const player = new PlayerData();
-    player.id = this.playerIdCounter++;
-    player.playerType = Math.floor(Math.random() * 3) + 1;
-    player.health = 100;
+    player.ID = this.playerIdCounter++;
+    player.PlayerType = Math.floor(Math.random() * 3) + 1;
+    player.Health = 100;
     
     this.store.dispatch(LevelActions.addPlayer({ player }));
   }
 
   addEnemy() {
     const enemy = new EnemyData();
-    enemy.id = this.enemyIdCounter++;
-    enemy.enemyType = Math.floor(Math.random() * 3) + 1;
-    enemy.health = 50;
+    enemy.ID = this.enemyIdCounter++;
+    enemy.EnemyType = Math.floor(Math.random() * 3) + 1;
+    enemy.Health = 50;
     
     this.store.dispatch(LevelActions.addEnemy({ enemy }));
   }
 
   addObstacle() {
     const obstacle = new ObstacleData();
-    obstacle.id = this.obstacleIdCounter++;
-    obstacle.obstacleType = Math.floor(Math.random() * 3) + 1;
-    obstacle.health = 25;
+    obstacle.ID = this.obstacleIdCounter++;
+    obstacle.ObstacleType = Math.floor(Math.random() * 3) + 1;
+    obstacle.Health = 25;
     
     this.store.dispatch(LevelActions.addObstacle({ obstacle }));
   }

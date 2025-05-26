@@ -78,67 +78,66 @@ export class ImportComponent {
     const level = new Level();
     
     // Map basic properties
-    level.id = data.ID || 0;
-    level.numberOfPlayers = data.NumberOfPlayers || 0;
-    level.numberOfEnemies = data.NumberOfEnemies || 0;
-    level.gridWidth = data.GridWidth || 0;
-    level.gridHeight = data.GridHeight || 0;
-    level.cellSize = data.CellSize || 0;
-    level.levelType = data.LevelType || 0;
-    level.levelDescription = data.LevelDescription || '';
-    level.numberOfTurns = data.NumberOfTurns || 0;
+    level.ID = data.ID || 0;
+    level.NumberOfPlayers = data.NumberOfPlayers || 0;
+    level.NumberOfEnemies = data.NumberOfEnemies || 0;
+    level.GridWidth = data.GridWidth || 0;
+    level.GridHeight = data.GridHeight || 0;
+    level.CellSize = data.CellSize || 0;
+    level.LevelType = data.LevelType || 0;
+    level.LevelDescription = data.LevelDescription || '';
+    level.NumberOfTurns = data.NumberOfTurns || 0;
     
     // Map win position
     if (data.WinPosition) {
-      level.winPosition.x = data.WinPosition.x || 0;
-      level.winPosition.y = data.WinPosition.y || 0;
+      level.WinPosition.X = data.WinPosition.X || 0;
+      level.WinPosition.Y = data.WinPosition.Y || 0;
     }
 
     // Map arrays
-    level.players = (data.Players || []).map((p: any) => {
+    level.Players = (data.Players || []).map((p: any) => {
       const player = new PlayerData();
-      player.id = p.ID || 0;
-      player.playerType = p.PlayerType || 0;
-      player.health = p.Health || 0;
-      player.height = p.Height || 0;
-      player.width = p.Width || 0;
+      player.ID = p.ID || 0;
+      player.PlayerType = p.PlayerType || 0;
+      player.Health = p.Health || 0;
+      player.Height = p.Height || 0;
+      player.Width = p.Width || 0;
       if (p.StartPosition) {
-        player.startPosition.x = p.StartPosition.x || 0;
-        player.startPosition.y = p.StartPosition.y || 0;
+        player.StartPosition.X = p.StartPosition.X || 0;
+        player.StartPosition.Y = p.StartPosition.Y || 0;
       }
       return player;
     });
 
-    level.enemies = (data.Enemies || []).map((e: any) => {
+    level.Enemies = (data.Enemies || []).map((e: any) => {
       const enemy = new EnemyData();
-      enemy.id = e.ID || 0;
-      enemy.enemyType = e.EnemyType || 0;
-      enemy.health = e.Health || 0;
-      enemy.height = e.Height || 0;
-      enemy.width = e.Width || 0;
+      enemy.ID = e.ID || 0;
+      enemy.EnemyType = e.EnemyType || 0;
+      enemy.Health = e.Health || 0;
+      enemy.Height = e.Height || 0;
+      enemy.Width = e.Width || 0;
       if (e.StartPosition) {
-        enemy.startPosition.x = e.StartPosition.x || 0;
-        enemy.startPosition.y = e.StartPosition.y || 0;
+        enemy.StartPosition.X = e.StartPosition.X || 0;
+        enemy.StartPosition.Y = e.StartPosition.Y || 0;
       }
       return enemy;
     });
 
-    level.obstacles = (data.Obstacles || []).map((o: any) => {
+    level.Obstacles = (data.Obstacles || []).map((o: any) => {
       const obstacle = new ObstacleData();
-      obstacle.id = o.ID || 0;
-      obstacle.health = o.Health || 0;
-      obstacle.height = o.Height || 0;
-      obstacle.width = o.Width || 0;
-      obstacle.obstacleType = o.ObstacleType || 0;
-      obstacle.isWalkable = o.IsWalkable || false;
+      obstacle.ID = o.ID || 0;
+      obstacle.Health = o.Health || 0;
+      obstacle.Height = o.Height || 0;
+      obstacle.Width = o.Width || 0;
+      obstacle.ObstacleType = o.ObstacleType || 0;
+      obstacle.IsWalkable = o.IsWalkable || false;
       if (o.Position) {
-        obstacle.position.x = o.Position.x || 0;
-        obstacle.position.y = o.Position.y || 0;
+        obstacle.Position.X = o.Position.X || 0;
+        obstacle.Position.Y = o.Position.Y || 0;
       }
       return obstacle;
     });
-
-    console.log('Deserialized Level:', level);
+    
     return level;
   }
 

@@ -10,15 +10,15 @@ export const selectCurrentLevel = createSelector(
 
 export const selectPlayers = createSelector(
   selectCurrentLevel,
-  (level) => level?.players || []
+  (level) => level?.Players || []
 );
 
 export const selectEnemies = createSelector(
   selectCurrentLevel,
-  (level) => level?.enemies || []
+  (level) => level?.Enemies || []
 );
 
 export const selectObstacles = createSelector(
   selectCurrentLevel,
-  (level) => level?.obstacles || []
+  (level) => level?.Obstacles || []
 );

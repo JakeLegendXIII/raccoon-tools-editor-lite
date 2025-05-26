@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { ImportComponent } from '../import/import.component';
 
 @Component({
@@ -13,6 +14,7 @@ import { ImportComponent } from '../import/import.component';
 })
 export class MenuComponent {
   private dialog = inject(MatDialog);
+  private router = inject(Router);
 
   openImportDialog(): void {
     const dialogRef = this.dialog.open(ImportComponent, {
@@ -25,5 +27,9 @@ export class MenuComponent {
         console.log('Import dialog closed with result:', result);
       }
     });
+  }
+
+  navigateToLevelEditor(): void {
+    this.router.navigate(['/level-editor']);
   }
 }

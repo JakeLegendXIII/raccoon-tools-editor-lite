@@ -9,7 +9,7 @@ export const levelReducer = createReducer(
     ...state,
     currentLevel: state.currentLevel ? {
       ...state.currentLevel,
-      players: [...state.currentLevel.players, player]
+      players: [...state.currentLevel.Players, player]
     } : state.currentLevel
   })),
 
@@ -17,7 +17,7 @@ export const levelReducer = createReducer(
     ...state,
     currentLevel: state.currentLevel ? {
       ...state.currentLevel,
-      enemies: [...state.currentLevel.enemies, enemy]
+      enemies: [...state.currentLevel.Enemies, enemy]
     } : state.currentLevel
   })),
 
@@ -25,7 +25,7 @@ export const levelReducer = createReducer(
     ...state,
     currentLevel: state.currentLevel ? {
       ...state.currentLevel,
-      obstacles: [...state.currentLevel.obstacles, obstacle]
+      obstacles: [...state.currentLevel.Obstacles, obstacle]
     } : state.currentLevel
   })),
 
