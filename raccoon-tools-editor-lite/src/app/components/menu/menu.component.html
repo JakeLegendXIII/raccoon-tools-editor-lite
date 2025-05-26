@@ -4,9 +4,9 @@
   <button mat-menu-item>Export</button>
 </mat-menu>
 
-<button mat-button [matMenuTriggerFor]="belowMenu">Section</button>
+<button mat-button [matMenuTriggerFor]="belowMenu">Tools</button>
 <mat-menu #belowMenu="matMenu" yPosition="below">
-  <button mat-menu-item (click)="navigateToLevelViewer()">Header</button>
+  <button mat-menu-item (click)="navigateToLevelViewer()">Viewer</button>
   <button mat-menu-item (click)="navigateToPlayerList()">Players</button>
   <button mat-menu-item>Enemies</button>
   <button mat-menu-item>Obstacles</button>
