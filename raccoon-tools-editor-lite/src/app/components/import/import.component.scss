@@ -1,0 +1,35 @@
+.import-dialog {
+  padding: 16px;
+  min-width: 350px;
+}
+
+.file-upload-section {
+  margin-bottom: 16px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.error-message {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #f44336;
+  font-size: 14px;
+  margin-top: 16px;
+}
+
+.success-message {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #4caf50;
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+mat-dialog-actions {
+  margin-top: 24px;
+  padding-top: 16px;
+}

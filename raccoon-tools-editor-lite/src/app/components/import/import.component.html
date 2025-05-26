@@ -1,0 +1,44 @@
+<div class="import-dialog">
+  <h2 mat-dialog-title>Import Level</h2>
+  
+  <mat-dialog-content>
+    <div class="file-upload-section">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Select JSON Level File</mat-label>
+        <input matInput readonly [value]="selectedFile?.name || 'No file selected'" />
+        <button mat-icon-button matSuffix (click)="fileInput.click()">
+          <mat-icon>folder_open</mat-icon>
+        </button>
+      </mat-form-field>
+      
+      <input
+        #fileInput
+        type="file"
+        accept=".json"
+        style="display: none;"
+        (change)="onFileSelected($event)"
+      />
+    </div>
+
+    <div *ngIf="errorMessage" class="error-message">
+      <mat-icon color="warn">error</mat-icon>
+      <span>{{ errorMessage }}</span>
+    </div>
+
+    <div *ngIf="selectedFile && isValidJson" class="success-message">
+      <mat-icon color="primary">check_circle</mat-icon>
+      <span>Valid level file selected</span>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button (click)="onCancel()">Cancel</button>
+    <button 
+      mat-raised-button 
+      color="primary" 
+      [disabled]="!isValidJson" 
+      (click)="onImport()">
+      Import
+    </button>
+  </mat-dialog-actions>
+</div>

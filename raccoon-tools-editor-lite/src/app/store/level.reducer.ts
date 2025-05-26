@@ -27,5 +27,10 @@ export const levelReducer = createReducer(
       ...state.currentLevel,
       obstacles: [...state.currentLevel.obstacles, obstacle]
     } : state.currentLevel
+  })),
+
+  on(LevelActions.loadLevel, (state, { level }) => ({
+    ...state,
+    currentLevel: level
   }))
 );
