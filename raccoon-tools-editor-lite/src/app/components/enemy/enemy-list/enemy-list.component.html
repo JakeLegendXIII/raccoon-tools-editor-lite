@@ -1,0 +1,19 @@
+<div class="enemy-list-container">
+  <div class="header">
+    <h2>Enemies</h2>
+    <button mat-fab color="primary" (click)="addNewEnemy()" class="add-button">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+
+  <div class="enemies-grid" *ngIf="enemies$ | async as enemies">
+    <app-enemy-card 
+      *ngFor="let enemy of enemies" 
+      [enemy]="enemy">
+    </app-enemy-card>
+  </div>
+
+    <div class="empty-state" *ngIf="(enemies$ | async)?.length === 0">
+        <p>No enemies added yet. Click the + button to add your first enemy!</p>
+    </div>
+</div>

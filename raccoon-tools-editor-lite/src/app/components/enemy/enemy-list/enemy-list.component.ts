@@ -1,47 +1,47 @@
 import { Component } from '@angular/core';
-import { PlayerCardComponent } from "../player-card/player-card.component";
-import { Observable, take, combineLatest } from 'rxjs';
+import { EnemyData } from '../../../models/level.model';
+import { combineLatest, Observable, take } from 'rxjs';
+import { EnemyCardComponent } from '../enemy-card/enemy-card.component';
 import { CommonModule } from '@angular/common';
-import { Store } from '@ngrx/store';
-import { PlayerData } from '../../../models/level.model';
-import { selectPlayers, selectCurrentLevel } from '../../../store/level.selectors';
-import { addPlayer } from '../../../store/level.actions';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { Store } from '@ngrx/store';
+import { selectCurrentLevel, selectEnemies } from '../../../store/level.selectors';
+import { addEnemy } from '../../../store/level.actions';
 
 @Component({
-  selector: 'app-player-list',
+  selector: 'app-enemy-list',
   imports: [
-    PlayerCardComponent, 
-    CommonModule, 
-    MatButtonModule, 
+    EnemyCardComponent,
+    CommonModule,
+    MatButtonModule,
     MatIconModule
   ],
+  templateUrl: './enemy-list.component.html',
   standalone: true,
-  templateUrl: './player-list.component.html',
-  styleUrl: './player-list.component.scss'
+  styleUrl: './enemy-list.component.scss'
 })
-export class PlayerListComponent {
-  players$: Observable<PlayerData[]>;
-
-  constructor(private store: Store) {
-    this.players$ = this.store.select(selectPlayers);
-  }  addNewPlayer(): void {
+export class EnemyListComponent {
+  enemies$: Observable<EnemyData[]>;
+  
+constructor(private store: Store) {
+    this.enemies$ = this.store.select(selectEnemies);
+  }  addNewEnemy(): void {
     // Combine all entity positions to find available spots
     combineLatest([
       this.store.select(selectCurrentLevel)
     ]).pipe(take(1)).subscribe(([level]) => {
-      const newPlayer = new PlayerData();
+      const newEnemy = new EnemyData();
       let players = level?.Players || [];
       let enemies = level?.Enemies || [];  
       let obstacles = level?.Obstacles || [];
       // Generate ID as largest existing ID plus one
-      const maxId = players.length > 0 ? Math.max(...players.map(p => p.ID)) : 0;
-      newPlayer.ID = maxId + 1;
-      newPlayer.PlayerType = 1;
-      newPlayer.Health = 3;
-      newPlayer.Height = 64;
-      newPlayer.Width = 64;
+      const maxId = enemies.length > 0 ? Math.max(...enemies.map(p => p.ID)) : 0;
+      newEnemy.ID = maxId + 1;
+      newEnemy.EnemyType = 1;
+      newEnemy.Health = 3;
+      newEnemy.Height = 64;
+      newEnemy.Width = 64;
       
       // Find random available position
       const availablePosition = this.findRandomAvailablePosition(
@@ -51,20 +51,20 @@ export class PlayerListComponent {
         enemies,
         obstacles
       );
-      newPlayer.StartPosition.X = availablePosition.x;
-      newPlayer.StartPosition.Y = availablePosition.y;
+      newEnemy.StartPosition.X = availablePosition.x;
+      newEnemy.StartPosition.Y = availablePosition.y;
       
-      this.store.dispatch(addPlayer({ player: newPlayer }));
+      this.store.dispatch(addEnemy({ enemy: newEnemy }));
     });
   }
-  private findRandomAvailablePosition(gridWidth: number, gridHeight: number, players: any[], enemies: any[], obstacles: any[]): { x: number, y: number } {
+  private findRandomAvailablePosition(gridWidth: number, gridHeight: number, enemys: any[], enemies: any[], obstacles: any[]): { x: number, y: number } {
     const GRID_WIDTH = gridWidth;
     const GRID_HEIGHT = gridHeight;
     
     // Collect all occupied positions
     const occupiedPositions = new Set<string>();
     
-    [...players, ...enemies, ...obstacles].forEach(entity => {
+    [...enemys, ...enemies, ...obstacles].forEach(entity => {
       if (entity.StartPositionX !== undefined && entity.StartPositionY !== undefined) {
         occupiedPositions.add(`${entity.StartPositionX},${entity.StartPositionY}`);
       }
@@ -93,3 +93,4 @@ export class PlayerListComponent {
     }
   }
 }
+

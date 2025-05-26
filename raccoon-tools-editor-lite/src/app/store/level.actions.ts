@@ -21,6 +21,16 @@ export const addEnemy = createAction(
   props<{ enemy: EnemyData }>()
 );
 
+export const updateEnemy = createAction(
+    '[Level] Update Enemy',
+    props<{ enemy: EnemyData }>()
+);
+
+export const deleteEnemy = createAction(
+  '[Level] Delete Enemy',
+  props<{ enemyId: number }>()
+);
+
 export const addObstacle = createAction(
   '[Level] Add Obstacle',
   props<{ obstacle: ObstacleData }>()

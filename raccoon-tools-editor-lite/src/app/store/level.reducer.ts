@@ -1,4 +1,4 @@
-import { createReducer, on } from '@ngrx/store';
+import { createReducer, on, State } from '@ngrx/store';
 import { LevelState, initialLevelState } from './level.state';
 import * as LevelActions from './level.actions';
 
@@ -34,6 +34,22 @@ export const levelReducer = createReducer(
     currentLevel: state.currentLevel ? {
       ...state.currentLevel,
       Enemies: [...state.currentLevel.Enemies, enemy]
+    } : state.currentLevel
+  })),
+  on(LevelActions.updateEnemy, (state, { enemy }) => ({
+    ...state,
+    currentLevel: state.currentLevel ? {
+      ...state.currentLevel,
+      Enemies: state.currentLevel.Enemies.map(e => 
+        e.ID === enemy.ID ? enemy : e
+      )
+    } : state.currentLevel
+    })),
+  on(LevelActions.deleteEnemy, (state, { enemyId }) => ({
+    ...state,
+    currentLevel: state.currentLevel ? {
+      ...state.currentLevel,
+      Enemies: state.currentLevel.Enemies.filter(e => e.ID !== enemyId)
     } : state.currentLevel
   })),
 
