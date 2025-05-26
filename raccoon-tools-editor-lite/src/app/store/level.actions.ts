@@ -6,6 +6,11 @@ export const addPlayer = createAction(
   props<{ player: PlayerData }>()
 );
 
+export const updatePlayer = createAction(
+  '[Level] Update Player',
+  props<{ player: PlayerData }>()
+);
+
 export const addEnemy = createAction(
   '[Level] Add Enemy', 
   props<{ enemy: EnemyData }>()

@@ -1,1 +1,66 @@
-<p>player-card works!</p>
+<mat-card class="player-card">
+  <mat-card-header>
+    <mat-card-title>Player {{player.ID}}</mat-card-title>
+    <mat-card-subtitle>Type: {{player.PlayerType}}</mat-card-subtitle>
+    <div class="header-actions">
+      <button mat-icon-button (click)="toggleEdit()" [attr.aria-label]="isEditing ? 'Cancel edit' : 'Edit player'">
+        <mat-icon>{{isEditing ? 'close' : 'edit'}}</mat-icon>
+      </button>
+    </div>
+  </mat-card-header>
+
+  <mat-card-content>
+    <div class="player-properties" *ngIf="!isEditing">
+      <div class="property-row">
+        <strong>Health:</strong> {{player.Health}}
+      </div>
+      <div class="property-row">
+        <strong>Size:</strong> {{player.Width}} x {{player.Height}}
+      </div>
+      <div class="property-row">
+        <strong>Start Position:</strong> ({{player.StartPosition.X}}, {{player.StartPosition.Y}})
+      </div>
+    </div>
+
+    <form class="edit-form" *ngIf="isEditing" (ngSubmit)="saveChanges()">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Player Type</mat-label>
+        <input matInput type="number" [(ngModel)]="editablePlayer.PlayerType" name="playerType" min="1">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Health</mat-label>
+        <input matInput type="number" [(ngModel)]="editablePlayer.Health" name="health" min="1">
+      </mat-form-field>
+
+      <div class="size-inputs">
+        <mat-form-field appearance="outline" class="half-width">
+          <mat-label>Width</mat-label>
+          <input matInput type="number" [(ngModel)]="editablePlayer.Width" name="width" min="1">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="half-width">
+          <mat-label>Height</mat-label>
+          <input matInput type="number" [(ngModel)]="editablePlayer.Height" name="height" min="1">
+        </mat-form-field>
+      </div>
+
+      <div class="position-inputs">
+        <mat-form-field appearance="outline" class="half-width">
+          <mat-label>Start X</mat-label>
+          <input matInput type="number" [(ngModel)]="editablePlayer.StartPosition.X" name="startX">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="half-width">
+          <mat-label>Start Y</mat-label>
+          <input matInput type="number" [(ngModel)]="editablePlayer.StartPosition.Y" name="startY">
+        </mat-form-field>
+      </div>
+    </form>
+  </mat-card-content>
+
+  <mat-card-actions *ngIf="isEditing" class="card-actions">
+    <button mat-button (click)="cancelEdit()">Cancel</button>
+    <button mat-raised-button color="primary" (click)="saveChanges()">Save</button>
+  </mat-card-actions>
+</mat-card>

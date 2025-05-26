@@ -9,7 +9,16 @@ export const levelReducer = createReducer(
     ...state,
     currentLevel: state.currentLevel ? {
       ...state.currentLevel,
-      players: [...state.currentLevel.Players, player]
+      Players: [...state.currentLevel.Players, player]
+    } : state.currentLevel
+  })),
+  on(LevelActions.updatePlayer, (state, { player }) => ({
+    ...state,
+    currentLevel: state.currentLevel ? {
+      ...state.currentLevel,
+      Players: state.currentLevel.Players.map(p => 
+        p.ID === player.ID ? player : p
+      )
     } : state.currentLevel
   })),
 
@@ -17,7 +26,7 @@ export const levelReducer = createReducer(
     ...state,
     currentLevel: state.currentLevel ? {
       ...state.currentLevel,
-      enemies: [...state.currentLevel.Enemies, enemy]
+      Enemies: [...state.currentLevel.Enemies, enemy]
     } : state.currentLevel
   })),
 
@@ -25,7 +34,7 @@ export const levelReducer = createReducer(
     ...state,
     currentLevel: state.currentLevel ? {
       ...state.currentLevel,
-      obstacles: [...state.currentLevel.Obstacles, obstacle]
+      Obstacles: [...state.currentLevel.Obstacles, obstacle]
     } : state.currentLevel
   })),
 

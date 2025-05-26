@@ -1,2 +1,19 @@
-<p>player-list works!</p>
-<app-player-card></app-player-card>
+<div class="player-list-container">
+  <div class="header">
+    <h2>Players</h2>
+    <button mat-fab color="primary" (click)="addNewPlayer()" class="add-button">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+  
+  <div class="players-grid" *ngIf="players$ | async as players">
+    <app-player-card 
+      *ngFor="let player of players" 
+      [player]="player">
+    </app-player-card>
+  </div>
+  
+  <div class="empty-state" *ngIf="(players$ | async)?.length === 0">
+    <p>No players added yet. Click the + button to add your first player!</p>
+  </div>
+</div>
