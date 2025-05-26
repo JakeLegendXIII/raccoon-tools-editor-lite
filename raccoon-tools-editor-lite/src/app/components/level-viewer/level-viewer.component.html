@@ -1,12 +1,5 @@
  <div class="level-editor">
-      <h2>Level Editor</h2>
-      
-      <div class="actions">
-        <button (click)="addPlayer()">Add Player</button>
-        <button (click)="addEnemy()">Add Enemy</button>
-        <button (click)="addObstacle()">Add Obstacle</button>
-      </div>
-
+      <h2>Level Viewer</h2>
       <div class="lists">
         <div class="list">
           <h3>Players ({{ (players$ | async)?.length || 0 }})</h3>

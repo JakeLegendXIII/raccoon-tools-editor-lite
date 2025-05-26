@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
-import { LevelEditorComponent } from './components/level-editor/level-editor.component';
+import { LevelViewerComponent } from './components/level-viewer/level-viewer.component';
 import { PlayerListComponent } from './components/player/player-list/player-list.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/level-editor', pathMatch: 'full' },
-  { path: 'level-editor', component: LevelEditorComponent },
+  { path: '', redirectTo: '/level-viewer', pathMatch: 'full' },
+  { path: 'level-viewer', component: LevelViewerComponent },
   { path: 'player-list', component: PlayerListComponent}
 ];

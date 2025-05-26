@@ -29,8 +29,8 @@ export class MenuComponent {
     });
   }
 
-  navigateToLevelEditor(): void {
-    this.router.navigate(['/level-editor']);
+  navigateToLevelViewer(): void {
+    this.router.navigate(['/level-viewer']);
   }
   navigateToPlayerList(): void {
     this.router.navigate(['/player-list']);
