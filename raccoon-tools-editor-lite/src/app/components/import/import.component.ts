@@ -138,6 +138,7 @@ export class ImportComponent {
       return obstacle;
     });
 
+    console.log('Deserialized Level:', level);
     return level;
   }
 
