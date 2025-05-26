@@ -10,69 +10,9 @@ import * as LevelActions from '../../store/level.actions';
 @Component({
   selector: 'app-level-editor',
   standalone: true,
-  imports: [CommonModule],
-  template: `
-    <div class="level-editor">
-      <h2>Level Editor</h2>
-      
-      <div class="actions">
-        <button (click)="addPlayer()">Add Player</button>
-        <button (click)="addEnemy()">Add Enemy</button>
-        <button (click)="addObstacle()">Add Obstacle</button>
-      </div>
-
-      <div class="lists">
-        <div class="list">
-          <h3>Players ({{ (players$ | async)?.length || 0 }})</h3>
-          <ul>
-            <li *ngFor="let player of players$ | async">
-              Player {{ player.ID }} - Type: {{ player.PlayerType }}
-            </li>
-          </ul>
-        </div>
-
-        <div class="list">
-          <h3>Enemies ({{ (enemies$ | async)?.length || 0 }})</h3>
-          <ul>
-            <li *ngFor="let enemy of enemies$ | async">
-              Enemy {{ enemy.ID }} - Type: {{ enemy.EnemyType }}
-            </li>
-          </ul>
-        </div>
-
-        <div class="list">
-          <h3>Obstacles ({{ (obstacles$ | async)?.length || 0 }})</h3>
-          <ul>
-            <li *ngFor="let obstacle of obstacles$ | async">
-              Obstacle {{ obstacle.ID }} - Type: {{ obstacle.ObstacleType }}
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  `,
-  styles: [`
-    .level-editor {
-      padding: 20px;
-    }
-    .actions {
-      margin-bottom: 20px;
-    }
-    .actions button {
-      margin-right: 10px;
-      padding: 8px 16px;
-    }
-    .lists {
-      display: flex;
-      gap: 20px;
-    }
-    .list {
-      flex: 1;
-      border: 1px solid #ccc;
-      padding: 10px;
-      border-radius: 4px;
-    }
-  `]
+  imports: [CommonModule],  
+  templateUrl: './level-editor.component.html',
+  styleUrls: ['./level-editor.component.scss']
 })
 export class LevelEditorComponent {
   players$: Observable<PlayerData[]>;
