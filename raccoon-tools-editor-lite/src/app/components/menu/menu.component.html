@@ -7,7 +7,7 @@
 <button mat-button [matMenuTriggerFor]="belowMenu">Section</button>
 <mat-menu #belowMenu="matMenu" yPosition="below">
   <button mat-menu-item (click)="navigateToLevelEditor()">Header</button>
-  <button mat-menu-item>Players</button>
+  <button mat-menu-item (click)="navigateToPlayerList()">Players</button>
   <button mat-menu-item>Enemies</button>
   <button mat-menu-item>Obstacles</button>
 </mat-menu>

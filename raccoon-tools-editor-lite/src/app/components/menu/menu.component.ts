@@ -32,4 +32,7 @@ export class MenuComponent {
   navigateToLevelEditor(): void {
     this.router.navigate(['/level-editor']);
   }
+  navigateToPlayerList(): void {
+    this.router.navigate(['/player-list']);
+  }
 }
