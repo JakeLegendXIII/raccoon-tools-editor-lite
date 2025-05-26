@@ -8,7 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Store } from '@ngrx/store';
 import { PlayerData } from '../../../models/level.model';
-import { updatePlayer } from '../../../store/level.actions';
+import { updatePlayer, deletePlayer } from '../../../store/level.actions';
 
 @Component({
   selector: 'app-player-card',
@@ -55,10 +55,15 @@ export class PlayerCardComponent {
     this.store.dispatch(updatePlayer({ player: this.editablePlayer }));
     this.isEditing = false;
   }
-
   cancelEdit(): void {
     this.isEditing = false;
     this.resetEditablePlayer();
+  }
+
+  deletePlayer(): void {
+    if (confirm(`Are you sure you want to delete Player ${this.player.ID}?`)) {
+      this.store.dispatch(deletePlayer({ playerId: this.player.ID }));
+    }
   }
 
   private resetEditablePlayer(): void {

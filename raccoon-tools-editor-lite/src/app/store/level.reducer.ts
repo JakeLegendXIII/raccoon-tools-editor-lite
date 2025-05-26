@@ -11,14 +11,21 @@ export const levelReducer = createReducer(
       ...state.currentLevel,
       Players: [...state.currentLevel.Players, player]
     } : state.currentLevel
-  })),
-  on(LevelActions.updatePlayer, (state, { player }) => ({
+  })),  on(LevelActions.updatePlayer, (state, { player }) => ({
     ...state,
     currentLevel: state.currentLevel ? {
       ...state.currentLevel,
       Players: state.currentLevel.Players.map(p => 
         p.ID === player.ID ? player : p
       )
+    } : state.currentLevel
+  })),
+
+  on(LevelActions.deletePlayer, (state, { playerId }) => ({
+    ...state,
+    currentLevel: state.currentLevel ? {
+      ...state.currentLevel,
+      Players: state.currentLevel.Players.filter(p => p.ID !== playerId)
     } : state.currentLevel
   })),
 
