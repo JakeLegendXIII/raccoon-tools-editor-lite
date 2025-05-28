@@ -1,7 +1,7 @@
 <button mat-button [matMenuTriggerFor]="aboveMenu">File</button>
 <mat-menu #aboveMenu="matMenu" yPosition="below">
   <button mat-menu-item (click)="openImportDialog()">Import</button>
-  <button mat-menu-item>Export</button>
+  <button mat-menu-item (click)="navigateToExport()">Export</button>
 </mat-menu>
 
 <button mat-button [matMenuTriggerFor]="belowMenu">Tools</button>

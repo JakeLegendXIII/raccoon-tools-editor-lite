@@ -37,8 +37,11 @@ export class MenuComponent {
   }
   navigateToEnemyList(): void {
     this.router.navigate(['/enemy-list']);
-  }
-  navigateToObstacleList(): void {
+  }  navigateToObstacleList(): void {
     this.router.navigate(['/obstacle-list']);
+  }
+
+  navigateToExport(): void {
+    this.router.navigate(['/export']);
   }
 }
