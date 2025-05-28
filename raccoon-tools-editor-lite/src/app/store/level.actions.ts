@@ -36,6 +36,16 @@ export const addObstacle = createAction(
   props<{ obstacle: ObstacleData }>()
 );
 
+export const updateObstacle = createAction(
+  '[Level] Update Obstacle',
+  props<{ obstacle: ObstacleData }>()
+);
+
+export const deleteObstacle = createAction(
+  '[Level] Delete Obstacle',
+  props<{ obstacleId: number }>()
+);
+
 export const loadLevel = createAction(
   '[Level] Load Level',
   props<{ level: Level }>()

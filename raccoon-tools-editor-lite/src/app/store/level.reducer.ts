@@ -60,6 +60,22 @@ export const levelReducer = createReducer(
       Obstacles: [...state.currentLevel.Obstacles, obstacle]
     } : state.currentLevel
   })),
+  on(LevelActions.updateObstacle, (state, { obstacle }) => ({
+    ...state,
+    currentLevel: state.currentLevel ? {
+      ...state.currentLevel,
+      Obstacles: state.currentLevel.Obstacles.map(o => 
+        o.ID === obstacle.ID ? obstacle : o
+      )
+    } : state.currentLevel
+  })),
+  on(LevelActions.deleteObstacle, (state, { obstacleId }) => ({
+    ...state,
+    currentLevel: state.currentLevel ? {
+      ...state.currentLevel,
+      Obstacles: state.currentLevel.Obstacles.filter(o => o.ID !== obstacleId)
+    } : state.currentLevel
+  })),
 
   on(LevelActions.loadLevel, (state, { level }) => ({
     ...state,
