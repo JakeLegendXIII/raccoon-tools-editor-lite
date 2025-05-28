@@ -1,0 +1,70 @@
+.obstacle-card {
+  margin: 10px;
+  min-width: 280px;
+  max-width: 400px;
+}
+
+.header-actions {
+  margin-left: auto;
+}
+
+.obstacle-properties {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.property-row {
+  display: flex;
+  align-items: center;
+  padding: 4px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.property-row strong {
+  min-width: 120px;
+  color: #555;
+}
+
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.half-width {
+  width: 48%;
+}
+
+.size-inputs,
+.position-inputs {
+  display: flex;
+  gap: 4%;
+  align-items: center;
+}
+
+.card-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 16px;
+}
+
+mat-card-header {
+  display: flex;
+  align-items: center;
+}
+
+mat-card-title {
+  color: #333;
+  font-weight: 500;
+}
+
+mat-card-subtitle {
+  color: #666;
+  margin-top: 4px;
+}

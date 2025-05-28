@@ -1,1 +1,61 @@
-<p>obstacle-card works!</p>
+<mat-card class="obstacle-card">
+  <mat-card-header>
+    <mat-card-title>Obstacle {{obstacle.ID}}</mat-card-title>
+    <mat-card-subtitle>Type: {{obstacle.ObstacleType}}</mat-card-subtitle>
+    <div class="header-actions">
+      <button mat-icon-button (click)="toggleEdit()" [attr.aria-label]="isEditing ? 'Cancel edit' : 'Edit obstacle'">
+        <mat-icon>{{isEditing ? 'close' : 'edit'}}</mat-icon>
+      </button>
+    </div>
+  </mat-card-header>
+
+  <mat-card-content>
+    <div class="obstacle-properties" *ngIf="!isEditing">
+      <div class="property-row">
+        <strong>Size:</strong> {{obstacle.Width}} x {{obstacle.Height}}
+      </div>
+      <div class="property-row">
+        <strong>Position:</strong> ({{obstacle.Position.X}}, {{obstacle.Position.Y}})
+      </div>
+    </div>
+
+    <form class="edit-form" *ngIf="isEditing" (ngSubmit)="saveChanges()">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Obstacle Type</mat-label>
+        <input matInput type="number" [(ngModel)]="editableObstacle.ObstacleType" name="obstacleType" min="1">
+      </mat-form-field>
+
+      <div class="size-inputs">
+        <mat-form-field appearance="outline" class="half-width">
+          <mat-label>Width</mat-label>
+          <input matInput type="number" [(ngModel)]="editableObstacle.Width" name="width" min="1">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="half-width">
+          <mat-label>Height</mat-label>
+          <input matInput type="number" [(ngModel)]="editableObstacle.Height" name="height" min="1">
+        </mat-form-field>
+      </div>
+
+      <div class="position-inputs">
+        <mat-form-field appearance="outline" class="half-width">
+          <mat-label>X Position</mat-label>
+          <input matInput type="number" [(ngModel)]="editableObstacle.Position.X" name="posX">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="half-width">
+          <mat-label>Y Position</mat-label>
+          <input matInput type="number" [(ngModel)]="editableObstacle.Position.Y" name="posY">
+        </mat-form-field>
+      </div>
+    </form>
+    </mat-card-content>
+      <mat-card-actions *ngIf="isEditing" class="card-actions">
+    <button mat-button (click)="cancelEdit()">Cancel</button>
+    <button mat-raised-button color="primary" (click)="saveChanges()">Save</button>
+    <button mat-button color="warn" (click)="deleteObstacle()">
+      <mat-icon>delete</mat-icon>
+      Delete
+    </button>
+  </mat-card-actions>
+</mat-card>
