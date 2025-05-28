@@ -1,1 +1,19 @@
-<p>obstacle-list works!</p>
+<div class="obstacle-list-container">
+  <div class="header">
+    <h2>Obstacles</h2>
+    <button mat-fab color="primary" (click)="addNewObstacle()" class="add-button">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+
+  <div class="obstacles-grid" *ngIf="obstacles$ | async as obstacles">
+    <app-obstacle-card 
+      *ngFor="let obstacle of obstacles" 
+      [obstacle]="obstacle">
+    </app-obstacle-card>
+  </div>
+
+    <div class="empty-state" *ngIf="(obstacles$ | async)?.length === 0">
+        <p>No obstacles added yet. Click the + button to add your first obstacle!</p>
+    </div>
+</div>

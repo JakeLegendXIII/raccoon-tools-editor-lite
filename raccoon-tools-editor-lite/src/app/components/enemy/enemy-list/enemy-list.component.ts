@@ -26,7 +26,9 @@ export class EnemyListComponent {
   
 constructor(private store: Store) {
     this.enemies$ = this.store.select(selectEnemies);
-  }  addNewEnemy(): void {
+  }  
+  
+  addNewEnemy(): void {
     // Combine all entity positions to find available spots
     combineLatest([
       this.store.select(selectCurrentLevel)
