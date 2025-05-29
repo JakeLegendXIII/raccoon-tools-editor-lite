@@ -6,11 +6,15 @@ import { CommonModule } from '@angular/common';
 import { PlayerData, EnemyData, ObstacleData } from '../../models/level.model';
 import { selectPlayers, selectEnemies, selectObstacles } from '../../store/level.selectors';
 import * as LevelActions from '../../store/level.actions';
+import { VisualizerComponent } from '../visualizer/visualizer.component';
 
 @Component({
   selector: 'app-level-viewer',
   standalone: true,
-  imports: [CommonModule],  
+  imports: [
+    CommonModule,
+    VisualizerComponent
+  ],  
   templateUrl: './level-viewer.component.html',
   styleUrls: ['./level-viewer.component.scss']
 })
