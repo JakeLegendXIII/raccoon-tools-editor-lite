@@ -17,6 +17,7 @@ interface GridCell {
 @Component({
   selector: 'app-visualizer',
   imports: [CommonModule],
+  standalone: true,
   templateUrl: './visualizer.component.html',
   styleUrl: './visualizer.component.scss'
 })
@@ -38,8 +39,8 @@ export class VisualizerComponent implements OnInit {
     });
   }
   private generateGrid(level: Level) {
-    const width = level.GridWidth || 10;
-    const height = level.GridHeight || 10;
+    const width = level.GridWidth || 8;
+    const height = level.GridHeight || 8;
     
     // Initialize empty grid
     this.gridCells = [];
@@ -104,11 +105,11 @@ export class VisualizerComponent implements OnInit {
 
   getXAxisLabels(): number[] {
     if (!this.level) return [];
-    return Array.from({length: this.level.GridWidth || 10}, (_, i) => i);
+    return Array.from({length: this.level.GridWidth || 8}, (_, i) => i);
   }
 
   getYAxisLabels(): number[] {
     if (!this.level) return [];
-    return Array.from({length: this.level.GridHeight || 10}, (_, i) => i);
+    return Array.from({length: this.level.GridHeight || 8}, (_, i) => i);
   }
 }
