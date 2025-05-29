@@ -1,0 +1,70 @@
+<div class="visualizer-container">
+  <h2>Level Visualizer</h2>
+  
+  <div *ngIf="level; else noLevel" class="level-info">    <div class="level-header">
+      <h3>{{ level.LevelDescription || 'Untitled Level' }}</h3>
+      <div class="level-stats">
+        <span>Grid: {{ level.GridWidth }}x{{ level.GridHeight }}</span>
+        <span>Cell Size: {{ level.CellSize }}px</span>
+        <span>Players: {{ level.Players.length }}</span>
+        <span>Enemies: {{ level.Enemies.length }}</span>
+        <span>Obstacles: {{ level.Obstacles.length }}</span>
+      </div>
+    </div>
+
+    <div class="legend">
+      <div class="legend-item">
+        <div class="legend-color cell-player"></div>
+        <span>Players (Blue)</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color cell-enemy"></div>
+        <span>Enemies (Orange)</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color cell-obstacle"></div>
+        <span>Obstacles (Green)</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color cell-empty"></div>
+        <span>Empty</span>
+      </div>
+    </div>
+
+    <div class="grid-container">
+      <!-- Y-axis labels -->
+      <div class="y-axis-labels">
+        <div class="axis-title">Y</div>
+        <div *ngFor="let y of getYAxisLabels()" class="axis-label">{{ y }}</div>
+      </div>
+
+      <!-- Grid and X-axis -->
+      <div class="grid-with-x-axis">
+        <!-- X-axis labels -->
+        <div class="x-axis-labels">
+          <div class="axis-spacer"></div>
+          <div *ngFor="let x of getXAxisLabels()" class="axis-label">{{ x }}</div>
+        </div>
+        <div class="x-axis-title">X</div>        <!-- The actual grid -->
+        <div class="grid" 
+             [style.grid-template-columns]="'repeat(' + (level.GridWidth || 10) + ', 1fr)'">
+          <div *ngFor="let row of gridCells">
+            <div *ngFor="let cell of row" 
+                 class="grid-cell"
+                 [ngClass]="getCellClass(cell)"
+                 [title]="'Position: (' + cell.x + ', ' + cell.y + ')'">
+              <div class="cell-coordinates">{{ cell.x }},{{ cell.y }}</div>
+              <div class="cell-content" [innerHTML]="getCellContent(cell)"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noLevel>
+    <div class="no-level">
+      <p>No level data available. Please create or load a level to visualize.</p>
+    </div>
+  </ng-template>
+</div>

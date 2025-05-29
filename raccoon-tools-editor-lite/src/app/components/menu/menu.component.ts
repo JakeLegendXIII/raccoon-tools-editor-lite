@@ -40,8 +40,11 @@ export class MenuComponent {
   }  navigateToObstacleList(): void {
     this.router.navigate(['/obstacle-list']);
   }
-
   navigateToExport(): void {
     this.router.navigate(['/export']);
+  }
+
+  navigateToVisualizer(): void {
+    this.router.navigate(['/visualizer']);
   }
 }

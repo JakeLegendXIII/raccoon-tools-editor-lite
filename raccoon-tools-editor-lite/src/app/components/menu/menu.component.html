@@ -7,6 +7,7 @@
 <button mat-button [matMenuTriggerFor]="belowMenu">Tools</button>
 <mat-menu #belowMenu="matMenu" yPosition="below">
   <button mat-menu-item (click)="navigateToLevelViewer()">Viewer</button>
+  <button mat-menu-item (click)="navigateToVisualizer()">Visualizer</button>
   <button mat-menu-item (click)="navigateToPlayerList()">Players</button>
   <button mat-menu-item (click)="navigateToEnemyList()">Enemies</button>
   <button mat-menu-item (click)="navigateToObstacleList()">Obstacles</button>
