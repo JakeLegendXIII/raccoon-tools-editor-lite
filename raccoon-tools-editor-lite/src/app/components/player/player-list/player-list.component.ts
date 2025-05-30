@@ -8,6 +8,7 @@ import { selectPlayers, selectCurrentLevel } from '../../../store/level.selector
 import { addPlayer } from '../../../store/level.actions';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { VisualizerComponent } from '../../visualizer/visualizer.component';
 
 @Component({
   selector: 'app-player-list',
@@ -15,7 +16,8 @@ import { MatIconModule } from '@angular/material/icon';
     PlayerCardComponent, 
     CommonModule, 
     MatButtonModule, 
-    MatIconModule
+    MatIconModule,
+    VisualizerComponent
   ],
   standalone: true,
   templateUrl: './player-list.component.html',
