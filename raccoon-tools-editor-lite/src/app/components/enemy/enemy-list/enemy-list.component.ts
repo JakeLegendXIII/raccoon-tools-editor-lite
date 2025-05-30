@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { Store } from '@ngrx/store';
 import { selectCurrentLevel, selectEnemies } from '../../../store/level.selectors';
 import { addEnemy } from '../../../store/level.actions';
+import { VisualizerComponent } from "../../visualizer/visualizer.component";
 
 @Component({
   selector: 'app-enemy-list',
@@ -15,8 +16,9 @@ import { addEnemy } from '../../../store/level.actions';
     EnemyCardComponent,
     CommonModule,
     MatButtonModule,
-    MatIconModule
-  ],
+    MatIconModule,
+    VisualizerComponent
+],
   templateUrl: './enemy-list.component.html',
   standalone: true,
   styleUrl: './enemy-list.component.scss'
