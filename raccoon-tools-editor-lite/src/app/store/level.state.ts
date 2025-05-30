@@ -7,11 +7,11 @@ export interface LevelState {
 const createDefaultLevel = (): Level => {
   const level = new Level();
   level.ID = 1;
-  level.GridWidth = 10;
+  level.GridWidth = 8;
   level.GridHeight = 8;
-  level.CellSize = 50;
+  level.CellSize = 64;
   level.LevelDescription = 'Default Level';
-  level.NumberOfTurns = 10;
+  level.NumberOfTurns = 4;
   return level;
 };
 
