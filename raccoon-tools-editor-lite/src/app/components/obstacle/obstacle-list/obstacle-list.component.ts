@@ -8,6 +8,7 @@ import { ObstacleCardComponent } from '../obstacle-card/obstacle-card.component'
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { VisualizerComponent } from "../../visualizer/visualizer.component";
 
 @Component({
   selector: 'app-obstacle-list',
@@ -15,8 +16,9 @@ import { MatIconModule } from '@angular/material/icon';
     ObstacleCardComponent,
     CommonModule,
     MatButtonModule,
-    MatIconModule
-  ],
+    MatIconModule,
+    VisualizerComponent
+],
   standalone: true,
   templateUrl: './obstacle-list.component.html',
   styleUrl: './obstacle-list.component.scss'
