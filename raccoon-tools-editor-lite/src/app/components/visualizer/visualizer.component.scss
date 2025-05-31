@@ -10,6 +10,43 @@
   }
 }
 
+.drag-message {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 12px 20px;
+  border-radius: 6px;
+  font-weight: 500;
+  z-index: 1000;
+  animation: slideIn 0.3s ease-out;
+  background: #17a2b8;
+  color: white;
+  border: 1px solid #117a8b;
+
+  &.drag-message-success {
+    background: #28a745;
+    color: white;
+    border: 1px solid #1e7e34;
+  }
+
+  &.drag-message-error {
+    background: #dc3545;
+    color: white;
+    border: 1px solid #c82333;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
 .level-info {
   .level-header {
     background: #f8f9fa;
@@ -163,6 +200,30 @@
     transform: scale(1.05);
     z-index: 10;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+  // Drag and drop states
+  &[draggable="true"] {
+    cursor: grab;
+    
+    &:active {
+      cursor: grabbing;
+    }
+
+    &:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    }
+  }
+
+  &.drag-over {
+    border: 3px dashed #007bff !important;
+    background-color: rgba(0, 123, 255, 0.1) !important;
+    transform: scale(1.05);
+  }
+
+  &.drag-invalid {
+    border: 3px dashed #dc3545 !important;
+    background-color: rgba(220, 53, 69, 0.1) !important;
+    cursor: not-allowed !important;
   }
 
   .cell-coordinates {

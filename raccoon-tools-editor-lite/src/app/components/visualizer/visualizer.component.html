@@ -1,7 +1,17 @@
 <div class="visualizer-container">
   <h2>Level Visualizer</h2>
   
-  <div *ngIf="level; else noLevel" class="level-info">    <div class="level-header">
+  <div *ngIf="level; else noLevel" class="level-info">
+    <!-- Drag message display -->
+    <div *ngIf="dragMessage" class="drag-message" 
+         [ngClass]="{
+           'drag-message-success': dragMessage.includes('moved to'),
+           'drag-message-error': dragMessage.includes('Cannot drop')
+         }">
+      {{ dragMessage }}
+    </div>
+    
+    <div class="level-header">
       <h3>{{ level.LevelDescription || 'Untitled Level' }}</h3>
       <div class="level-stats">
         <span>Grid: {{ level.GridWidth }}x{{ level.GridHeight }}</span>
@@ -10,25 +20,27 @@
         <span>Enemies: {{ level.Enemies.length }}</span>
         <span>Obstacles: {{ level.Obstacles.length }}</span>
       </div>
-    </div>
-
-    <div class="legend">
+    </div>    <div class="legend">
       <div class="legend-item">
         <div class="legend-color cell-player"></div>
-        <span>Players (Blue)</span>
+        <span>Players (Blue) - Draggable</span>
       </div>
       <div class="legend-item">
         <div class="legend-color cell-enemy"></div>
-        <span>Enemies (Orange)</span>
+        <span>Enemies (Orange) - Draggable</span>
       </div>
       <div class="legend-item">
         <div class="legend-color cell-obstacle"></div>
-        <span>Obstacles (Green)</span>
+        <span>Obstacles (Green) - Draggable</span>
       </div>
       <div class="legend-item">
         <div class="legend-color cell-empty"></div>
-        <span>Empty</span>
+        <span>Empty - Drop target</span>
       </div>
+    </div>
+
+    <div class="instructions">
+      <p><strong>Instructions:</strong> Click and drag any player, enemy, or obstacle to move it to a new position on the grid. You cannot drop entities on occupied cells.</p>
     </div>
 
     <div class="grid-container">
@@ -48,11 +60,24 @@
         <div class="x-axis-title">X</div>        <!-- The actual grid -->
         <div class="grid" 
              [style.grid-template-columns]="'repeat(' + (level.GridWidth || 10) + ', 1fr)'">
-          <div *ngFor="let row of gridCells">
-            <div *ngFor="let cell of row" 
+          <div *ngFor="let row of gridCells">            <div *ngFor="let cell of row" 
                  class="grid-cell"
-                 [ngClass]="getCellClass(cell)"
-                 [title]="'Position: (' + cell.x + ', ' + cell.y + ')'">
+                 [ngClass]="{
+                   'cell-player': cell.player,
+                   'cell-enemy': cell.enemy,
+                   'cell-obstacle': cell.obstacle,
+                   'cell-empty': !cell.player && !cell.enemy && !cell.obstacle,
+                   'drag-over': isDragOver(cell) && canDropOnCell(cell),
+                   'drag-invalid': isDragOver(cell) && !canDropOnCell(cell)
+                 }"
+                 [title]="'Position: (' + cell.x + ', ' + cell.y + ')'"
+                 [draggable]="isDraggable(cell)"
+                 [style.cursor]="getDragCursor(cell)"
+                 (dragstart)="onDragStart($event, cell)"
+                 (dragover)="onDragOver($event, cell)"
+                 (dragleave)="onDragLeave($event)"
+                 (drop)="onDrop($event, cell)"
+                 (dragend)="onDragEnd()">
               <div class="cell-coordinates">{{ cell.x }},{{ cell.y }}</div>
               <div class="cell-content" [innerHTML]="getCellContent(cell)"></div>
             </div>
