@@ -1,9 +1,37 @@
-<div class="mat-primary-background">  
-    <h1 >Raccoon Tools Editor Lite</h1>    
-</div>
-<app-menu></app-menu>
-<router-outlet />
-<hr />
-<footer>
-  <p style="text-align: center;">© {{year}} Kirkbride Solutions. All rights reserved.</p>
+<!-- Header -->
+<mat-toolbar class="app-header" color="primary">
+  <div class="toolbar-container">
+    <!-- Logo and title -->
+    <div class="header-brand">
+      <mat-icon class="brand-icon">games</mat-icon>
+      <span class="brand-title">Raccoon Tools Editor Lite</span>
+    </div>
+    
+    <!-- Navigation -->
+    <div class="header-nav">
+      <app-menu></app-menu>
+    </div>
+    
+    <!-- Actions -->
+    <div class="header-actions">
+      <button mat-icon-button aria-label="GitHub">
+        <mat-icon>code</mat-icon>
+      </button>
+      <button mat-icon-button aria-label="Settings">
+        <mat-icon>settings</mat-icon>
+      </button>
+    </div>
+  </div>
+</mat-toolbar>
+
+<!-- Main content -->
+<main class="app-content">
+  <router-outlet />
+</main>
+
+<!-- Footer -->
+<footer class="app-footer">
+  <div class="footer-content">
+    <p>© {{year}} Kirkbride Solutions. All rights reserved.</p>
+  </div>
 </footer>

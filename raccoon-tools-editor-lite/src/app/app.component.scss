@@ -1,0 +1,113 @@
+// Angular Material docs-inspired header styling
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.14), 0 3px 4px rgba(0, 0, 0, 0.12), 0 1px 5px rgba(0, 0, 0, 0.2);
+  
+  // Force cyan-green background color
+  background-color: #00acc1 !important; // Material Design cyan 600
+  background: linear-gradient(135deg, #00acc1 0%, #00bcd4 100%) !important; // Cyan gradient
+  
+  .toolbar-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 16px;
+  }
+    .header-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    
+    .brand-icon {
+      font-size: 28px;
+      width: 28px;
+      height: 28px;
+      color: white; // Ensure white text on cyan background
+    }
+    
+    .brand-title {
+      font-size: 20px;
+      font-weight: 500;
+      color: white; // Ensure white text on cyan background
+      white-space: nowrap;
+    }
+  }
+  
+  .header-nav {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+  
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    
+    mat-icon {
+      color: white; // Ensure white icons on cyan background
+    }
+    
+    button {
+      color: white; // Ensure white button text on cyan background
+    }
+  }
+}
+
+// Mobile menu for smaller screens
+@media (max-width: 768px) {
+  .app-header {
+    .header-brand .brand-title {
+      font-size: 16px;
+    }
+    
+    .toolbar-container {
+      padding: 0 8px;
+    }
+  }
+}
+
+// Main content area
+.app-content {
+  min-height: calc(100vh - 64px - 60px); // viewport - header - footer
+  background: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+}
+
+// Footer styling
+.app-footer {
+  background: var(--mat-sys-surface-variant);
+  color: var(--mat-sys-on-surface-variant);
+  border-top: 1px solid var(--mat-sys-outline-variant);
+  
+  .footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 16px;
+    text-align: center;
+    
+    p {
+      margin: 0;
+      font-size: 14px;
+      opacity: 0.7;
+    }
+  }
+}
+
+// Override mat-toolbar height for consistent look
+.mat-toolbar {
+  height: 64px;
+  
+  @media (max-width: 599px) {
+    height: 56px;
+  }
+}

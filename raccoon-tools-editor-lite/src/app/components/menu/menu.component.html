@@ -1,14 +1,44 @@
-<button mat-button [matMenuTriggerFor]="aboveMenu">File</button>
-<mat-menu #aboveMenu="matMenu" yPosition="below">
-  <button mat-menu-item (click)="openImportDialog()">Import</button>
-  <button mat-menu-item (click)="navigateToExport()">Export</button>
-</mat-menu>
+<!-- Navigation menu for header -->
+<nav class="header-menu">
+  <button mat-button [matMenuTriggerFor]="fileMenu" class="nav-button">
+    <mat-icon>folder</mat-icon>
+    <span>File</span>
+  </button>
+  <mat-menu #fileMenu="matMenu" yPosition="below">
+    <button mat-menu-item (click)="openImportDialog()">
+      <mat-icon>upload</mat-icon>
+      <span>Import</span>
+    </button>
+    <button mat-menu-item (click)="navigateToExport()">
+      <mat-icon>download</mat-icon>
+      <span>Export</span>
+    </button>
+  </mat-menu>
 
-<button mat-button [matMenuTriggerFor]="belowMenu">Tools</button>
-<mat-menu #belowMenu="matMenu" yPosition="below">
-  <button mat-menu-item (click)="navigateToLevelViewer()">Viewer</button>
-  <button mat-menu-item (click)="navigateToVisualizer()">Visualizer</button>
-  <button mat-menu-item (click)="navigateToPlayerList()">Players</button>
-  <button mat-menu-item (click)="navigateToEnemyList()">Enemies</button>
-  <button mat-menu-item (click)="navigateToObstacleList()">Obstacles</button>
-</mat-menu>
+  <button mat-button [matMenuTriggerFor]="toolsMenu" class="nav-button">
+    <mat-icon>build</mat-icon>
+    <span>Tools</span>
+  </button>
+  <mat-menu #toolsMenu="matMenu" yPosition="below">
+    <button mat-menu-item (click)="navigateToLevelViewer()">
+      <mat-icon>view_quilt</mat-icon>
+      <span>Level Viewer</span>
+    </button>
+    <button mat-menu-item (click)="navigateToVisualizer()">
+      <mat-icon>grid_view</mat-icon>
+      <span>Visualizer</span>
+    </button>
+    <button mat-menu-item (click)="navigateToPlayerList()">
+      <mat-icon>people</mat-icon>
+      <span>Players</span>
+    </button>
+    <button mat-menu-item (click)="navigateToEnemyList()">
+      <mat-icon>bug_report</mat-icon>
+      <span>Enemies</span>
+    </button>
+    <button mat-menu-item (click)="navigateToObstacleList()">
+      <mat-icon>block</mat-icon>
+      <span>Obstacles</span>
+    </button>
+  </mat-menu>
+</nav>

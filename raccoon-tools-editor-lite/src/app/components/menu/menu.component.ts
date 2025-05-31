@@ -1,13 +1,14 @@
 import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ImportComponent } from '../import/import.component';
 
 @Component({
   selector: 'app-menu',
-  imports: [MatButtonModule, MatMenuModule], 
+  imports: [MatButtonModule, MatMenuModule, MatIconModule], 
   standalone: true,
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.scss'

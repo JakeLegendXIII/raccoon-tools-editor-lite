@@ -1,0 +1,60 @@
+.header-menu {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  
+  .nav-button {
+    color: white !important; // White text on cyan background
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0 12px;
+    min-width: unset;
+    height: 40px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+    
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    mat-icon {
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+      color: white; // White icons on cyan background
+    }
+    
+    span {
+      font-size: 14px;
+      font-weight: 500;
+      color: white; // White text on cyan background
+    }
+    
+    @media (max-width: 768px) {
+      span {
+        display: none;
+      }
+      
+      padding: 0 8px;
+    }
+  }
+}
+
+// Menu overlay styling
+.mat-mdc-menu-panel {
+  background: var(--mat-sys-surface-container) !important;
+  
+  .mat-mdc-menu-item {
+    color: var(--mat-sys-on-surface) !important;
+    
+    &:hover {
+      background: var(--mat-sys-surface-variant) !important;
+    }
+    
+    mat-icon {
+      margin-right: 12px;
+      color: var(--mat-sys-primary);
+    }
+  }
+}
