@@ -1,4 +1,34 @@
 /**
+ * Enum for base player types
+ */
+export enum BasePlayerType {
+    PALADIN = 0,
+    FIGHTER = 1,
+    SHIP = 2
+}
+
+/**
+ * Enum for base enemy types
+ */
+export enum BaseEnemyType {
+    Grunt = 0,
+    Cannon = 1,
+    Melee = 2,
+    Ship = 3,
+    Boss = 4
+}
+
+/**
+ * Enum for obstacle types
+ */
+export enum ObstacleType {
+    Mountain = 0,
+    Water = 1,
+    Building = 2,
+    Wall = 3
+}
+
+/**
  * Represents a point in the level grid
  */
 export class LevelPoint {
