@@ -28,7 +28,9 @@ export class PlayerListComponent {
 
   constructor(private store: Store) {
     this.players$ = this.store.select(selectPlayers);
-  }  addNewPlayer(): void {
+  }  
+  
+  addNewPlayer(): void {
     // Combine all entity positions to find available spots
     combineLatest([
       this.store.select(selectCurrentLevel)
@@ -59,6 +61,7 @@ export class PlayerListComponent {
       this.store.dispatch(addPlayer({ player: newPlayer }));
     });
   }
+  
   private findRandomAvailablePosition(gridWidth: number, gridHeight: number, players: any[], enemies: any[], obstacles: any[]): { x: number, y: number } {
     const GRID_WIDTH = gridWidth;
     const GRID_HEIGHT = gridHeight;
