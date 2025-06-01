@@ -35,8 +35,7 @@ export class EnemyCardComponent {
   editableEnemy!: EnemyData;
 
   // Cache the BaseEnemyType to avoid recalculation
-  enemyTypeOptions: Array<{ value: number; name: string }> = [];
-  BaseEnemyType = BaseEnemyType;
+  enemyTypeOptions: Array<{ value: number; name: string }> = [];  
 
   ngOnInit(): void {
     this.resetEditableEnemy();

@@ -9,6 +9,7 @@ import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-obstacle-card',
@@ -19,7 +20,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatSelectModule
   ],
   standalone: true,
   templateUrl: './obstacle-card.component.html',
@@ -32,17 +34,18 @@ export class ObstacleCardComponent {
   isEditing = false;
   editableObstacle!: ObstacleData;
 
-  ObstacleType = ObstacleType;
+  // Cache the ObstacleType to avoid recalculation
+  obstacleTypeOptions: Array<{ value: number; name: string }> = [];
 
   ngOnInit(): void {
     this.resetEditableObstacle();
+    this.initializeObstacleTypeOptions();
   }
 
   toggleEdit(): void {
+   this.isEditing = !this.isEditing;
     if (this.isEditing) {
-      this.cancelEdit();
-    } else {
-      this.startEdit();
+      this.resetEditableObstacle();
     }
   }
 
@@ -69,13 +72,29 @@ export class ObstacleCardComponent {
     }
   }
 
-  resetEditableObstacle(): void {
-    this.editableObstacle = { ...this.obstacle };
-    // Ensure StartPosition is a new object to avoid reference issues
-    this.editableObstacle.Position = { ...this.obstacle.Position };
-  }
-
   getObstacleTypeName(obstacleType: number): string {
     return ObstacleType[obstacleType] || 'Unknown';
+  }
+
+  getObstacleTypeOptions(): Array<{ value: number; name: string }> {
+    return this.obstacleTypeOptions;
+  }
+
+    resetEditableObstacle(): void {
+    if (this.obstacle) {
+      this.editableObstacle = {
+        ...this.obstacle,
+        Position: { ...this.obstacle.Position }
+      };
+    }
+  }
+
+  private initializeObstacleTypeOptions(): void {
+    this.obstacleTypeOptions = Object.entries(ObstacleType)
+      .filter(([key, value]) => typeof value === 'number')
+      .map(([key, value]) => ({
+        value: value as number,
+        name: key
+      }));
   }
 }

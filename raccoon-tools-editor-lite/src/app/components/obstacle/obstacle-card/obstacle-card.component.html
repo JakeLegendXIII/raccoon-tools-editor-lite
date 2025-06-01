@@ -12,6 +12,9 @@
   <mat-card-content>
     <div class="obstacle-properties" *ngIf="!isEditing">
       <div class="property-row">
+        <strong>Type:</strong> {{getObstacleTypeName(obstacle.ObstacleType)}}
+      </div>
+      <div class="property-row">
         <strong>Size:</strong> {{obstacle.Width}} x {{obstacle.Height}}
       </div>
       <div class="property-row">
@@ -22,7 +25,11 @@
     <form class="edit-form" *ngIf="isEditing" (ngSubmit)="saveChanges()">
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Obstacle Type</mat-label>
-        <input matInput type="number" [(ngModel)]="editableObstacle.ObstacleType" name="obstacleType" min="1">
+        <mat-select [(ngModel)]="editableObstacle.ObstacleType" name="enemyType">
+          <mat-option *ngFor="let option of getObstacleTypeOptions()" [value]="option.value">
+            {{option.name}}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
 
       <div class="size-inputs">
