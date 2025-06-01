@@ -1,7 +1,7 @@
 <mat-card class="player-card">
   <mat-card-header>
     <mat-card-title>Player {{player.ID}}</mat-card-title>
-    <mat-card-subtitle>Type: {{player.PlayerType}}</mat-card-subtitle>
+    <mat-card-subtitle>Type: {{getPlayerTypeName(player.PlayerType)}}</mat-card-subtitle>
     <div class="header-actions">
       <button mat-icon-button (click)="toggleEdit()" [attr.aria-label]="isEditing ? 'Cancel edit' : 'Edit player'">
         <mat-icon>{{isEditing ? 'close' : 'edit'}}</mat-icon>
