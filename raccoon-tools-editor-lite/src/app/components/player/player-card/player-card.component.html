@@ -12,6 +12,9 @@
   <mat-card-content>
     <div class="player-properties" *ngIf="!isEditing">
       <div class="property-row">
+        <strong>Type:</strong> {{getPlayerTypeName(player.PlayerType)}}
+      </div>
+      <div class="property-row">
         <strong>Health:</strong> {{player.Health}}
       </div>
       <div class="property-row">
@@ -23,9 +26,13 @@
     </div>
 
     <form class="edit-form" *ngIf="isEditing" (ngSubmit)="saveChanges()">
-      <mat-form-field appearance="outline" class="full-width">
+     <mat-form-field appearance="outline" class="full-width">
         <mat-label>Player Type</mat-label>
-        <input matInput type="number" [(ngModel)]="editablePlayer.PlayerType" name="playerType" min="1">
+        <mat-select [(ngModel)]="editablePlayer.PlayerType" name="playerType">
+          <mat-option *ngFor="let option of getPlayerTypeOptions()" [value]="option.value">
+            {{option.name}}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="full-width">
