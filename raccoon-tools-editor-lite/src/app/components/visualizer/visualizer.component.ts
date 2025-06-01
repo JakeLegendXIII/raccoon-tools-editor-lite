@@ -94,6 +94,7 @@ export class VisualizerComponent implements OnInit {
   private isValidPosition(x: number, y: number, width: number, height: number): boolean {
     return x >= 0 && x < width && y >= 0 && y < height;
   }
+  
   getCellContent(cell: GridCell): string {
     if (cell.player) {
       return `P${cell.player.ID}\nT${cell.player.PlayerType}`;
