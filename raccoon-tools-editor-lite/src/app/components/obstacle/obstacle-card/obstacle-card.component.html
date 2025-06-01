@@ -1,7 +1,7 @@
 <mat-card class="obstacle-card">
   <mat-card-header>
     <mat-card-title>Obstacle {{obstacle.ID}}</mat-card-title>
-    <mat-card-subtitle>Type: {{obstacle.ObstacleType}}</mat-card-subtitle>
+    <mat-card-subtitle>Type: {{getObstacleTypeName(obstacle.ObstacleType)}}</mat-card-subtitle>
     <div class="header-actions">
       <button mat-icon-button (click)="toggleEdit()" [attr.aria-label]="isEditing ? 'Cancel edit' : 'Edit obstacle'">
         <mat-icon>{{isEditing ? 'close' : 'edit'}}</mat-icon>

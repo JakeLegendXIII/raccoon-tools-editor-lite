@@ -1,6 +1,6 @@
 import { Component, inject, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { ObstacleData } from '../../../models/level.model';
+import { ObstacleData, ObstacleType } from '../../../models/level.model';
 import { deleteObstacle, updateObstacle } from '../../../store/level.actions';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -31,6 +31,8 @@ export class ObstacleCardComponent {
   private store = inject(Store);
   isEditing = false;
   editableObstacle!: ObstacleData;
+
+  ObstacleType = ObstacleType;
 
   ngOnInit(): void {
     this.resetEditableObstacle();
@@ -71,5 +73,9 @@ export class ObstacleCardComponent {
     this.editableObstacle = { ...this.obstacle };
     // Ensure StartPosition is a new object to avoid reference issues
     this.editableObstacle.Position = { ...this.obstacle.Position };
+  }
+
+  getObstacleTypeName(obstacleType: number): string {
+    return ObstacleType[obstacleType] || 'Unknown';
   }
 }

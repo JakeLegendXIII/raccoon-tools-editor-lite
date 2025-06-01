@@ -2,9 +2,9 @@
  * Enum for base player types
  */
 export enum BasePlayerType {
-    PALADIN = 0,
-    FIGHTER = 1,
-    SHIP = 2
+    Paladin = 0,
+    Fighter = 1,
+    Ship = 2
 }
 
 /**

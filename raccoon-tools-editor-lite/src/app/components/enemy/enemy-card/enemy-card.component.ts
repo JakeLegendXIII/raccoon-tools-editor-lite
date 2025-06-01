@@ -1,5 +1,5 @@
 import { Component, inject, Input } from '@angular/core';
-import { EnemyData } from '../../../models/level.model';
+import { BaseEnemyType, EnemyData } from '../../../models/level.model';
 import { Store } from '@ngrx/store';
 import { deleteEnemy, updateEnemy } from '../../../store/level.actions';
 import { CommonModule } from '@angular/common';
@@ -31,6 +31,8 @@ export class EnemyCardComponent {
   private store = inject(Store);
   isEditing = false;
   editableEnemy!: EnemyData;
+
+  BaseEnemyType = BaseEnemyType;
 
   ngOnInit(): void {
     this.resetEditableEnemy();
@@ -64,6 +66,10 @@ export class EnemyCardComponent {
     if (confirm(`Are you sure you want to delete enemy ${this.enemy.ID}?`)) {
       this.store.dispatch(deleteEnemy({ enemyId: this.enemy.ID }));
     }
+  }
+
+  getEnemyTypeName(enemyTyle: number) : string {
+    return BaseEnemyType[enemyTyle] || 'Unknown';
   }
 
   private resetEditableEnemy(): void {
