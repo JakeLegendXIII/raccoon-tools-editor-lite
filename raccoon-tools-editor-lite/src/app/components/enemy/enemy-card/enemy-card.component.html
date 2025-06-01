@@ -12,6 +12,9 @@
   <mat-card-content>
     <div class="enemy-properties" *ngIf="!isEditing">
       <div class="property-row">
+        <strong>Type:</strong> {{getEnemyTypeName(enemy.EnemyType)}}
+      </div>
+      <div class="property-row">
         <strong>Health:</strong> {{enemy.Health}}
       </div>
       <div class="property-row">
@@ -25,7 +28,11 @@
     <form class="edit-form" *ngIf="isEditing" (ngSubmit)="saveChanges()">
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Enemy Type</mat-label>
-        <input matInput type="number" [(ngModel)]="editableEnemy.EnemyType" name="enemyType" min="1">
+        <mat-select [(ngModel)]="editableEnemy.EnemyType" name="enemyType">
+          <mat-option *ngFor="let option of getEnemyTypeOptions()" [value]="option.value">
+            {{option.name}}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="full-width">

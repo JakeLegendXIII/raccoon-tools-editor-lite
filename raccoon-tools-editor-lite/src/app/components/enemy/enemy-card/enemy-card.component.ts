@@ -9,6 +9,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-enemy-card',
@@ -19,7 +20,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatSelectModule
   ],
   templateUrl: './enemy-card.component.html',
   standalone: true,
@@ -32,31 +34,27 @@ export class EnemyCardComponent {
   isEditing = false;
   editableEnemy!: EnemyData;
 
+  // Cache the BaseEnemyType to avoid recalculation
+  enemyTypeOptions: Array<{ value: number; name: string }> = [];
   BaseEnemyType = BaseEnemyType;
 
   ngOnInit(): void {
     this.resetEditableEnemy();
+    this.initializeEnemyTypeOptions();
   }
 
   toggleEdit(): void {
+    this.isEditing = !this.isEditing;
     if (this.isEditing) {
-      this.cancelEdit();
-    } else {
-      this.startEdit();
+      this.resetEditableEnemy();
     }
-  }
-
-  startEdit(): void {
-    this.isEditing = true;
-    this.editableEnemy = { ...this.enemy };
-    // Copy the StartPosition object separately to avoid reference issues
-    this.editableEnemy.StartPosition = { ...this.enemy.StartPosition };
   }
 
   saveChanges(): void {
     this.store.dispatch(updateEnemy({ enemy: this.editableEnemy }));
     this.isEditing = false;
   }
+
   cancelEdit(): void {
     this.isEditing = false;
     this.resetEditableEnemy();
@@ -72,10 +70,25 @@ export class EnemyCardComponent {
     return BaseEnemyType[enemyTyle] || 'Unknown';
   }
 
-  private resetEditableEnemy(): void {
-    this.editableEnemy = { ...this.enemy };
-    if (this.enemy?.StartPosition) {
-      this.editableEnemy.StartPosition = { ...this.enemy.StartPosition };
-    }    
+  getEnemyTypeOptions(): Array<{ value: number; name: string }> {
+    return this.enemyTypeOptions;
+  }
+
+  resetEditableEnemy(): void {
+    if (this.enemy) {
+      this.editableEnemy = {
+        ...this.enemy,
+        StartPosition: { ...this.enemy.StartPosition }
+      };
+    }
+  }
+
+  private initializeEnemyTypeOptions(): void {
+    this.enemyTypeOptions = Object.entries(BaseEnemyType)
+      .filter(([key, value]) => typeof value === 'number')
+      .map(([key, value]) => ({
+        value: value as number,
+        name: key
+      }));
   }
 }
