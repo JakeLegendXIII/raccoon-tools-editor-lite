@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 
-import { Level, PlayerData, EnemyData, ObstacleData, LevelPoint } from '../../models/level.model';
+import { Level, PlayerData, EnemyData, ObstacleData, LevelPoint, BasePlayerType, BaseEnemyType, ObstacleType } from '../../models/level.model';
 import { selectCurrentLevel } from '../../store/level.selectors';
 import { updatePlayer, updateEnemy, updateObstacle } from '../../store/level.actions';
 
@@ -36,6 +36,10 @@ export class VisualizerComponent implements OnInit {
   dragData: DragData | null = null;
   dragOverCell: GridCell | null = null;
   dragMessage: string = '';
+
+  BasePlayerType = BasePlayerType;
+  BaseEnemyType = BaseEnemyType;
+  ObstacleType = ObstacleType;
 
   constructor(private store: Store) {
     this.currentLevel$ = this.store.select(selectCurrentLevel);
@@ -97,13 +101,13 @@ export class VisualizerComponent implements OnInit {
   
   getCellContent(cell: GridCell): string {
     if (cell.player) {
-      return `P${cell.player.ID}\nT${cell.player.PlayerType}`;
+      return `P${cell.player.ID}\nT: ${this.getPlayerTypeName(cell.player.PlayerType)}`;
     }
     if (cell.enemy) {
-      return `E${cell.enemy.ID}\nT${cell.enemy.EnemyType}`;
+      return `E${cell.enemy.ID}\nT: ${this.getEnemyTypeName(cell.enemy.EnemyType)}`;
     }
     if (cell.obstacle) {
-      return `O${cell.obstacle.ID}\nT${cell.obstacle.ObstacleType}`;
+      return `O${cell.obstacle.ID}\nT: ${this.getObstacleTypeName(cell.obstacle.ObstacleType)}`;
     }
     return '';
   }
@@ -239,5 +243,17 @@ export class VisualizerComponent implements OnInit {
     
     // Can drop on the same cell (source cell)
     return cell.x === this.dragData.sourceX && cell.y === this.dragData.sourceY;
+  }
+
+  getPlayerTypeName(playerType: number): string {
+    return BasePlayerType[playerType] || 'Unknown';
+  }
+
+  getEnemyTypeName(enemyType: number): string {
+    return BaseEnemyType[enemyType] || 'Unknown';
+  }
+
+  getObstacleTypeName(obstacleType: number): string {
+    return ObstacleType[obstacleType] || 'Unknown';
   }
 }
