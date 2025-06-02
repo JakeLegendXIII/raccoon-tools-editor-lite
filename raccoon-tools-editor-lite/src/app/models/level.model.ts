@@ -29,6 +29,16 @@ export enum ObstacleType {
 }
 
 /**
+ * Enum for Level Types
+ */
+export enum LevelType {
+    Deathmatch = 0,
+    Survive = 1,
+    Escape = 2,
+    Boss = 3
+}
+
+/**
  * Represents a point in the level grid
  */
 export class LevelPoint {
