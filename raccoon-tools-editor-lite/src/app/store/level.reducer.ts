@@ -80,5 +80,13 @@ export const levelReducer = createReducer(
   on(LevelActions.loadLevel, (state, { level }) => ({
     ...state,
     currentLevel: level
+  })),
+  
+  on(LevelActions.updateWinPosition, (state, { winPosition }) => ({
+    ...state,
+    currentLevel: state.currentLevel ? {
+      ...state.currentLevel,
+      WinPosition: winPosition
+    } : state.currentLevel
   }))
 );

@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { PlayerData, EnemyData, ObstacleData, Level } from '../models/level.model';
+import { PlayerData, EnemyData, ObstacleData, Level, LevelPoint } from '../models/level.model';
 
 export const addPlayer = createAction(
   '[Level] Add Player',
@@ -49,4 +49,9 @@ export const deleteObstacle = createAction(
 export const loadLevel = createAction(
   '[Level] Load Level',
   props<{ level: Level }>()
+);
+
+export const updateWinPosition = createAction(
+  '[Level] Update Level Win Position',
+  props<{ winPosition: LevelPoint }>()
 );

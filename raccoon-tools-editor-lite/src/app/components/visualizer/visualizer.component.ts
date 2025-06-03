@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 
 import { Level, PlayerData, EnemyData, ObstacleData, LevelPoint, BasePlayerType, BaseEnemyType, ObstacleType, LevelType } from '../../models/level.model';
 import { selectCurrentLevel } from '../../store/level.selectors';
-import { updatePlayer, updateEnemy, updateObstacle } from '../../store/level.actions';
+import { updatePlayer, updateEnemy, updateObstacle, updateWinPosition } from '../../store/level.actions';
 
 interface GridCell {
   x: number;
@@ -17,8 +17,8 @@ interface GridCell {
 }
 
 interface DragData {
-  type: 'player' | 'enemy' | 'obstacle';
-  data: PlayerData | EnemyData | ObstacleData;
+  type: 'player' | 'enemy' | 'obstacle' | 'winPosition';
+  data: PlayerData | EnemyData | ObstacleData | LevelPoint;
   sourceX: number;
   sourceY: number;
 }
@@ -160,6 +160,13 @@ export class VisualizerComponent implements OnInit {
         sourceY: cell.y
       };
       this.dragMessage = `Dragging Obstacle ${cell.obstacle.ID} from (${cell.x}, ${cell.y})`;
+    } else if (cell.winPosition) {
+      this.dragData = {
+        type: 'winPosition',
+        data: cell.winPosition,
+        sourceX: cell.x,
+        sourceY: cell.y
+      };
     }
 
     if (event.dataTransfer) {
@@ -225,6 +232,12 @@ export class VisualizerComponent implements OnInit {
       updatedObstacle.Position = newPosition;
       this.store.dispatch(updateObstacle({ obstacle: updatedObstacle }));
       this.dragMessage = `Obstacle ${updatedObstacle.ID} moved to (${targetCell.x}, ${targetCell.y})`;
+    } else if (this.dragData.type === 'winPosition') {
+      const updatedWinPosition = { ...this.dragData.data as LevelPoint };
+      updatedWinPosition.X = targetCell.x;
+      updatedWinPosition.Y = targetCell.y;
+      this.store.dispatch(updateWinPosition({ winPosition: updatedWinPosition }));
+      this.dragMessage = `Win Position moved to (${targetCell.x}, ${targetCell.y})`;
     }
 
     setTimeout(() => this.dragMessage = '', 3000);
@@ -238,7 +251,7 @@ export class VisualizerComponent implements OnInit {
   }
 
   isDraggable(cell: GridCell): boolean {
-    return !!(cell.player || cell.enemy || cell.obstacle);
+    return !!(cell.player || cell.enemy || cell.obstacle || cell.winPosition);
   }
 
   getDragCursor(cell: GridCell): string {
