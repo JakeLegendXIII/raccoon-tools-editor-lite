@@ -12,10 +12,12 @@
     </div>
     
     <div class="level-header">
+      <h3>Level: {{ level.ID || '0' }}</h3>      
       <h3>{{ level.LevelDescription || 'Untitled Level' }}</h3>
       <div class="level-stats">
         <span>Grid: {{ level.GridWidth }}x{{ level.GridHeight }}</span>
         <span>Cell Size: {{ level.CellSize }}px</span>
+        <span>LevelType: {{ getLevelTypeName(level.LevelType)}}</span>
         <span>Players: {{ level.Players.length }}</span>
         <span>Enemies: {{ level.Enemies.length }}</span>
         <span>Obstacles: {{ level.Obstacles.length }}</span>
@@ -46,8 +48,8 @@
     <div class="grid-container">
       <!-- Y-axis labels -->
       <div class="y-axis-labels">
-        <div class="axis-title">Y</div>
-        <div *ngFor="let y of getYAxisLabels()" class="axis-label">{{ y }}</div>
+        <div class="axis-title"></div>
+        <div *ngFor="let y of getXAxisLabels()" class="axis-label">{{ y }}</div>
       </div>
 
       <!-- Grid and X-axis -->
@@ -55,9 +57,9 @@
         <!-- X-axis labels -->
         <div class="x-axis-labels">
           <div class="axis-spacer"></div>
-          <div *ngFor="let x of getXAxisLabels()" class="axis-label">{{ x }}</div>
+          <div *ngFor="let x of getYAxisLabels()" class="axis-label">{{ x }}</div>
         </div>
-        <div class="x-axis-title">X</div>        <!-- The actual grid -->
+        <!-- <div class="x-axis-title">X</div>        The actual grid -->
         <div class="grid" 
              [style.grid-template-columns]="'repeat(' + (level.GridWidth || 10) + ', 1fr)'">
           <div *ngFor="let row of gridCells">            <div *ngFor="let cell of row" 

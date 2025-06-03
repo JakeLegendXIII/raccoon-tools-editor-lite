@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 
-import { Level, PlayerData, EnemyData, ObstacleData, LevelPoint, BasePlayerType, BaseEnemyType, ObstacleType } from '../../models/level.model';
+import { Level, PlayerData, EnemyData, ObstacleData, LevelPoint, BasePlayerType, BaseEnemyType, ObstacleType, LevelType } from '../../models/level.model';
 import { selectCurrentLevel } from '../../store/level.selectors';
 import { updatePlayer, updateEnemy, updateObstacle } from '../../store/level.actions';
 
@@ -37,6 +37,7 @@ export class VisualizerComponent implements OnInit {
   dragOverCell: GridCell | null = null;
   dragMessage: string = '';
 
+  LevelType = LevelType;
   BasePlayerType = BasePlayerType;
   BaseEnemyType = BaseEnemyType;
   ObstacleType = ObstacleType;
@@ -243,6 +244,10 @@ export class VisualizerComponent implements OnInit {
     
     // Can drop on the same cell (source cell)
     return cell.x === this.dragData.sourceX && cell.y === this.dragData.sourceY;
+  }
+
+  getLevelTypeName(levelType: number): string {
+    return LevelType[levelType] || 'Unknown';
   }
 
   getPlayerTypeName(playerType: number): string {
