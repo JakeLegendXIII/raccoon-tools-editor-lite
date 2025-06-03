@@ -13,6 +13,7 @@ interface GridCell {
   player?: PlayerData;
   enemy?: EnemyData;
   obstacle?: ObstacleData;
+  winPosition?: LevelPoint;
 }
 
 interface DragData {
@@ -94,6 +95,15 @@ export class VisualizerComponent implements OnInit {
         this.gridCells[y][x].obstacle = obstacle;
       }
     });
+
+    if (level.LevelType === LevelType.Escape) {
+      // Place win position for Escape levels
+      const winX = level.WinPosition.X;
+      const winY = level.WinPosition.Y;
+      if (this.isValidPosition(winX, winY, width, height)) {
+        this.gridCells[winY][winX].winPosition = level.WinPosition;        
+      }
+    }
   }
 
   private isValidPosition(x: number, y: number, width: number, height: number): boolean {
@@ -109,6 +119,9 @@ export class VisualizerComponent implements OnInit {
     }
     if (cell.obstacle) {
       return `O${cell.obstacle.ID}\nT: ${this.getObstacleTypeName(cell.obstacle.ObstacleType)}`;
+    }
+    if (cell.winPosition) {
+      return 'Win Position';
     }
     return '';
   }
@@ -239,6 +252,9 @@ export class VisualizerComponent implements OnInit {
   canDropOnCell(cell: GridCell): boolean {
     if (!this.dragData) return false;
     
+    if (this.level?.LevelType === LevelType.Escape && cell.winPosition) {
+      return false; // Cannot drop on win position in Escape levels
+    }
     // Can always drop on empty cells
     if (!cell.player && !cell.enemy && !cell.obstacle) return true;
     

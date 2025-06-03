@@ -278,6 +278,16 @@
       color: #d4edda;
     }
   }
+
+  &.cell-winposition {
+    background-color: #dfe227;
+    color: white;
+    border: 2px solid #1e7e34;
+
+    .cell-coordinates {
+      color: #ffe0cc;
+    }
+  }
 }
 
 .no-level {

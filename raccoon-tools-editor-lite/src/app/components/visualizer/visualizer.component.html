@@ -35,10 +35,14 @@
         <div class="legend-color cell-obstacle"></div>
         <span>Obstacles (Green) - Draggable</span>
       </div>
+      <div *ngIf="level.LevelType === LevelType.Escape" class="legend-item">
+        <div class="legend-color cell-winposition"></div>
+        <span>Win Position (Gold) - Draggable</span>
+      </div>
       <div class="legend-item">
         <div class="legend-color cell-empty"></div>
         <span>Empty - Drop target</span>
-      </div>
+      </div>      
     </div>
 
     <div class="instructions">
@@ -68,6 +72,7 @@
                    'cell-player': cell.player,
                    'cell-enemy': cell.enemy,
                    'cell-obstacle': cell.obstacle,
+                   'cell-winposition': cell.winPosition,
                    'cell-empty': !cell.player && !cell.enemy && !cell.obstacle,
                    'drag-over': isDragOver(cell) && canDropOnCell(cell),
                    'drag-invalid': isDragOver(cell) && !canDropOnCell(cell)
