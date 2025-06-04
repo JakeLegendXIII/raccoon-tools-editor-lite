@@ -30,8 +30,8 @@ export class MenuComponent {
     });
   }
 
-  navigateToLevelViewer(): void {
-    this.router.navigate(['/level-viewer']);
+  navigateToLevelHeader(): void {
+    this.router.navigate(['/level-header']);
   }
   navigateToPlayerList(): void {
     this.router.navigate(['/player-list']);

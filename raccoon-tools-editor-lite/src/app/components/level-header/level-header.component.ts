@@ -20,17 +20,17 @@ import * as LevelActions from '../../store/level.actions';
 import { VisualizerComponent } from '../visualizer/visualizer.component';
 
 @Component({
-  selector: 'app-level-viewer',
+  selector: 'app-level-header',
   standalone: true,
   imports: [
     CommonModule,
     FormsModule,
     VisualizerComponent
   ],  
-  templateUrl: './level-viewer.component.html',
-  styleUrls: ['./level-viewer.component.scss']
+  templateUrl: './level-header.component.html',
+  styleUrls: ['./level-header.component.scss']
 })
-export class LevelViewerComponent {
+export class LevelHeaderComponent {
   players$: Observable<PlayerData[]>;
   enemies$: Observable<EnemyData[]>;
   obstacles$: Observable<ObstacleData[]>;

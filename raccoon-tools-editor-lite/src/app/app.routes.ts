@@ -5,11 +5,11 @@ import { EnemyListComponent } from './components/enemy/enemy-list/enemy-list.com
 import { ObstacleListComponent } from './components/obstacle/obstacle-list/obstacle-list.component';
 import { ExportComponent } from './components/export/export.component';
 import { VisualizerComponent } from './components/visualizer/visualizer.component';
-import { LevelViewerComponent } from './components/level-viewer/level-viewer.component';
+import { LevelHeaderComponent } from './components/level-header/level-header.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/visualizer', pathMatch: 'full' },
-  { path: 'level-viewer', component: LevelViewerComponent },
+  { path: 'level-header', component: LevelHeaderComponent },
   { path: 'player-list', component: PlayerListComponent },
   { path: 'enemy-list', component: EnemyListComponent },
   { path: 'obstacle-list', component: ObstacleListComponent },
