@@ -55,3 +55,14 @@ export const updateWinPosition = createAction(
   '[Level] Update Level Win Position',
   props<{ winPosition: LevelPoint }>()
 );
+
+export const updateLevelProperties = createAction(
+  '[Level] Update Level Properties',
+  props<{ 
+    gridWidth?: number;
+    gridHeight?: number;
+    cellSize?: number;
+    levelType?: number;
+    levelDescription?: string;
+  }>()
+);

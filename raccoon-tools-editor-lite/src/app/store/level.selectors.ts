@@ -22,3 +22,33 @@ export const selectObstacles = createSelector(
   selectCurrentLevel,
   (level) => level?.Obstacles || []
 );
+
+export const selectLevelGridWidth = createSelector(
+  selectCurrentLevel,
+  (level) => level?.GridWidth || 0
+);
+
+export const selectLevelGridHeight = createSelector(
+  selectCurrentLevel,
+  (level) => level?.GridHeight || 0
+);
+
+export const selectLevelCellSize = createSelector(
+  selectCurrentLevel,
+  (level) => level?.CellSize || 0
+);
+
+export const selectLevelType = createSelector(
+  selectCurrentLevel,
+  (level) => level?.LevelType || 0
+);
+
+export const selectLevelDescription = createSelector(
+  selectCurrentLevel,
+  (level) => level?.LevelDescription || ''
+);
+
+export const selectWinPosition = createSelector(
+  selectCurrentLevel,
+  (level) => level?.WinPosition || { X: 0, Y: 0 }
+);

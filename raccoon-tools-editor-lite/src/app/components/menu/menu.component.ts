@@ -30,9 +30,9 @@ export class MenuComponent {
     });
   }
 
-  // navigateToLevelViewer(): void {
-  //   this.router.navigate(['/level-viewer']);
-  // }
+  navigateToLevelViewer(): void {
+    this.router.navigate(['/level-viewer']);
+  }
   navigateToPlayerList(): void {
     this.router.navigate(['/player-list']);
   }
