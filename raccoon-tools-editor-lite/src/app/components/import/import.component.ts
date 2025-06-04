@@ -78,9 +78,7 @@ export class ImportComponent {
     const level = new Level();
     
     // Map basic properties
-    level.ID = data.ID || 0;
-    level.NumberOfPlayers = data.NumberOfPlayers || 0;
-    level.NumberOfEnemies = data.NumberOfEnemies || 0;
+    level.ID = data.ID || 0;    
     level.GridWidth = data.GridWidth || 0;
     level.GridHeight = data.GridHeight || 0;
     level.CellSize = data.CellSize || 0;

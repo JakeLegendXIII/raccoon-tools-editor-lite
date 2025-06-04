@@ -89,9 +89,6 @@ export class ObstacleData {
 export class Level {
     ID: number = 0;
 
-    NumberOfPlayers: number = 0;
-    NumberOfEnemies: number = 0;
-
     GridWidth: number = 0;
     GridHeight: number = 0;
     CellSize: number = 0;
