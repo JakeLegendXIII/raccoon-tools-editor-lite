@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { PlayerData, EnemyData, ObstacleData, LevelPoint, LevelType } from '../../models/level.model';
+import { PlayerData, EnemyData, ObstacleData, LevelPoint, LevelType, BasePlayerType, BaseEnemyType, ObstacleType } from '../../models/level.model';
 import { 
   selectPlayers, 
   selectEnemies, 
@@ -48,6 +48,10 @@ export class LevelHeaderComponent {
   // Level Type enum for template
   LevelType = LevelType;
   levelTypeKeys = Object.keys(LevelType).filter(key => isNaN(Number(key)));
+
+  BasePlayerType = BasePlayerType;
+  BaseEnemyType = BaseEnemyType;
+  ObstacleType = ObstacleType;
 
   constructor(private store: Store) {
     this.players$ = this.store.select(selectPlayers);
@@ -123,4 +127,16 @@ export class LevelHeaderComponent {
     const target = event.target as HTMLInputElement;
     this.updateWinPosition(this.currentWinPosition.X, +target.value);
   }
+
+  getPlayerTypeName(playerType: number): string {
+      return BasePlayerType[playerType] || 'Unknown';
+    }
+  
+    getEnemyTypeName(enemyType: number): string {
+      return BaseEnemyType[enemyType] || 'Unknown';
+    }
+  
+    getObstacleTypeName(obstacleType: number): string {
+      return ObstacleType[obstacleType] || 'Unknown';
+    }
 }

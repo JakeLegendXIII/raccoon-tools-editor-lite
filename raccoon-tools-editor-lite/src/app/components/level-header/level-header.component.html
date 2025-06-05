@@ -87,7 +87,7 @@
       <h3>Players ({{ (players$ | async)?.length || 0 }})</h3>
       <ul>
         <li *ngFor="let player of players$ | async">
-          Player {{ player.ID }} - Type: {{ player.PlayerType }}
+          Player {{ player.ID }} - Type: {{ getPlayerTypeName(player.PlayerType) }}
         </li>
       </ul>
     </div>
@@ -96,7 +96,7 @@
       <h3>Enemies ({{ (enemies$ | async)?.length || 0 }})</h3>
       <ul>
         <li *ngFor="let enemy of enemies$ | async">
-          Enemy {{ enemy.ID }} - Type: {{ enemy.EnemyType }}
+          Enemy {{ enemy.ID }} - Type: {{ getEnemyTypeName(enemy.EnemyType) }}
         </li>
       </ul>
     </div>
@@ -105,7 +105,7 @@
       <h3>Obstacles ({{ (obstacles$ | async)?.length || 0 }})</h3>
       <ul>
         <li *ngFor="let obstacle of obstacles$ | async">
-          Obstacle {{ obstacle.ID }} - Type: {{ obstacle.ObstacleType }}
+          Obstacle {{ obstacle.ID }} - Type: {{ getObstacleTypeName(obstacle.ObstacleType) }}
         </li>
       </ul>
     </div>
