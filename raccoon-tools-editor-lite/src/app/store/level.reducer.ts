@@ -90,7 +90,7 @@ export const levelReducer = createReducer(
     } : state.currentLevel
   })),
 
-  on(LevelActions.updateLevelProperties, (state, { gridWidth, gridHeight, cellSize, levelType, levelDescription }) => ({
+  on(LevelActions.updateLevelProperties, (state, { gridWidth, gridHeight, cellSize, levelType, levelDescription, numberOfTurns }) => ({
     ...state,
     currentLevel: state.currentLevel ? {
       ...state.currentLevel,
@@ -98,7 +98,8 @@ export const levelReducer = createReducer(
       ...(gridHeight !== undefined && { GridHeight: gridHeight }),
       ...(cellSize !== undefined && { CellSize: cellSize }),
       ...(levelType !== undefined && { LevelType: levelType }),
-      ...(levelDescription !== undefined && { LevelDescription: levelDescription })
+      ...(levelDescription !== undefined && { LevelDescription: levelDescription }),
+      ...(numberOfTurns !== undefined && { NumberOfTurns: numberOfTurns }),
     } : state.currentLevel
   }))
 );

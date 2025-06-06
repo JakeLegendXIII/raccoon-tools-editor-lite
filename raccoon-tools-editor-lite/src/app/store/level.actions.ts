@@ -64,5 +64,6 @@ export const updateLevelProperties = createAction(
     cellSize?: number;
     levelType?: number;
     levelDescription?: string;
+    numberOfTurns?: number;
   }>()
 );

@@ -52,3 +52,8 @@ export const selectWinPosition = createSelector(
   selectCurrentLevel,
   (level) => level?.WinPosition || { X: 0, Y: 0 }
 );
+
+export const selectNumberOfTurns = createSelector(
+  selectCurrentLevel,
+  (level) => level?.NumberOfTurns || 0
+);

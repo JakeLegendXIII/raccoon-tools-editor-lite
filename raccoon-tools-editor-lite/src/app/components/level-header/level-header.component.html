@@ -79,6 +79,16 @@
           (change)="onWinYChange($event)">
       </div>
     </div>
+
+    <div class="property-group">
+      <label for="numberOfTurns">Number of Turns:</label>
+      <input 
+        id="numberOfTurns"
+        type="number" 
+        min="0"
+        [value]="numberOfTurns$ | async" 
+        (change)="onNumberOfTurnsChange($event)">
+    </div>
   </div>
 
   <!-- Entity Lists -->

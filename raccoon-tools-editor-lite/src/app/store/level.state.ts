@@ -11,7 +11,7 @@ const createDefaultLevel = (): Level => {
   level.GridHeight = 8;
   level.CellSize = 64;
   level.LevelDescription = 'Default Level';
-  level.NumberOfTurns = 4;
+  level.NumberOfTurns = 0;
   return level;
 };
 

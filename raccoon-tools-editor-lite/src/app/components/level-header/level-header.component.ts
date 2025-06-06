@@ -14,7 +14,8 @@ import {
   selectLevelCellSize,
   selectLevelType,
   selectLevelDescription,
-  selectWinPosition
+  selectWinPosition,
+  selectNumberOfTurns
 } from '../../store/level.selectors';
 import * as LevelActions from '../../store/level.actions';
 import { VisualizerComponent } from '../visualizer/visualizer.component';
@@ -41,6 +42,7 @@ export class LevelHeaderComponent {
   levelType$: Observable<number>;
   levelDescription$: Observable<string>;
   winPosition$: Observable<LevelPoint>;
+  numberOfTurns$: Observable<number>;
 
   // Current values for form handling
   currentWinPosition: LevelPoint = { X: 0, Y: 0 };
@@ -64,6 +66,7 @@ export class LevelHeaderComponent {
     this.levelType$ = this.store.select(selectLevelType);
     this.levelDescription$ = this.store.select(selectLevelDescription);
     this.winPosition$ = this.store.select(selectWinPosition);
+    this.numberOfTurns$ = this.store.select(selectNumberOfTurns);
 
     // Subscribe to win position changes to keep current value updated
     this.winPosition$.subscribe(pos => {
@@ -92,6 +95,10 @@ export class LevelHeaderComponent {
 
   updateWinPosition(x: number, y: number) {
     this.store.dispatch(LevelActions.updateWinPosition({ winPosition: { X: x, Y: y } }));
+  }
+
+  updateNumberOfTurns(value: number) {
+    this.store.dispatch(LevelActions.updateLevelProperties({ numberOfTurns: value }));
   }
 
   onGridWidthChange(event: Event) {
@@ -128,15 +135,24 @@ export class LevelHeaderComponent {
     this.updateWinPosition(this.currentWinPosition.X, +target.value);
   }
 
+  onNumberOfTurnsChange(event: Event) {
+    const target = event.target as HTMLInputElement;
+    this.updateNumberOfTurns(+target.value);
+  }
+
+  getLevelTypeName(levelType: number): string {
+    return LevelType[levelType] || 'Unknown';
+  }
+
   getPlayerTypeName(playerType: number): string {
       return BasePlayerType[playerType] || 'Unknown';
-    }
+  }
   
-    getEnemyTypeName(enemyType: number): string {
-      return BaseEnemyType[enemyType] || 'Unknown';
-    }
-  
-    getObstacleTypeName(obstacleType: number): string {
-      return ObstacleType[obstacleType] || 'Unknown';
-    }
+  getEnemyTypeName(enemyType: number): string {
+    return BaseEnemyType[enemyType] || 'Unknown';
+  }
+
+  getObstacleTypeName(obstacleType: number): string {
+    return ObstacleType[obstacleType] || 'Unknown';
+  }
 }
