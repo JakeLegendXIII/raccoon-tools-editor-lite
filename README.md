@@ -3,7 +3,7 @@ Simplified web level editor for creating tactics game levels in one of my toy ga
 
 Web hosted tool that will allow for importing and exporting json based level files.
 
-There are various simple tools and a visualizer for placing Players, Enemies, and Obstacles on a simple Grid.
+There are various simple tools and a visualizer for placing Players, Enemies, and Obstacles on a Grid.
 
 TODOs:
 - Add GitHub deployment to some static hosting
