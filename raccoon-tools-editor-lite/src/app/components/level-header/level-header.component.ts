@@ -155,6 +155,11 @@ export class LevelHeaderComponent {
     this.updateNumberOfTurns(+target.value);
   }
 
+  onIDChange(event: Event) {
+    const target = event.target as HTMLInputElement;
+    this.updateID(+target.value);
+  }
+
   getLevelTypeName(levelType: number): string {
     return LevelType[levelType] || 'Unknown';
   }

@@ -1,16 +1,27 @@
 <div class="level-editor">
-  <h2>Level Viewer</h2>
+  <h2>Level Header</h2>
     <!-- Level Properties Editor -->
   <div class="level-properties">
-    <h3>Level Properties</h3>
+    <h3>Level Properties</h3>           
     <div class="properties-grid">
+      <div class="property-group">
+        <label for="id">ID:</label>
+        <input 
+          id="id"
+          type="number" 
+          min="1" 
+          max="50000"
+          [value]="iD$ | async" 
+          (change)="onIDChange($event)">
+    </div>
+
       <div class="property-group">
         <label for="gridWidth">Grid Width:</label>
         <input 
           id="gridWidth"
           type="number" 
           min="1" 
-          max="50"
+          max="12"
           [value]="gridWidth$ | async" 
           (change)="onGridWidthChange($event)">
       </div>
@@ -21,7 +32,7 @@
           id="gridHeight"
           type="number" 
           min="1" 
-          max="50"
+          max="12"
           [value]="gridHeight$ | async" 
           (change)="onGridHeightChange($event)">
       </div>
@@ -32,7 +43,7 @@
           id="cellSize"
           type="number" 
           min="16" 
-          max="128"
+          max="256"
           step="8"
           [value]="cellSize$ | async" 
           (change)="onCellSizeChange($event)">
