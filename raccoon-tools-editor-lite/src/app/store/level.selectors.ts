@@ -57,3 +57,8 @@ export const selectNumberOfTurns = createSelector(
   selectCurrentLevel,
   (level) => level?.NumberOfTurns || 0
 );
+
+export const selectLevelID = createSelector(
+  selectCurrentLevel,
+  (level) => level?.ID || 0
+);

@@ -15,7 +15,8 @@ import {
   selectLevelType,
   selectLevelDescription,
   selectWinPosition,
-  selectNumberOfTurns
+  selectNumberOfTurns,
+  selectLevelID
 } from '../../store/level.selectors';
 import * as LevelActions from '../../store/level.actions';
 import { VisualizerComponent } from '../visualizer/visualizer.component';
@@ -36,6 +37,7 @@ export class LevelHeaderComponent {
   enemies$: Observable<EnemyData[]>;
   obstacles$: Observable<ObstacleData[]>;
   
+  iD$: Observable<number>;
   gridWidth$: Observable<number>;
   gridHeight$: Observable<number>;
   cellSize$: Observable<number>;
@@ -67,6 +69,7 @@ export class LevelHeaderComponent {
     this.enemies$ = this.store.select(selectEnemies);
     this.obstacles$ = this.store.select(selectObstacles);
     
+    this.iD$ = this.store.select(selectLevelID);
     this.gridWidth$ = this.store.select(selectLevelGridWidth);
     this.gridHeight$ = this.store.select(selectLevelGridHeight);
     this.cellSize$ = this.store.select(selectLevelCellSize);
@@ -80,6 +83,7 @@ export class LevelHeaderComponent {
       this.currentWinPosition = pos || { X: 0, Y: 0 };
     });
   }
+
   updateGridWidth(value: number) {
     this.store.dispatch(LevelActions.updateLevelProperties({ gridWidth: value }));
   }
@@ -106,6 +110,10 @@ export class LevelHeaderComponent {
 
   updateNumberOfTurns(value: number) {
     this.store.dispatch(LevelActions.updateLevelProperties({ numberOfTurns: value }));
+  }
+
+  updateID(value: number) {
+    this.store.dispatch(LevelActions.updateLevelProperties({ id: value }));
   }
 
   onGridWidthChange(event: Event) {

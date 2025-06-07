@@ -59,6 +59,7 @@ export const updateWinPosition = createAction(
 export const updateLevelProperties = createAction(
   '[Level] Update Level Properties',
   props<{ 
+    id?: number;
     gridWidth?: number;
     gridHeight?: number;
     cellSize?: number;
