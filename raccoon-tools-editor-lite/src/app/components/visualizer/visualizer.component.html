@@ -47,13 +47,11 @@
 
     <div class="instructions">
       <p><strong>Instructions:</strong> Click and drag any player, enemy, or obstacle to move it to a new position on the grid. You cannot drop entities on occupied cells.</p>
-    </div>
-
-    <div class="grid-container">
+    </div>    <div class="grid-container">
       <!-- Y-axis labels -->
       <div class="y-axis-labels">
         <div class="axis-title"></div>
-        <div *ngFor="let y of getXAxisLabels()" class="axis-label">{{ y }}</div>
+        <div *ngFor="let y of getYAxisLabels()" class="axis-label">{{ y }}</div>
       </div>
 
       <!-- Grid and X-axis -->
@@ -61,39 +59,36 @@
         <!-- X-axis labels -->
         <div class="x-axis-labels">
           <div class="axis-spacer"></div>
-          <div *ngFor="let x of getYAxisLabels()" class="axis-label">{{ x }}</div>
-        </div>
-        <!-- <div class="x-axis-title">X</div>        The actual grid -->
+          <div *ngFor="let x of getXAxisLabels()" class="axis-label">{{ x }}</div>
+        </div>        <!-- The actual grid -->
         <div class="grid" 
-             [style.grid-template-columns]="'repeat(' + (level.GridWidth || 10) + ', 1fr)'">
-          <div *ngFor="let row of gridCells">            <div *ngFor="let cell of row" 
-                 class="grid-cell"
-                 [ngClass]="{
-                   'cell-player': cell.player,
-                   'cell-enemy': cell.enemy,
-                   'cell-obstacle': cell.obstacle,
-                   'cell-winposition': cell.winPosition,
-                   'cell-empty': !cell.player && !cell.enemy && !cell.obstacle,
-                   'drag-over': isDragOver(cell) && canDropOnCell(cell),
-                   'drag-invalid': isDragOver(cell) && !canDropOnCell(cell)
-                 }"
-                 [title]="'Position: (' + cell.x + ', ' + cell.y + ')'"
-                 [draggable]="isDraggable(cell)"
-                 [style.cursor]="getDragCursor(cell)"
-                 (dragstart)="onDragStart($event, cell)"
-                 (dragover)="onDragOver($event, cell)"
-                 (dragleave)="onDragLeave($event)"
-                 (drop)="onDrop($event, cell)"
-                 (dragend)="onDragEnd()">
-              <div class="cell-coordinates">{{ cell.x }},{{ cell.y }}</div>
-              <div class="cell-content" [innerHTML]="getCellContent(cell)"></div>
-            </div>
+             [style.grid-template-columns]="'repeat(' + (level.GridWidth || 8) + ', 1fr)'">
+          <div *ngFor="let cell of getFlattenedCells()" 
+               class="grid-cell"
+               [ngClass]="{
+                 'cell-player': cell.player,
+                 'cell-enemy': cell.enemy,
+                 'cell-obstacle': cell.obstacle,
+                 'cell-winposition': cell.winPosition,
+                 'cell-empty': !cell.player && !cell.enemy && !cell.obstacle && !cell.winPosition,
+                 'drag-over': isDragOver(cell) && canDropOnCell(cell),
+                 'drag-invalid': isDragOver(cell) && !canDropOnCell(cell)
+               }"
+               [title]="'Position: (' + cell.x + ', ' + cell.y + ')'"
+               [draggable]="isDraggable(cell)"
+               [style.cursor]="getDragCursor(cell)"
+               (dragstart)="onDragStart($event, cell)"
+               (dragover)="onDragOver($event, cell)"
+               (dragleave)="onDragLeave($event)"
+               (drop)="onDrop($event, cell)"
+               (dragend)="onDragEnd()">
+            <div class="cell-coordinates">{{ cell.x }},{{ cell.y }}</div>
+            <div class="cell-content" [innerHTML]="getCellContent(cell)"></div>
           </div>
         </div>
       </div>
     </div>
   </div>
-
   <ng-template #noLevel>
     <div class="no-level">
       <p>No level data available. Please create or load a level to visualize.</p>

@@ -134,6 +134,9 @@ export class VisualizerComponent implements OnInit {
     if (!this.level) return [];
     return Array.from({length: this.level.GridHeight || 8}, (_, i) => i);
   }
+  getFlattenedCells(): GridCell[] {
+    return this.gridCells.flat();
+  }
   // Drag and Drop functionality
   onDragStart(event: DragEvent, cell: GridCell): void {
     if (cell.player) {
