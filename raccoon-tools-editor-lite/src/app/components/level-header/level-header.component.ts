@@ -125,15 +125,9 @@ export class LevelHeaderComponent {
     const target = event.target as HTMLInputElement;
     this.updateGridHeight(+target.value);
   }
-
   onCellSizeChange(event: Event) {
     const target = event.target as HTMLInputElement;
     this.updateCellSize(+target.value);
-  }
-
-  onLevelTypeChange(event: Event) {
-    const target = event.target as HTMLSelectElement;
-    this.updateLevelType(+target.value);
   }
 
   onLevelDescriptionInput(event: Event) {
