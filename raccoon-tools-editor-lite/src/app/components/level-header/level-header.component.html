@@ -37,15 +37,14 @@
           [value]="cellSize$ | async" 
           (change)="onCellSizeChange($event)">
       </div>
-      
-      <div class="property-group">
+        <div class="property-group">
         <label for="levelType">Level Type:</label>
         <select 
           id="levelType"
           [value]="levelType$ | async" 
           (change)="onLevelTypeChange($event)">
-          <option *ngFor="let type of levelTypeKeys; let i = index" [value]="i">
-            {{ type }}
+          <option *ngFor="let option of levelTypeOptions" [value]="option.value">
+            {{ option.name }}
           </option>
         </select>
       </div>

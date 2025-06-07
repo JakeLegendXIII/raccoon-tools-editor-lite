@@ -46,10 +46,17 @@ export class LevelHeaderComponent {
 
   // Current values for form handling
   currentWinPosition: LevelPoint = { X: 0, Y: 0 };
-
   // Level Type enum for template
   LevelType = LevelType;
   levelTypeKeys = Object.keys(LevelType).filter(key => isNaN(Number(key)));
+  
+  // Generate level type options with correct enum values
+  levelTypeOptions = Object.keys(LevelType)
+    .filter(key => isNaN(Number(key)))
+    .map(key => ({
+      name: key,
+      value: LevelType[key as keyof typeof LevelType]
+    }));
 
   BasePlayerType = BasePlayerType;
   BaseEnemyType = BaseEnemyType;
