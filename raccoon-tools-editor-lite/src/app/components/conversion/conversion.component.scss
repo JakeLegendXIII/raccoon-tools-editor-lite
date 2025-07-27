@@ -1,0 +1,127 @@
+.conversion-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  background-color: #f5f5f5;
+}
+
+.conversion-card {
+  width: 100%;
+  max-width: 600px;
+  padding: 24px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.input-section {
+  margin-bottom: 32px;
+}
+
+.input-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+  
+  @media (max-width: 600px) {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+.input-field {
+  flex: 1;
+}
+
+.button-row {
+  display: flex;
+  justify-content: center;
+}
+
+.results-section {
+  border-top: 1px solid #e0e0e0;
+  padding-top: 24px;
+}
+
+.conversion-results {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.result-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  
+  .label {
+    font-weight: 600;
+    color: #495057;
+  }
+  
+  .value {
+    font-family: 'Courier New', monospace;
+    font-size: 16px;
+    color: #212529;
+  }
+  
+  &.difference {
+    border-width: 2px;
+    font-weight: 500;
+    
+    &.increase {
+      background-color: #e8f5e8;
+      border-color: #4caf50;
+      
+      .change-indicator {
+        color: #4caf50;
+        font-weight: bold;
+      }
+      
+      .change-text {
+        color: #2e7d32;
+        font-size: 14px;
+        margin-left: 8px;
+      }
+    }
+    
+    &.decrease {
+      background-color: #ffebee;
+      border-color: #f44336;
+      
+      .change-indicator {
+        color: #f44336;
+        font-weight: bold;
+      }
+      
+      .change-text {
+        color: #c62828;
+        font-size: 14px;
+        margin-left: 8px;
+      }
+    }
+    
+    &.no-change {
+      background-color: #fff3e0;
+      border-color: #ff9800;
+      
+      .change-text {
+        color: #f57c00;
+        font-size: 14px;
+        margin-left: 8px;
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .result-item {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+}

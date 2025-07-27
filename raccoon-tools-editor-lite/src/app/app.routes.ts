@@ -6,6 +6,7 @@ import { ObstacleListComponent } from './components/obstacle/obstacle-list/obsta
 import { ExportComponent } from './components/export/export.component';
 import { VisualizerComponent } from './components/visualizer/visualizer.component';
 import { LevelHeaderComponent } from './components/level-header/level-header.component';
+import { ConversionComponent } from './components/conversion/conversion.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/visualizer', pathMatch: 'full' },
@@ -14,5 +15,6 @@ export const routes: Routes = [
   { path: 'enemy-list', component: EnemyListComponent },
   { path: 'obstacle-list', component: ObstacleListComponent },
   { path: 'export', component: ExportComponent },
-  { path: 'visualizer', component: VisualizerComponent }
+  { path: 'visualizer', component: VisualizerComponent },
+  { path: 'conversion', component: ConversionComponent }
 ];
