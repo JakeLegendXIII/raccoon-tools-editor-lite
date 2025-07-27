@@ -9,53 +9,58 @@
       <div class="input-section">
         <div class="input-row">
           <mat-form-field appearance="outline" class="input-field">
-            <mat-label>Before (oz)</mat-label>
+            <mat-label>Before Amount (oz)</mat-label>
             <input 
               matInput 
               type="number" 
               step="0.01"
+              min="0"
               [value]="beforeOunces"
               (input)="onBeforeOuncesChange($event)"
-              placeholder="Enter before value">
+              placeholder="Enter amount before">
           </mat-form-field>
           
           <mat-form-field appearance="outline" class="input-field">
-            <mat-label>After (oz)</mat-label>
+            <mat-label>After Amount (oz)</mat-label>
             <input 
               matInput 
               type="number" 
               step="0.01"
+              min="0"
               [value]="afterOunces"
               (input)="onAfterOuncesChange($event)"
-              placeholder="Enter after value">
+              placeholder="Enter amount after">
           </mat-form-field>
         </div>
         
         <div class="button-row">
-          <button mat-raised-button color="primary" (click)="reset()">Reset</button>
+          <button mat-raised-button color="primary" (click)="reset()">
+            <mat-icon>refresh</mat-icon>
+            Reset Values
+          </button>
         </div>
       </div>
 
       <div class="results-section">
         <div class="conversion-results">
           <div class="result-item">
-            <span class="label">Before:</span>
-            <span class="value">{{ beforeOunces }} oz = {{ beforeML | number:'1.2-2' }} ml</span>
+            <span class="label">Before Amount</span>
+            <span class="value">{{ beforeOunces | number:'1.0-2' }} oz = {{ beforeML | number:'1.2-2' }} ml</span>
           </div>
           
           <div class="result-item">
-            <span class="label">After:</span>
-            <span class="value">{{ afterOunces }} oz = {{ afterML | number:'1.2-2' }} ml</span>
+            <span class="label">After Amount</span>
+            <span class="value">{{ afterOunces | number:'1.0-2' }} oz = {{ afterML | number:'1.2-2' }} ml</span>
           </div>
           
           <div class="result-item difference" 
                [class.increase]="isIncrease" 
                [class.decrease]="isDecrease"
                [class.no-change]="noChange">
-            <span class="label">Difference:</span>
+            <span class="label">Difference</span>
             <span class="value">
               <span *ngIf="isIncrease" class="change-indicator">+</span>
-              <span *ngIf="isDecrease" class="change-indicator">-</span>
+              <span *ngIf="isDecrease" class="change-indicator">−</span>
               {{ absDifferenceML | number:'1.2-2' }} ml
               <span *ngIf="isIncrease" class="change-text">(increase)</span>
               <span *ngIf="isDecrease" class="change-text">(decrease)</span>
