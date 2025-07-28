@@ -34,14 +34,19 @@ export class MenuComponent {
   navigateToLevelHeader(): void {
     this.router.navigate(['/level-header']);
   }
+
   navigateToPlayerList(): void {
     this.router.navigate(['/player-list']);
   }
+
   navigateToEnemyList(): void {
     this.router.navigate(['/enemy-list']);
-  }  navigateToObstacleList(): void {
+  }  
+  
+  navigateToObstacleList(): void {
     this.router.navigate(['/obstacle-list']);
   }
+  
   navigateToExport(): void {
     this.router.navigate(['/export']);
   }
