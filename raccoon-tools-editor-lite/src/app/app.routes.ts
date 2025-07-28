@@ -9,12 +9,13 @@ import { LevelHeaderComponent } from './components/level-header/level-header.com
 import { ConversionComponent } from './components/conversion/conversion.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/visualizer', pathMatch: 'full' },
+  { path: '', redirectTo: '/visualizer', pathMatch: 'full' },  
   { path: 'level-header', component: LevelHeaderComponent },
   { path: 'player-list', component: PlayerListComponent },
   { path: 'enemy-list', component: EnemyListComponent },
   { path: 'obstacle-list', component: ObstacleListComponent },
   { path: 'export', component: ExportComponent },
   { path: 'visualizer', component: VisualizerComponent },
-  { path: 'conversion', component: ConversionComponent }
+  { path: 'conversion', component: ConversionComponent },
+  { path: '**', redirectTo: '/visualizer' } // Wildcard route for unmatched paths 
 ];
