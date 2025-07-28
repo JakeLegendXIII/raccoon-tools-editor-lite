@@ -9,6 +9,9 @@
     "test": "ng test"
   },
   "private": true,
+   "engines": {
+        "node": "22.x"
+  },
   "dependencies": {
     "@angular/cdk": "^20.1.3",
     "@angular/common": "^20.1.3",
