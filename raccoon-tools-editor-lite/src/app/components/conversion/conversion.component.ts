@@ -29,6 +29,9 @@ export class ConversionComponent {
   // Conversion factor: 1 ounce = 29.5735 milliliters
   private readonly OUNCES_TO_ML = 29.5735;
 
+  // Conversion factor: 16 ounces = 1 lb
+  private readonly OUNCES_IN_LB = 16;
+
   get beforeML(): number {
     return this.beforeOunces * this.OUNCES_TO_ML;
   }
@@ -59,6 +62,18 @@ export class ConversionComponent {
 
   get noChange(): boolean {
     return this.differenceML === 0;
+  }
+
+  get beforeLbs(): number {
+    return this.beforeOunces / this.OUNCES_IN_LB;
+  }
+
+  get afterLbs(): number {
+    return this.afterOunces / this.OUNCES_IN_LB;
+  }
+
+  get differenceLbs(): number {
+    return this.afterLbs - this.beforeLbs;
   }
 
   onBeforeOuncesChange(event: Event): void {

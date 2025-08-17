@@ -46,11 +46,13 @@
           <div class="result-item">
             <span class="label">Before Amount</span>
             <span class="value">{{ beforeOunces | number:'1.0-2' }} oz = {{ beforeML | number:'1.2-2' }} ml</span>
+            <span class="value">{{ beforeLbs | number:'1.0-2' }} lbs</span>
           </div>
           
           <div class="result-item">
             <span class="label">After Amount</span>
             <span class="value">{{ afterOunces | number:'1.0-2' }} oz = {{ afterML | number:'1.2-2' }} ml</span>
+            <span class="value">{{ afterLbs | number:'1.0-2' }} lbs</span>
           </div>
           
           <div class="result-item difference" 
@@ -67,7 +69,11 @@
               }
               {{ absDifferenceML | number:'1.2-2' }} ml
               @if (differenceOunces) {
-                ({{ differenceOunces | number:'1.2-2' }} oz)
+                <span>{{ differenceOunces | number:'1.2-2' }} oz</span>
+              }
+              @if (differenceLbs) {
+                <br />
+                <span>{{ differenceLbs | number:'1.2-2' }} lbs</span>
               }
               @if (isIncrease) {
                 <span class="change-text">(increase)</span>
