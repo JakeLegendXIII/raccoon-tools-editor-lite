@@ -41,6 +41,10 @@ export class ConversionComponent {
     return this.afterML - this.beforeML;
   }
 
+  get differenceOunces(): number {
+    return this.afterOunces - this.beforeOunces;
+  }
+
   get absDifferenceML(): number {
     return Math.abs(this.differenceML);
   }

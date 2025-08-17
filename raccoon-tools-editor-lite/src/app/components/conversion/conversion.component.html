@@ -59,12 +59,25 @@
                [class.no-change]="noChange">
             <span class="label">Difference</span>
             <span class="value">
-              <span *ngIf="isIncrease" class="change-indicator">+</span>
-              <span *ngIf="isDecrease" class="change-indicator">−</span>
+              @if (isIncrease) {
+                <span class="change-indicator">+</span>
+              }
+              @if (isDecrease) {
+                <span class="change-indicator">−</span>
+              }
               {{ absDifferenceML | number:'1.2-2' }} ml
-              <span *ngIf="isIncrease" class="change-text">(increase)</span>
-              <span *ngIf="isDecrease" class="change-text">(decrease)</span>
-              <span *ngIf="noChange" class="change-text">(no change)</span>
+              @if (differenceOunces) {
+                ({{ differenceOunces | number:'1.2-2' }} oz)
+              }
+              @if (isIncrease) {
+                <span class="change-text">(increase)</span>
+              }
+              @if (isDecrease) {
+                <span class="change-text">(decrease)</span>
+              }
+              @if (noChange) {
+                <span class="change-text">(no change)</span>
+              }
             </span>
           </div>
         </div>
