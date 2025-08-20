@@ -31,6 +31,24 @@ describe('ConversionComponent', () => {
     expect(component.differenceML).toBeCloseTo(29.5735, 4);
   });
 
+  it('should calculate absolute difference correctly', () => {
+    component.beforeOunces = 5;
+    component.afterOunces = 10;
+    expect(component.absDifferenceML).toBeCloseTo(147.8675, 4);
+  });
+
+  it('should calculate the difference in ounces correctly', () => {
+    component.beforeOunces = 5;
+    component.afterOunces = 10;
+    expect(component.differenceOunces).toBeCloseTo(5, 4);
+  });
+
+  it('should calculate the difference in pounds correctly', () => {
+    component.beforeOunces = 80;
+    component.afterOunces = 160;
+    expect(component.differenceLbs).toBeCloseTo(5, 4);
+  });
+
   it('should handle early base case correctly', () => {
     component.beforeOunces = 95.23
     component.afterOunces = 96.47;
