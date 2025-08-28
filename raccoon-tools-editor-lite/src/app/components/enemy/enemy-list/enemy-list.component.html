@@ -6,15 +6,18 @@
     </button>
   </div>
 
-  <div class="enemies-grid" *ngIf="enemies$ | async as enemies">
-    <app-enemy-card 
-      *ngFor="let enemy of enemies" 
-      [enemy]="enemy">
-    </app-enemy-card>
-  </div>
-
-    <div class="empty-state" *ngIf="(enemies$ | async)?.length === 0">
+  @if (enemies$ | async; as enemies) {
+    @if (enemies?.length === 0) {
+      <div class="empty-state">
         <p>No enemies added yet. Click the + button to add your first enemy!</p>
-    </div>
+      </div>
+    } @else {
+      <div class="enemies-grid">
+        @for (enemy of enemies; track enemy.ID) {
+          <app-enemy-card [enemy]="enemy"></app-enemy-card>
+        }
+      </div>
+    }
+  }
 </div>
 <app-visualizer></app-visualizer>

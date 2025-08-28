@@ -113,11 +113,15 @@ export class ObstacleCardComponent {
     switch (type) {
       case ObstacleType.Mountain:
         target.IsWalkable = false;
-        target.IsDestructible = false;
+        target.IsDestructible = true;
         break;
       case ObstacleType.Water:
         target.IsWalkable = true;
         target.IsDestructible = false;
+        break;
+      case ObstacleType.Building:
+        target.IsWalkable = false;
+        target.IsDestructible = true;
         break;
       default:
         // Leave existing values for other types if already set; otherwise set safe defaults

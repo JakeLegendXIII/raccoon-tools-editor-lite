@@ -54,9 +54,9 @@
           id="levelType"
           [ngModel]="levelType$ | async" 
           (ngModelChange)="updateLevelType($event)">
-          <option *ngFor="let option of levelTypeOptions" [value]="option.value">
-            {{ option.name }}
-          </option>
+          @for (option of levelTypeOptions; track option.value) {
+            <option [value]="option.value">{{ option.name }}</option>
+          }
         </select>
       </div>
       
@@ -106,27 +106,27 @@
     <div class="list">
       <h3>Players ({{ (players$ | async)?.length || 0 }})</h3>
       <ul>
-        <li *ngFor="let player of players$ | async">
-          Player {{ player.ID }} - Type: {{ getPlayerTypeName(player.PlayerType) }}
-        </li>
+        @for (player of players$ | async; track player.ID) {
+          <li>Player {{ player.ID }} - Type: {{ getPlayerTypeName(player.PlayerType) }}</li>
+        }
       </ul>
     </div>
 
     <div class="list">
       <h3>Enemies ({{ (enemies$ | async)?.length || 0 }})</h3>
       <ul>
-        <li *ngFor="let enemy of enemies$ | async">
-          Enemy {{ enemy.ID }} - Type: {{ getEnemyTypeName(enemy.EnemyType) }}
-        </li>
+        @for (enemy of enemies$ | async; track enemy.ID) {
+          <li>Enemy {{ enemy.ID }} - Type: {{ getEnemyTypeName(enemy.EnemyType) }}</li>
+        }
       </ul>
     </div>
 
     <div class="list">
       <h3>Obstacles ({{ (obstacles$ | async)?.length || 0 }})</h3>
       <ul>
-        <li *ngFor="let obstacle of obstacles$ | async">
-          Obstacle {{ obstacle.ID }} - Type: {{ getObstacleTypeName(obstacle.ObstacleType) }}
-        </li>
+        @for (obstacle of obstacles$ | async; track obstacle.ID) {
+          <li>Obstacle {{ obstacle.ID }} - Type: {{ getObstacleTypeName(obstacle.ObstacleType) }}</li>
+        }
       </ul>
     </div>
   </div>

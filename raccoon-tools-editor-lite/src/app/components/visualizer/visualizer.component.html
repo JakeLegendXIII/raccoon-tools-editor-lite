@@ -1,97 +1,113 @@
 <div class="visualizer-container">
   <h2>Level Visualizer</h2>
   
-  <div *ngIf="level; else noLevel" class="level-info">
-    <!-- Drag message display -->
-    <div *ngIf="dragMessage" class="drag-message" 
-         [ngClass]="{
-           'drag-message-success': dragMessage.includes('moved to'),
-           'drag-message-error': dragMessage.includes('Cannot drop')
-         }">
-      {{ dragMessage }}
-    </div>
+  @if (level) {
+    <div class="level-info">
+      <!-- Drag message display -->
+      @if (dragMessage) {
+        <div class="drag-message" 
+             [ngClass]="{
+               'drag-message-success': dragMessage.includes('moved to'),
+               'drag-message-error': dragMessage.includes('Cannot drop')
+             }">
+          {{ dragMessage }}
+        </div>
+      }
     
-    <div class="level-header">
-      <h3>Level: {{ level.ID || '0' }}</h3>      
-      <h3>{{ level.LevelDescription || 'Untitled Level' }}</h3>
-      <div class="level-stats">
-        <span>Grid: {{ level.GridWidth }}x{{ level.GridHeight }}</span>
-        <span>Cell Size: {{ level.CellSize }}px</span>
-        <span>LevelType: {{ getLevelTypeName(level.LevelType)}}</span>
-        <span>Players: {{ level.Players.length }}</span>
-        <span>Enemies: {{ level.Enemies.length }}</span>
-        <span>Obstacles: {{ level.Obstacles.length }}</span>
+      <div class="level-header">
+        <h3>Level: {{ level.ID || '0' }}</h3>      
+        <h3>{{ level.LevelDescription || 'Untitled Level' }}</h3>
+        <div class="level-stats">
+          <span>Grid: {{ level.GridWidth }}x{{ level.GridHeight }}</span>
+          <span>Cell Size: {{ level.CellSize }}px</span>
+          <span>LevelType: {{ getLevelTypeName(level.LevelType)}}</span>
+          <span>Players: {{ level.Players.length }}</span>
+          <span>Enemies: {{ level.Enemies.length }}</span>
+          <span>Obstacles: {{ level.Obstacles.length }}</span>
+        </div>
       </div>
-    </div>    <div class="legend">
-      <div class="legend-item">
-        <div class="legend-color cell-player"></div>
-        <span>Players (Blue) - Draggable</span>
-      </div>
-      <div class="legend-item">
-        <div class="legend-color cell-enemy"></div>
-        <span>Enemies (Orange) - Draggable</span>
-      </div>
-      <div class="legend-item">
-        <div class="legend-color cell-obstacle"></div>
-        <span>Obstacles (Green) - Draggable</span>
-      </div>
-      <div *ngIf="level.LevelType === LevelType.Escape" class="legend-item">
-        <div class="legend-color cell-winposition"></div>
-        <span>Win Position (Gold) - Draggable</span>
-      </div>
-      <div class="legend-item">
-        <div class="legend-color cell-empty"></div>
-        <span>Empty - Drop target</span>
-      </div>      
-    </div>
-
-    <div class="instructions">
-      <p><strong>Instructions:</strong> Click and drag any player, enemy, or obstacle to move it to a new position on the grid. You cannot drop entities on occupied cells.</p>
-    </div>    <div class="grid-container">
-      <!-- Y-axis labels -->
-      <div class="y-axis-labels">
-        <div class="axis-title"></div>
-        <div *ngFor="let y of getYAxisLabels()" class="axis-label">{{ y }}</div>
+      
+      <div class="legend">
+        <div class="legend-item">
+          <div class="legend-color cell-player"></div>
+          <span>Players (Blue) - Draggable</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color cell-enemy"></div>
+          <span>Enemies (Orange) - Draggable</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color cell-obstacle"></div>
+          <span>Obstacles (Green) - Draggable</span>
+        </div>
+        @if (level.LevelType === LevelType.Escape) {
+          <div class="legend-item">
+            <div class="legend-color cell-winposition"></div>
+            <span>Win Position (Gold) - Draggable</span>
+          </div>
+        }
+        <div class="legend-item">
+          <div class="legend-color cell-empty"></div>
+          <span>Empty - Drop target</span>
+        </div>      
       </div>
 
-      <!-- Grid and X-axis -->
-      <div class="grid-with-x-axis">
-        <!-- X-axis labels -->
-        <div class="x-axis-labels">
-          <div class="axis-spacer"></div>
-          <div *ngFor="let x of getXAxisLabels()" class="axis-label">{{ x }}</div>
-        </div>        <!-- The actual grid -->
-        <div class="grid" 
-             [style.grid-template-columns]="'repeat(' + (level.GridWidth || 8) + ', 1fr)'">
-          <div *ngFor="let cell of getFlattenedCells()" 
-               class="grid-cell"
-               [ngClass]="{
-                 'cell-player': cell.player,
-                 'cell-enemy': cell.enemy,
-                 'cell-obstacle': cell.obstacle,
-                 'cell-winposition': cell.winPosition,
-                 'cell-empty': !cell.player && !cell.enemy && !cell.obstacle && !cell.winPosition,
-                 'drag-over': isDragOver(cell) && canDropOnCell(cell),
-                 'drag-invalid': isDragOver(cell) && !canDropOnCell(cell)
-               }"
-               [title]="'Position: (' + cell.x + ', ' + cell.y + ')'"
-               [draggable]="isDraggable(cell)"
-               [style.cursor]="getDragCursor(cell)"
-               (dragstart)="onDragStart($event, cell)"
-               (dragover)="onDragOver($event, cell)"
-               (dragleave)="onDragLeave($event)"
-               (drop)="onDrop($event, cell)"
-               (dragend)="onDragEnd()">
-            <div class="cell-coordinates">{{ cell.x }},{{ cell.y }}</div>
-            <div class="cell-content" [innerHTML]="getCellContent(cell)"></div>
+      <div class="instructions">
+        <p><strong>Instructions:</strong> Click and drag any player, enemy, or obstacle to move it to a new position on the grid. You cannot drop entities on occupied cells.</p>
+      </div>
+      
+      <div class="grid-container">
+        <!-- Y-axis labels -->
+        <div class="y-axis-labels">
+          <div class="axis-title"></div>
+          @for (y of getYAxisLabels(); track y) {
+            <div class="axis-label">{{ y }}</div>
+          }
+        </div>
+
+        <!-- Grid and X-axis -->
+        <div class="grid-with-x-axis">
+          <!-- X-axis labels -->
+          <div class="x-axis-labels">
+            <div class="axis-spacer"></div>
+            @for (x of getXAxisLabels(); track x) {
+              <div class="axis-label">{{ x }}</div>
+            }
+          </div>
+          
+          <!-- The actual grid -->
+          <div class="grid" 
+               [style.grid-template-columns]="'repeat(' + (level.GridWidth || 8) + ', 1fr)'">
+            @for (cell of getFlattenedCells(); track cell.x + ',' + cell.y) {
+              <div class="grid-cell"
+                   [ngClass]="{
+                     'cell-player': cell.player,
+                     'cell-enemy': cell.enemy,
+                     'cell-obstacle': cell.obstacle,
+                     'cell-winposition': cell.winPosition,
+                     'cell-empty': !cell.player && !cell.enemy && !cell.obstacle && !cell.winPosition,
+                     'drag-over': isDragOver(cell) && canDropOnCell(cell),
+                     'drag-invalid': isDragOver(cell) && !canDropOnCell(cell)
+                   }"
+                   [title]="'Position: (' + cell.x + ', ' + cell.y + ')'"
+                   [draggable]="isDraggable(cell)"
+                   [style.cursor]="getDragCursor(cell)"
+                   (dragstart)="onDragStart($event, cell)"
+                   (dragover)="onDragOver($event, cell)"
+                   (dragleave)="onDragLeave($event)"
+                   (drop)="onDrop($event, cell)"
+                   (dragend)="onDragEnd()">
+                <div class="cell-coordinates">{{ cell.x }},{{ cell.y }}</div>
+                <div class="cell-content" [innerHTML]="getCellContent(cell)"></div>
+              </div>
+            }
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <ng-template #noLevel>
+  } @else {
     <div class="no-level">
       <p>No level data available. Please create or load a level to visualize.</p>
     </div>
-  </ng-template>
+  }
 </div>

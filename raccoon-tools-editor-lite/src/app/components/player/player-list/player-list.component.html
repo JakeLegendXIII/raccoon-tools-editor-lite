@@ -6,15 +6,18 @@
     </button>
   </div>
   
-  <div class="players-grid" *ngIf="players$ | async as players">
-    <app-player-card 
-      *ngFor="let player of players" 
-      [player]="player">
-    </app-player-card>
-  </div>
-  
-  <div class="empty-state" *ngIf="(players$ | async)?.length === 0">
-    <p>No players added yet. Click the + button to add your first player!</p>
-  </div>
+  @if (players$ | async; as players) {
+    @if (players?.length === 0) {
+      <div class="empty-state">
+        <p>No players added yet. Click the + button to add your first player!</p>
+      </div>
+    } @else {
+      <div class="players-grid">
+        @for (player of players; track player.ID) {
+          <app-player-card [player]="player"></app-player-card>
+        }
+      </div>
+    }
+  }
 </div>
 <app-visualizer></app-visualizer>

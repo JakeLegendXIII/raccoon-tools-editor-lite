@@ -13,29 +13,31 @@
       <small class="help-text">.json extension will be added automatically</small>
     </div>
 
-    <div class="preview-section" *ngIf="currentLevel$ | async as level">
-      <h3>Level Preview</h3>
-      <div class="level-info">
-        <p><strong>Level ID:</strong> {{ level.ID }}</p>
-        <p><strong>Description:</strong> {{ level.LevelDescription || 'No description' }}</p>
-        <p><strong>Grid Size:</strong> {{ level.GridWidth }} x {{ level.GridHeight }}</p>
-        <p><strong>Players:</strong> {{ level.Players.length }}</p>
-        <p><strong>Enemies:</strong> {{ level.Enemies.length }}</p>
-        <p><strong>Obstacles:</strong> {{ level.Obstacles.length }}</p>
+    @if (currentLevel$ | async; as level) {
+      <div class="preview-section">
+        <h3>Level Preview</h3>
+        <div class="level-info">
+          <p><strong>Level ID:</strong> {{ level.ID }}</p>
+          <p><strong>Description:</strong> {{ level.LevelDescription || 'No description' }}</p>
+          <p><strong>Grid Size:</strong> {{ level.GridWidth }} x {{ level.GridHeight }}</p>
+          <p><strong>Players:</strong> {{ level.Players.length }}</p>
+          <p><strong>Enemies:</strong> {{ level.Enemies.length }}</p>
+          <p><strong>Obstacles:</strong> {{ level.Obstacles.length }}</p>
+        </div>
       </div>
-    </div>
 
-    <div class="export-actions">
-      <button 
-        class="export-btn" 
-        (click)="exportLevel()"
-        [disabled]="!fileName.trim()">
-        Export Level as JSON
-      </button>
-    </div>
-  </div>
-
-  <div class="no-level" *ngIf="!(currentLevel$ | async)">
-    <p>No level data available to export. Please create a level first.</p>
+      <div class="export-actions">
+        <button 
+          class="export-btn" 
+          (click)="exportLevel()"
+          [disabled]="!fileName.trim()">
+          Export Level as JSON
+        </button>
+      </div>
+    } @else {
+      <div class="no-level">
+        <p>No level data available to export. Please create a level first.</p>
+      </div>
+    }
   </div>
 </div>

@@ -20,15 +20,19 @@
       />
     </div>
 
-    <div *ngIf="errorMessage" class="error-message">
-      <mat-icon color="warn">error</mat-icon>
-      <span>{{ errorMessage }}</span>
-    </div>
+    @if (errorMessage) {
+      <div class="error-message">
+        <mat-icon color="warn">error</mat-icon>
+        <span>{{ errorMessage }}</span>
+      </div>
+    }
 
-    <div *ngIf="selectedFile && isValidJson" class="success-message">
-      <mat-icon color="primary">check_circle</mat-icon>
-      <span>Valid level file selected</span>
-    </div>
+    @if (selectedFile && isValidJson) {
+      <div class="success-message">
+        <mat-icon color="primary">check_circle</mat-icon>
+        <span>Valid level file selected</span>
+      </div>
+    }
   </mat-dialog-content>
 
   <mat-dialog-actions align="end">
