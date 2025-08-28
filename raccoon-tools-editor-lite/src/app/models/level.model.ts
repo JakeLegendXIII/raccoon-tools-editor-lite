@@ -80,6 +80,7 @@ export class ObstacleData {
     Width: number = 0;
     ObstacleType: number = 0;
     IsWalkable: boolean = false;
+    IsDestructible: boolean = false;
     Position: LevelPoint = new LevelPoint();
 }
 
