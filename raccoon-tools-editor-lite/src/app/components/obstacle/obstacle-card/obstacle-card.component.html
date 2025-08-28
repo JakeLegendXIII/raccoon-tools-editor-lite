@@ -21,6 +21,12 @@
         <div class="property-row">
           <strong>Position:</strong> ({{obstacle.Position.X}}, {{obstacle.Position.Y}})
         </div>
+        <div class="property-row">
+          <strong>Walkable:</strong> {{ obstacle.IsWalkable ? 'Yes' : 'No' }}
+        </div>
+        <div class="property-row">
+          <strong>Destructible:</strong> {{ obstacle.IsDestructible ? 'Yes' : 'No' }}
+        </div>
       </div>
     }
 
@@ -28,12 +34,17 @@
       <form class="edit-form" (ngSubmit)="saveChanges()">
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Obstacle Type</mat-label>
-          <mat-select [(ngModel)]="editableObstacle.ObstacleType" name="enemyType">
-            <mat-option *ngFor="let option of getObstacleTypeOptions()" [value]="option.value">
-              {{option.name}}
-            </mat-option>
+          <mat-select [(ngModel)]="editableObstacle.ObstacleType" name="enemyType" (selectionChange)="onObstacleTypeChange()">
+            @for (option of getObstacleTypeOptions(); track option.value) {
+              <mat-option [value]="option.value">{{option.name}}</mat-option>
+            }
           </mat-select>
         </mat-form-field>
+
+        <div class="flags-row">
+          <mat-checkbox [(ngModel)]="editableObstacle.IsWalkable" name="isWalkable">Walkable</mat-checkbox>
+          <mat-checkbox [(ngModel)]="editableObstacle.IsDestructible" name="isDestructible">Destructible</mat-checkbox>
+        </div>
 
         <div class="size-inputs">
           <mat-form-field appearance="outline" class="half-width">

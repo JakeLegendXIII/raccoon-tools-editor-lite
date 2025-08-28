@@ -47,6 +47,13 @@
   align-items: center;
 }
 
+.flags-row {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  padding: 4px 0;
+}
+
 .card-actions {
   display: flex;
   justify-content: flex-end;

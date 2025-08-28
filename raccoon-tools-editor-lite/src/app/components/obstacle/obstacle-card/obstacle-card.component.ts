@@ -10,6 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-obstacle-card',
@@ -21,7 +22,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatInputModule,
     MatButtonModule,
     MatIconModule,
-    MatSelectModule
+  MatSelectModule,
+  MatCheckboxModule
   ],
   standalone: true,
   templateUrl: './obstacle-card.component.html',
@@ -86,6 +88,10 @@ export class ObstacleCardComponent {
         ...this.obstacle,
         Position: { ...this.obstacle.Position }
       };
+      // Ensure defaults are applied if values are undefined (legacy data)
+      if (this.editableObstacle.IsWalkable === undefined || this.editableObstacle.IsDestructible === undefined) {
+        this.applyTypeDefaults(this.editableObstacle.ObstacleType, this.editableObstacle);
+      }
     }
   }
 
@@ -96,5 +102,28 @@ export class ObstacleCardComponent {
         value: value as number,
         name: key
       }));
+  }
+
+  onObstacleTypeChange(): void {
+    // Reapply defaults when type changes
+    this.applyTypeDefaults(this.editableObstacle.ObstacleType, this.editableObstacle);
+  }
+
+  private applyTypeDefaults(type: number, target: ObstacleData): void {
+    switch (type) {
+      case ObstacleType.Mountain:
+        target.IsWalkable = false;
+        target.IsDestructible = false;
+        break;
+      case ObstacleType.Water:
+        target.IsWalkable = true;
+        target.IsDestructible = false;
+        break;
+      default:
+        // Leave existing values for other types if already set; otherwise set safe defaults
+        if (target.IsWalkable === undefined) target.IsWalkable = false;
+        if (target.IsDestructible === undefined) target.IsDestructible = false;
+        break;
+    }
   }
 }

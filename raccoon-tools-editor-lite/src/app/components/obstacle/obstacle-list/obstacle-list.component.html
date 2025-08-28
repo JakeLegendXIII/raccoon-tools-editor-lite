@@ -13,10 +13,9 @@
       </div>
     } @else {
       <div class="obstacles-grid">
-        <app-obstacle-card 
-          *ngFor="let obstacle of obstacles" 
-          [obstacle]="obstacle">
-        </app-obstacle-card>
+        @for (obstacle of obstacles; track obstacle.ID) {
+          <app-obstacle-card [obstacle]="obstacle"></app-obstacle-card>
+        }
       </div>
     }
   }
