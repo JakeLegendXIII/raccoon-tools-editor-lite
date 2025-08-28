@@ -6,15 +6,19 @@
     </button>
   </div>
 
-  <div class="obstacles-grid" *ngIf="obstacles$ | async as obstacles">
-    <app-obstacle-card 
-      *ngFor="let obstacle of obstacles" 
-      [obstacle]="obstacle">
-    </app-obstacle-card>
-  </div>
-
-    <div class="empty-state" *ngIf="(obstacles$ | async)?.length === 0">
+  @if (obstacles$ | async; as obstacles) {
+    @if (obstacles?.length === 0) {
+      <div class="empty-state">
         <p>No obstacles added yet. Click the + button to add your first obstacle!</p>
-    </div>
+      </div>
+    } @else {
+      <div class="obstacles-grid">
+        <app-obstacle-card 
+          *ngFor="let obstacle of obstacles" 
+          [obstacle]="obstacle">
+        </app-obstacle-card>
+      </div>
+    }
+  }
 </div>
 <app-visualizer></app-visualizer>
