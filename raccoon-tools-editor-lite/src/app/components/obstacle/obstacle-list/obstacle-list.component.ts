@@ -42,7 +42,7 @@ export class ObstacleListComponent {
         // Generate ID as largest existing ID plus one
         const maxId = obstacles.length > 0 ? Math.max(...obstacles.map(p => p.ID)) : 0;
         newObstacle.ID = maxId + 1;
-        newObstacle.ObstacleType = 1;
+        newObstacle.ObstacleType = 0;
         newObstacle.Health = 3;
         newObstacle.Height = 64;
         newObstacle.Width = 64;

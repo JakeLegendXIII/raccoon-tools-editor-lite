@@ -42,7 +42,7 @@ export class PlayerListComponent {
       // Generate ID as largest existing ID plus one
       const maxId = players.length > 0 ? Math.max(...players.map(p => p.ID)) : 0;
       newPlayer.ID = maxId + 1;
-      newPlayer.PlayerType = 1;
+      newPlayer.PlayerType = 0;
       newPlayer.Health = 3;
       newPlayer.Height = 64;
       newPlayer.Width = 64;

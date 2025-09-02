@@ -42,7 +42,7 @@ constructor(private store: Store) {
       // Generate ID as largest existing ID plus one
       const maxId = enemies.length > 0 ? Math.max(...enemies.map(p => p.ID)) : 0;
       newEnemy.ID = maxId + 1;
-      newEnemy.EnemyType = 1;
+      newEnemy.EnemyType = 0;
       newEnemy.Health = 3;
       newEnemy.Height = 64;
       newEnemy.Width = 64;
