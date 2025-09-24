@@ -56,6 +56,7 @@ export class PlayerData {
     Height: number = 0;
     Width: number = 0;
     StartPosition: LevelPoint = new LevelPoint();
+    StartPositionsList: LevelPoint[] = [];
 }
 
 /**
