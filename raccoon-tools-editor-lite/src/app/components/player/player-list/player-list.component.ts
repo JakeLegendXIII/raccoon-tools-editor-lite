@@ -19,9 +19,8 @@ import { VisualizerComponent } from '../../visualizer/visualizer.component';
     MatIconModule,
     VisualizerComponent
   ],
-  standalone: true,
   templateUrl: './player-list.component.html',
-  styleUrl: './player-list.component.scss'
+  styleUrls: ['./player-list.component.scss']
 })
 export class PlayerListComponent {
   players$: Observable<PlayerData[]>;

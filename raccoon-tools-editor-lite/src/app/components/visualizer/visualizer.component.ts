@@ -26,9 +26,8 @@ interface DragData {
 @Component({
   selector: 'app-visualizer',
   imports: [CommonModule],
-  standalone: true,
   templateUrl: './visualizer.component.html',
-  styleUrl: './visualizer.component.scss'
+  styleUrls: ['./visualizer.component.scss']
 })
 export class VisualizerComponent implements OnInit {
   currentLevel$: Observable<Level | null>;

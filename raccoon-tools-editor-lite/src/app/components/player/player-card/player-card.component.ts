@@ -23,9 +23,8 @@ import { updatePlayer, deletePlayer } from '../../../store/level.actions';
     MatIconModule,
     MatSelectModule
   ],
-  standalone: true,
   templateUrl: './player-card.component.html',
-  styleUrl: './player-card.component.scss'
+  styleUrls: ['./player-card.component.scss']
 })
 export class PlayerCardComponent implements OnInit {
   @Input() player!: PlayerData;
