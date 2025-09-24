@@ -56,7 +56,6 @@ export class PlayerData {
     Height: number = 0;
     Width: number = 0;
     StartPosition: LevelPoint = new LevelPoint();
-    StartPositionsList: LevelPoint[] = [];
 }
 
 /**
@@ -98,6 +97,7 @@ export class Level {
     LevelDescription: string = '';
     NumberOfTurns: number = 0;
     WinPosition: LevelPoint = new LevelPoint();
+    StartPositionsList: LevelPoint[] = [];
 
     Players: PlayerData[] = [];
     Enemies: EnemyData[] = [];
