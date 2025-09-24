@@ -20,8 +20,7 @@ import { VisualizerComponent } from "../../visualizer/visualizer.component";
     VisualizerComponent
 ],
   templateUrl: './enemy-list.component.html',
-  standalone: true,
-  styleUrl: './enemy-list.component.scss'
+  styleUrls: ['./enemy-list.component.scss']
 })
 export class EnemyListComponent {
   enemies$: Observable<EnemyData[]>;

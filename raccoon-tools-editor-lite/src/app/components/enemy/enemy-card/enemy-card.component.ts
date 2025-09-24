@@ -24,8 +24,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatSelectModule
   ],
   templateUrl: './enemy-card.component.html',
-  standalone: true,
-  styleUrl: './enemy-card.component.scss'
+  styleUrls: ['./enemy-card.component.scss']
 })
 export class EnemyCardComponent {
   @Input() enemy!: EnemyData;

@@ -19,8 +19,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatIconModule
   ],
   templateUrl: './conversion.component.html',
-  styleUrl: './conversion.component.scss',
-  standalone: true
+  styleUrls: ['./conversion.component.scss'],
 })
 export class ConversionComponent {
   beforeOunces: number = 0;

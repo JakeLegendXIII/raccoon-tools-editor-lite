@@ -11,7 +11,7 @@ import { selectCurrentLevel } from '../../store/level.selectors';
   selector: 'app-export',
   imports: [CommonModule, FormsModule],
   templateUrl: './export.component.html',
-  styleUrl: './export.component.scss'
+  styleUrls: ['./export.component.scss']
 })
 export class ExportComponent {
   currentLevel$: Observable<Level | null>;

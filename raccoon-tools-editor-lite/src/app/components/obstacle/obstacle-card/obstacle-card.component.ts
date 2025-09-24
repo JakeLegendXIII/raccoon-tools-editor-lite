@@ -25,9 +25,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatSelectModule,
     MatCheckboxModule
   ],
-  standalone: true,
   templateUrl: './obstacle-card.component.html',
-  styleUrl: './obstacle-card.component.scss'
+  styleUrls: ['./obstacle-card.component.scss']
 })
 export class ObstacleCardComponent {
   @Input() obstacle!: ObstacleData;

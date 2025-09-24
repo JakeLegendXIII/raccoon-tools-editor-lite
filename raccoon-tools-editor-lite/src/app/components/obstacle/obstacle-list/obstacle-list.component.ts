@@ -19,9 +19,8 @@ import { VisualizerComponent } from "../../visualizer/visualizer.component";
     MatIconModule,
     VisualizerComponent
 ],
-  standalone: true,
   templateUrl: './obstacle-list.component.html',
-  styleUrl: './obstacle-list.component.scss'
+  styleUrls: ['./obstacle-list.component.scss']
 })
 export class ObstacleListComponent {
   obstacles$: Observable<ObstacleData[]>;

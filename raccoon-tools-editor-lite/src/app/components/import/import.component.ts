@@ -19,9 +19,8 @@ import { loadLevel } from '../../store/level.actions';
     MatInputModule,
     MatIconModule
   ],
-  standalone: true,
   templateUrl: './import.component.html',
-  styleUrl: './import.component.scss'
+  styleUrls: ['./import.component.scss']
 })
 export class ImportComponent {
   private dialogRef = inject(MatDialogRef<ImportComponent>);

@@ -22,8 +22,7 @@ import * as LevelActions from '../../store/level.actions';
 import { VisualizerComponent } from '../visualizer/visualizer.component';
 
 @Component({
-  selector: 'app-level-header',
-  standalone: true,
+  selector: 'app-level-header',  
   imports: [
     CommonModule,
     FormsModule,

@@ -9,10 +9,9 @@ import { ImportComponent } from '../import/import.component';
 
 @Component({
   selector: 'app-menu',
-  imports: [MatButtonModule, MatMenuModule, MatIconModule, MatDividerModule], 
-  standalone: true,
+  imports: [MatButtonModule, MatMenuModule, MatIconModule, MatDividerModule],
   templateUrl: './menu.component.html',
-  styleUrl: './menu.component.scss'
+  styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent {
   private dialog = inject(MatDialog);
