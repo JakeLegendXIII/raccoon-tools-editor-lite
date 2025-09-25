@@ -1,0 +1,31 @@
+.start-position-list-container {
+  padding: 16px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.header h2 {
+  margin: 0;
+}
+
+.add-button {
+  position: relative;
+}
+
+.start-positions-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 32px;
+  color: #666;
+  font-size: 16px;
+}

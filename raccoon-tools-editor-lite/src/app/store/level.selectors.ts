@@ -62,3 +62,8 @@ export const selectLevelID = createSelector(
   selectCurrentLevel,
   (level) => level?.ID || 0
 );
+
+export const selectStartPositions = createSelector(
+  selectCurrentLevel,
+  (level) => level?.StartPositionsList || []
+);

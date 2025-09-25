@@ -68,3 +68,19 @@ export const updateLevelProperties = createAction(
     numberOfTurns?: number;
   }>()
 );
+
+// Start Position Actions
+export const addStartPosition = createAction(
+  '[Level] Add Start Position',
+  props<{ startPosition: LevelPoint }>()
+);
+
+export const updateStartPosition = createAction(
+  '[Level] Update Start Position',
+  props<{ index: number; startPosition: LevelPoint }>()
+);
+
+export const deleteStartPosition = createAction(
+  '[Level] Delete Start Position',
+  props<{ index: number }>()
+);

@@ -57,4 +57,8 @@ export class MenuComponent {
   navigateToConversion(): void {
     this.router.navigate(['/conversion']);
   }
+
+  navigateToStartPositionList(): void {
+    this.router.navigate(['/start-position']);
+  }
 }

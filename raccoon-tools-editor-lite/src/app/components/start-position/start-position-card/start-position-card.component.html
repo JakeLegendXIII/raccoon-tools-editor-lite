@@ -1,1 +1,50 @@
-<p>start-position-card works!</p>
+<mat-card class="start-position-card">
+  <mat-card-header>
+    <mat-card-title>Start Position {{index + 1}}</mat-card-title>
+    <mat-card-subtitle>Position: ({{startPosition.X}}, {{startPosition.Y}})</mat-card-subtitle>
+    <div class="header-actions">
+      <button mat-icon-button (click)="toggleEdit()" [attr.aria-label]="isEditing ? 'Cancel edit' : 'Edit start position'">
+        <mat-icon>{{isEditing ? 'close' : 'edit'}}</mat-icon>
+      </button>
+    </div>
+  </mat-card-header>
+
+  <mat-card-content>
+    @if (!isEditing) {
+      <div class="start-position-properties">
+        <div class="property-row">
+          <strong>X Position:</strong> {{startPosition.X}}
+        </div>
+        <div class="property-row">
+          <strong>Y Position:</strong> {{startPosition.Y}}
+        </div>
+      </div>
+    }
+
+    @if (isEditing) {
+      <form class="edit-form" (ngSubmit)="saveChanges()">
+        <div class="position-inputs">
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>X Position</mat-label>
+            <input matInput type="number" [(ngModel)]="editableStartPosition.X" name="posX" min="0">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>Y Position</mat-label>
+            <input matInput type="number" [(ngModel)]="editableStartPosition.Y" name="posY" min="0">
+          </mat-form-field>
+        </div>
+      </form>
+    }
+  </mat-card-content>
+  @if (isEditing) {
+    <mat-card-actions class="card-actions">
+      <button mat-button (click)="cancelEdit()">Cancel</button>
+      <button mat-raised-button color="primary" (click)="saveChanges()">Save</button>
+      <button mat-button color="warn" (click)="deleteStartPosition()">
+        <mat-icon>delete</mat-icon>
+        Delete
+      </button>
+    </mat-card-actions>
+  }
+</mat-card>

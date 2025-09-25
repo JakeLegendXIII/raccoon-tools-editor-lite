@@ -1,1 +1,23 @@
-<p>start-position-list works!</p>
+<div class="start-position-list-container">
+  <div class="header">
+    <h2>Start Positions</h2>
+    <button mat-fab color="primary" (click)="addNewStartPosition()" class="add-button">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+  
+  @if (startPositions$ | async; as startPositions) {
+    @if (startPositions?.length === 0) {
+      <div class="empty-state">
+        <p>No start positions added yet. Click the + button to add your first start position!</p>
+      </div>
+    } @else {
+      <div class="start-positions-grid">
+        @for (startPosition of startPositions; track $index) {
+          <app-start-position-card [startPosition]="startPosition" [index]="$index"></app-start-position-card>
+        }
+      </div>
+    }
+  }
+</div>
+<app-visualizer></app-visualizer>

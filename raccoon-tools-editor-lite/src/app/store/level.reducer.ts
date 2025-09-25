@@ -102,5 +102,32 @@ export const levelReducer = createReducer(
       ...(levelDescription !== undefined && { LevelDescription: levelDescription }),
       ...(numberOfTurns !== undefined && { NumberOfTurns: numberOfTurns }),
     } : state.currentLevel
+  })),
+
+  // Start Position Actions
+  on(LevelActions.addStartPosition, (state, { startPosition }) => ({
+    ...state,
+    currentLevel: state.currentLevel ? {
+      ...state.currentLevel,
+      StartPositionsList: [...state.currentLevel.StartPositionsList, startPosition]
+    } : state.currentLevel
+  })),
+
+  on(LevelActions.updateStartPosition, (state, { index, startPosition }) => ({
+    ...state,
+    currentLevel: state.currentLevel ? {
+      ...state.currentLevel,
+      StartPositionsList: state.currentLevel.StartPositionsList.map((pos, i) => 
+        i === index ? startPosition : pos
+      )
+    } : state.currentLevel
+  })),
+
+  on(LevelActions.deleteStartPosition, (state, { index }) => ({
+    ...state,
+    currentLevel: state.currentLevel ? {
+      ...state.currentLevel,
+      StartPositionsList: state.currentLevel.StartPositionsList.filter((_, i) => i !== index)
+    } : state.currentLevel
   }))
 );

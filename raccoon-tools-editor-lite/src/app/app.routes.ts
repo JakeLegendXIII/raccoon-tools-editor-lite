@@ -7,6 +7,7 @@ import { ExportComponent } from './components/export/export.component';
 import { VisualizerComponent } from './components/visualizer/visualizer.component';
 import { LevelHeaderComponent } from './components/level-header/level-header.component';
 import { ConversionComponent } from './components/conversion/conversion.component';
+import { StartPositionListComponent } from './components/start-position/start-position-list/start-position-list.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/visualizer', pathMatch: 'full' },  
@@ -17,5 +18,6 @@ export const routes: Routes = [
   { path: 'export', component: ExportComponent },
   { path: 'visualizer', component: VisualizerComponent },
   { path: 'conversion', component: ConversionComponent },
+  { path: 'start-position', component: StartPositionListComponent },
   { path: '**', redirectTo: '/visualizer' } // Wildcard route for unmatched paths 
 ];
