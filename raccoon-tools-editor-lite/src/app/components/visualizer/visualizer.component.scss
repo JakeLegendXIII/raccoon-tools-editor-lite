@@ -279,6 +279,48 @@
       color: #ffe0cc;
     }
   }
+
+  &.cell-startposition {
+    background-color: rgba(255, 193, 7, 0.3); // Transparent yellow/orange
+    color: #856404;
+    border: 1px dashed #ffc107;
+    position: relative;
+
+    .cell-coordinates {
+      color: #856404;
+    }
+
+    .cell-content {
+      font-size: 8px;
+      color: #856404;
+      font-style: italic;
+    }
+
+    // When other entities are on top of start positions, blend the colors
+    &.cell-player {
+      background: linear-gradient(rgba(0, 123, 255, 0.8), rgba(255, 193, 7, 0.2));
+      border: 2px solid #0056b3;
+      color: white;
+    }
+
+    &.cell-enemy {
+      background: linear-gradient(rgba(253, 126, 20, 0.8), rgba(255, 193, 7, 0.2));
+      border: 2px solid #e55a00;
+      color: white;
+    }
+
+    &.cell-obstacle {
+      background: linear-gradient(rgba(40, 167, 69, 0.8), rgba(255, 193, 7, 0.2));
+      border: 2px solid #1e7e34;
+      color: white;
+    }
+
+    &.cell-winposition {
+      background: linear-gradient(rgba(223, 226, 39, 0.8), rgba(255, 193, 7, 0.2));
+      border: 2px solid #1e7e34;
+      color: white;
+    }
+  }
 }
 
 .no-level {

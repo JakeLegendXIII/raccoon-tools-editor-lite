@@ -24,6 +24,7 @@
           <span>Players: {{ level.Players.length }}</span>
           <span>Enemies: {{ level.Enemies.length }}</span>
           <span>Obstacles: {{ level.Obstacles.length }}</span>
+          <span>Start Positions: {{ level.StartPositionsList.length }}</span>
         </div>
       </div>
       
@@ -46,6 +47,10 @@
             <span>Win Position (Gold) - Draggable</span>
           </div>
         }
+        <div class="legend-item">
+          <div class="legend-color cell-startposition"></div>
+          <span>Start Positions (Orange) - Background</span>
+        </div>
         <div class="legend-item">
           <div class="legend-color cell-empty"></div>
           <span>Empty - Drop target</span>
@@ -85,7 +90,8 @@
                      'cell-enemy': cell.enemy,
                      'cell-obstacle': cell.obstacle,
                      'cell-winposition': cell.winPosition,
-                     'cell-empty': !cell.player && !cell.enemy && !cell.obstacle && !cell.winPosition,
+                     'cell-startposition': cell.startPosition,
+                     'cell-empty': !cell.player && !cell.enemy && !cell.obstacle && !cell.winPosition && !cell.startPosition,
                      'drag-over': isDragOver(cell) && canDropOnCell(cell),
                      'drag-invalid': isDragOver(cell) && !canDropOnCell(cell)
                    }"

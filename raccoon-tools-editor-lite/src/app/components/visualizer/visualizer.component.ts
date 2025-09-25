@@ -14,6 +14,7 @@ interface GridCell {
   enemy?: EnemyData;
   obstacle?: ObstacleData;
   winPosition?: LevelPoint;
+  startPosition?: boolean;
 }
 
 interface DragData {
@@ -95,6 +96,17 @@ export class VisualizerComponent implements OnInit {
       }
     });
 
+    // Place start positions (these go first to appear underneath other entities)
+    if (level.StartPositionsList) {
+      level.StartPositionsList.forEach(startPos => {
+        const x = startPos.X;
+        const y = startPos.Y;
+        if (this.isValidPosition(x, y, width, height)) {
+          this.gridCells[y][x].startPosition = true;
+        }
+      });
+    }
+
     if (level.LevelType === LevelType.Escape) {
       // Place win position for Escape levels
       const winX = level.WinPosition.X;
@@ -121,6 +133,9 @@ export class VisualizerComponent implements OnInit {
     }
     if (cell.winPosition) {
       return 'Win Position';
+    }
+    if (cell.startPosition && !cell.player && !cell.enemy && !cell.obstacle && !cell.winPosition) {
+      return 'Start';
     }
     return '';
   }
