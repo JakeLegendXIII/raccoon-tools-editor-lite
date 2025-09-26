@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 
 import { Level, PlayerData, EnemyData, ObstacleData, LevelPoint, BasePlayerType, BaseEnemyType, ObstacleType, LevelType } from '../../models/level.model';
 import { selectCurrentLevel } from '../../store/level.selectors';
-import { updatePlayer, updateEnemy, updateObstacle, updateWinPosition } from '../../store/level.actions';
+import { updatePlayer, updateEnemy, updateObstacle, updateWinPosition, updateStartPosition } from '../../store/level.actions';
 
 interface GridCell {
   x: number;
@@ -15,13 +15,15 @@ interface GridCell {
   obstacle?: ObstacleData;
   winPosition?: LevelPoint;
   startPosition?: boolean;
+  startPositionIndex?: number; // Index in the StartPositionsList array
 }
 
 interface DragData {
-  type: 'player' | 'enemy' | 'obstacle' | 'winPosition';
+  type: 'player' | 'enemy' | 'obstacle' | 'winPosition' | 'startPosition';
   data: PlayerData | EnemyData | ObstacleData | LevelPoint;
   sourceX: number;
   sourceY: number;
+  startPositionIndex?: number; // For tracking which start position is being dragged
 }
 
 @Component({
@@ -98,11 +100,12 @@ export class VisualizerComponent implements OnInit {
 
     // Place start positions (these go first to appear underneath other entities)
     if (level.StartPositionsList) {
-      level.StartPositionsList.forEach(startPos => {
+      level.StartPositionsList.forEach((startPos, index) => {
         const x = startPos.X;
         const y = startPos.Y;
         if (this.isValidPosition(x, y, width, height)) {
           this.gridCells[y][x].startPosition = true;
+          this.gridCells[y][x].startPositionIndex = index;
         }
       });
     }
@@ -184,6 +187,20 @@ export class VisualizerComponent implements OnInit {
         sourceX: cell.x,
         sourceY: cell.y
       };
+      this.dragMessage = `Dragging Win Position from (${cell.x}, ${cell.y})`;
+    } else if (cell.startPosition && cell.startPositionIndex !== undefined) {
+      // Only drag start position if no other entity is on top
+      const startPos = this.level?.StartPositionsList[cell.startPositionIndex];
+      if (startPos) {
+        this.dragData = {
+          type: 'startPosition',
+          data: startPos,
+          sourceX: cell.x,
+          sourceY: cell.y,
+          startPositionIndex: cell.startPositionIndex
+        };
+        this.dragMessage = `Dragging Start Position ${cell.startPositionIndex + 1} from (${cell.x}, ${cell.y})`;
+      }
     }
 
     if (event.dataTransfer) {
@@ -255,6 +272,15 @@ export class VisualizerComponent implements OnInit {
       updatedWinPosition.Y = targetCell.y;
       this.store.dispatch(updateWinPosition({ winPosition: updatedWinPosition }));
       this.dragMessage = `Win Position moved to (${targetCell.x}, ${targetCell.y})`;
+    } else if (this.dragData.type === 'startPosition' && this.dragData.startPositionIndex !== undefined) {
+      const updatedStartPosition = { ...this.dragData.data as LevelPoint };
+      updatedStartPosition.X = targetCell.x;
+      updatedStartPosition.Y = targetCell.y;
+      this.store.dispatch(updateStartPosition({ 
+        index: this.dragData.startPositionIndex, 
+        startPosition: updatedStartPosition 
+      }));
+      this.dragMessage = `Start Position ${this.dragData.startPositionIndex + 1} moved to (${targetCell.x}, ${targetCell.y})`;
     }
 
     setTimeout(() => this.dragMessage = '', 3000);
@@ -268,7 +294,12 @@ export class VisualizerComponent implements OnInit {
   }
 
   isDraggable(cell: GridCell): boolean {
-    return !!(cell.player || cell.enemy || cell.obstacle || cell.winPosition);
+    // Prioritize dragging entities over start positions
+    if (cell.player || cell.enemy || cell.obstacle || cell.winPosition) {
+      return true;
+    }
+    // Only allow dragging start positions if no other entity is present
+    return !!(cell.startPosition && cell.startPositionIndex !== undefined);
   }
 
   getDragCursor(cell: GridCell): string {
