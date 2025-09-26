@@ -128,11 +128,20 @@ export class ImportComponent {
       obstacle.Width = o.Width || 0;
       obstacle.ObstacleType = o.ObstacleType || 0;
       obstacle.IsWalkable = o.IsWalkable || false;
+      obstacle.IsDestructible = o.IsDestructible || false;
       if (o.Position) {
         obstacle.Position.X = o.Position.X || 0;
         obstacle.Position.Y = o.Position.Y || 0;
       }
       return obstacle;
+    });
+
+    // Map start positions
+    level.StartPositionsList = (data.StartPositionsList || []).map((sp: any) => {
+      const startPosition = new LevelPoint();
+      startPosition.X = sp.X || 0;
+      startPosition.Y = sp.Y || 0;
+      return startPosition;
     });
     
     return level;
