@@ -95,8 +95,9 @@ export class LevelHeaderComponent {
     this.store.dispatch(LevelActions.updateLevelProperties({ cellSize: value }));
   }
 
-  updateLevelType(value: number) {
-    this.store.dispatch(LevelActions.updateLevelProperties({ levelType: value }));
+  updateLevelType(value: number | string) {
+    const numericValue = typeof value === 'string' ? parseInt(value, 10) : value;
+    this.store.dispatch(LevelActions.updateLevelProperties({ levelType: numericValue }));
   }
 
   updateLevelDescription(value: string) {
