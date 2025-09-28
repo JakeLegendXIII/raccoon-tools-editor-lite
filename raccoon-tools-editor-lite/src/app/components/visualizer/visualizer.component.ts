@@ -230,8 +230,10 @@ export class VisualizerComponent implements OnInit {
       return;
     }
 
-    // Don't allow dropping on occupied cells (unless it's the same cell)
-    if ((targetCell.player || targetCell.enemy || targetCell.obstacle) && 
+    // Don't allow dropping regular entities on occupied cells (unless it's the same cell)
+    // But allow start positions to be dropped anywhere
+    if (this.dragData.type !== 'startPosition' && 
+        (targetCell.player || targetCell.enemy || targetCell.obstacle) && 
         !(targetCell.x === this.dragData.sourceX && targetCell.y === this.dragData.sourceY)) {
       this.dragMessage = 'Cannot drop on occupied cell!';
       setTimeout(() => this.dragMessage = '', 2000);
@@ -316,6 +318,12 @@ export class VisualizerComponent implements OnInit {
     if (this.level?.LevelType === LevelType.Escape && cell.winPosition) {
       return false; // Cannot drop on win position in Escape levels
     }
+    
+    // Start positions can be dropped anywhere
+    if (this.dragData.type === 'startPosition') {
+      return true;
+    }
+    
     // Can always drop on empty cells
     if (!cell.player && !cell.enemy && !cell.obstacle) return true;
     

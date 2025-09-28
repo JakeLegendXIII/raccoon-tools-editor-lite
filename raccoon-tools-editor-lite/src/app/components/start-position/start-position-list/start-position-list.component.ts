@@ -60,28 +60,18 @@ export class StartPositionListComponent {
     const GRID_WIDTH = gridWidth;
     const GRID_HEIGHT = gridHeight;
     
-    // Collect all occupied positions
-    const occupiedPositions = new Set<string>();
-    
-    // Add entity positions
-    [...players, ...enemies, ...obstacles].forEach(entity => {
-      if (entity.StartPosition) {
-        occupiedPositions.add(`${entity.StartPosition.X},${entity.StartPosition.Y}`);
-      } else if (entity.Position) {
-        occupiedPositions.add(`${entity.Position.X},${entity.Position.Y}`);
-      }
-    });
-
-    // Add existing start positions
+    // Start positions can now be placed anywhere, including on top of other entities
+    // Only avoid placing start positions on top of existing start positions for visibility
+    const occupiedStartPositions = new Set<string>();
     startPositions.forEach(pos => {
-      occupiedPositions.add(`${pos.X},${pos.Y}`);
+      occupiedStartPositions.add(`${pos.X},${pos.Y}`);
     });
     
-    // Find available positions
+    // Find positions not occupied by other start positions
     const availablePositions: { x: number, y: number }[] = [];
     for (let x = 0; x < GRID_WIDTH; x++) {
       for (let y = 0; y < GRID_HEIGHT; y++) {
-        if (!occupiedPositions.has(`${x},${y}`)) {
+        if (!occupiedStartPositions.has(`${x},${y}`)) {
           availablePositions.push({ x, y });
         }
       }
@@ -92,7 +82,7 @@ export class StartPositionListComponent {
       const randomIndex = Math.floor(Math.random() * availablePositions.length);
       return availablePositions[randomIndex];
     } else {
-      // Fallback to random position if grid is full
+      // If all positions have start positions, still place randomly
       return {
         x: Math.floor(Math.random() * GRID_WIDTH),
         y: Math.floor(Math.random() * GRID_HEIGHT)
