@@ -45,8 +45,8 @@ export class ObstacleListComponent {
         newObstacle.Health = 3;
         newObstacle.Height = 64;
         newObstacle.Width = 64;
-        newObstacle.IsWalkable = true;
-        newObstacle.IsDestructible = false;
+        newObstacle.IsWalkable = false;
+        newObstacle.IsDestructible = true;
 
         // Find random available position
         const availablePosition = this.findRandomAvailablePosition(
