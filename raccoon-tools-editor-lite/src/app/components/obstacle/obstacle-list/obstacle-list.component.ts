@@ -70,9 +70,24 @@ export class ObstacleListComponent {
     // Collect all occupied positions
     const occupiedPositions = new Set<string>();
     
-    [...players, ...enemies, ...obstacles].forEach(entity => {
-      if (entity.StartPositionX !== undefined && entity.StartPositionY !== undefined) {
-        occupiedPositions.add(`${entity.StartPositionX},${entity.StartPositionY}`);
+    // Add player positions
+    players.forEach(player => {
+      if (player.StartPosition) {
+        occupiedPositions.add(`${player.StartPosition.X},${player.StartPosition.Y}`);
+      }
+    });
+
+    // Add enemy positions
+    enemies.forEach(enemy => {
+      if (enemy.StartPosition) {
+        occupiedPositions.add(`${enemy.StartPosition.X},${enemy.StartPosition.Y}`);
+      }
+    });
+
+    // Add obstacle positions
+    obstacles.forEach(obstacle => {
+      if (obstacle.Position) {
+        occupiedPositions.add(`${obstacle.Position.X},${obstacle.Position.Y}`);
       }
     });
     
