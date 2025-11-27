@@ -63,14 +63,14 @@ export class ObstacleListComponent {
       });
     }
 
-  private findRandomAvailablePosition(gridWidth: number, gridHeight: number, enemys: any[], enemies: any[], obstacles: any[]): { x: number, y: number } {
+  private findRandomAvailablePosition(gridWidth: number, gridHeight: number, players: any[], enemies: any[], obstacles: any[]): { x: number, y: number } {
     const GRID_WIDTH = gridWidth;
     const GRID_HEIGHT = gridHeight;
     
     // Collect all occupied positions
     const occupiedPositions = new Set<string>();
     
-    [...enemys, ...enemies, ...obstacles].forEach(entity => {
+    [...players, ...enemies, ...obstacles].forEach(entity => {
       if (entity.StartPositionX !== undefined && entity.StartPositionY !== undefined) {
         occupiedPositions.add(`${entity.StartPositionX},${entity.StartPositionY}`);
       }
