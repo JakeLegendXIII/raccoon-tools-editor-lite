@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
@@ -14,10 +14,12 @@ import { selectCurrentLevel } from '../../store/level.selectors';
   styleUrls: ['./export.component.scss']
 })
 export class ExportComponent {
+  private store = inject(Store);
+
   currentLevel$: Observable<Level | null>;
   fileName: string = 'level';
 
-  constructor(private store: Store) {
+  constructor() {
     this.currentLevel$ = this.store.select(selectCurrentLevel);
   }
 

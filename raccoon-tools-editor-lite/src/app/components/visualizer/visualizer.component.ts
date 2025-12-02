@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
@@ -33,6 +33,8 @@ interface DragData {
   styleUrls: ['./visualizer.component.scss']
 })
 export class VisualizerComponent implements OnInit {
+  private store = inject(Store);
+
   currentLevel$: Observable<Level | null>;
   gridCells: GridCell[][] = [];
   level: Level | null = null;
@@ -45,7 +47,7 @@ export class VisualizerComponent implements OnInit {
   BaseEnemyType = BaseEnemyType;
   ObstacleType = ObstacleType;
 
-  constructor(private store: Store) {
+  constructor() {
     this.currentLevel$ = this.store.select(selectCurrentLevel);
   }
 

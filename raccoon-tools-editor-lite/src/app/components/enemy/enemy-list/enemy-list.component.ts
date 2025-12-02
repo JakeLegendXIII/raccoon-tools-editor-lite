@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { EnemyData } from '../../../models/level.model';
 import { combineLatest, Observable, take } from 'rxjs';
 import { EnemyCardComponent } from '../enemy-card/enemy-card.component';
@@ -23,9 +23,11 @@ import { VisualizerComponent } from "../../visualizer/visualizer.component";
   styleUrls: ['./enemy-list.component.scss']
 })
 export class EnemyListComponent {
+  private store = inject(Store);
+
   enemies$: Observable<EnemyData[]>;
   
-constructor(private store: Store) {
+constructor() {
     this.enemies$ = this.store.select(selectEnemies);
   }  
   

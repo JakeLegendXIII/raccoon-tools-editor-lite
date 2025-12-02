@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { PlayerCardComponent } from "../player-card/player-card.component";
 import { Observable, take, combineLatest } from 'rxjs';
 import { CommonModule } from '@angular/common';
@@ -23,9 +23,11 @@ import { VisualizerComponent } from '../../visualizer/visualizer.component';
   styleUrls: ['./player-list.component.scss']
 })
 export class PlayerListComponent {
+  private store = inject(Store);
+
   players$: Observable<PlayerData[]>;
 
-  constructor(private store: Store) {
+  constructor() {
     this.players$ = this.store.select(selectPlayers);
   }  
   

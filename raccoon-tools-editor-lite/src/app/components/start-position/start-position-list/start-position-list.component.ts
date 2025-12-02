@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Observable, take, combineLatest } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
@@ -22,10 +22,12 @@ import { VisualizerComponent } from '../../visualizer/visualizer.component';
   templateUrl: './start-position-list.component.html',
   styleUrls: ['./start-position-list.component.scss']
 })
-export class StartPositionListComponent {  
+export class StartPositionListComponent {
+  private store = inject(Store);
+  
   startPositions$: Observable<LevelPoint[]>;
 
-  constructor(private store: Store) {
+  constructor() {
     this.startPositions$ = this.store.select(selectStartPositions);
   }
 

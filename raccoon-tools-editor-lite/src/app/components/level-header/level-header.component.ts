@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
@@ -32,6 +32,8 @@ import { VisualizerComponent } from '../visualizer/visualizer.component';
   styleUrls: ['./level-header.component.scss']
 })
 export class LevelHeaderComponent {
+  private store = inject(Store);
+
   players$: Observable<PlayerData[]>;
   enemies$: Observable<EnemyData[]>;
   obstacles$: Observable<ObstacleData[]>;
@@ -63,7 +65,7 @@ export class LevelHeaderComponent {
   BaseEnemyType = BaseEnemyType;
   ObstacleType = ObstacleType;
 
-  constructor(private store: Store) {
+  constructor() {
     this.players$ = this.store.select(selectPlayers);
     this.enemies$ = this.store.select(selectEnemies);
     this.obstacles$ = this.store.select(selectObstacles);
