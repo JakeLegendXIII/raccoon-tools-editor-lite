@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-// import { LevelViewerComponent } from './components/level-viewer/level-viewer.component';
 import { PlayerListComponent } from './components/player/player-list/player-list.component';
 import { EnemyListComponent } from './components/enemy/enemy-list/enemy-list.component';
 import { ObstacleListComponent } from './components/obstacle/obstacle-list/obstacle-list.component';
