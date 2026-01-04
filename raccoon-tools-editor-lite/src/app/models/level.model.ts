@@ -25,7 +25,8 @@ export enum ObstacleType {
     Mountain = 0,
     Water = 1,
     Building = 2,
-    Wall = 3
+    Wall = 3,
+    Tree = 4
 }
 
 /**
@@ -36,6 +37,15 @@ export enum LevelType {
     Survive = 1,
     Escape = 2,
     Boss = 3
+}
+
+/**
+ * Enum for Biome Types
+ */
+export enum BiomeType {
+    Forest = 0,
+    Desert = 1,
+    Tundra = 2    
 }
 
 /**
