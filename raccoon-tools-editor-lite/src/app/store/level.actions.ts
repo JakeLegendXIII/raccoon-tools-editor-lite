@@ -64,6 +64,7 @@ export const updateLevelProperties = createAction(
     gridHeight?: number;
     cellSize?: number;
     levelType?: number;
+    biomeType?: number;
     levelDescription?: string;
     numberOfTurns?: number;
   }>()

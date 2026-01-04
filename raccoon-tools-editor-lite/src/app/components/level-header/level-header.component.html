@@ -59,6 +59,18 @@
           }
         </select>
       </div>
+
+       <div class="property-group">
+        <label for="biomeType">Biome Type:</label>
+        <select 
+          id="biomeType"
+          [ngModel]="biomeType$ | async" 
+          (ngModelChange)="updateBiomeType($event)">
+          @for (option of biomeTypeOptions; track option.value) {
+            <option [value]="option.value">{{ option.name }}</option>
+          }
+        </select>
+      </div>
       
       <div class="property-group full-width">
         <label for="levelDescription">Level Description:</label>

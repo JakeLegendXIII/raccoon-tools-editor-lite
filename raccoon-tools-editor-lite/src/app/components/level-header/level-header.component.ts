@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { PlayerData, EnemyData, ObstacleData, LevelPoint, LevelType, BasePlayerType, BaseEnemyType, ObstacleType } from '../../models/level.model';
+import { PlayerData, EnemyData, ObstacleData, LevelPoint, LevelType, BasePlayerType, BaseEnemyType, ObstacleType, BiomeType } from '../../models/level.model';
 import { 
   selectPlayers, 
   selectEnemies, 
@@ -16,7 +16,8 @@ import {
   selectLevelDescription,
   selectWinPosition,
   selectNumberOfTurns,
-  selectLevelID
+  selectLevelID,
+  selectBiomeType
 } from '../../store/level.selectors';
 import * as LevelActions from '../../store/level.actions';
 import { VisualizerComponent } from '../visualizer/visualizer.component';
@@ -43,6 +44,7 @@ export class LevelHeaderComponent {
   gridHeight$: Observable<number>;
   cellSize$: Observable<number>;
   levelType$: Observable<number>;
+  biomeType$: Observable<number>;
   levelDescription$: Observable<string>;
   winPosition$: Observable<LevelPoint>;
   numberOfTurns$: Observable<number>;
@@ -61,6 +63,18 @@ export class LevelHeaderComponent {
       value: LevelType[key as keyof typeof LevelType]
     }));
 
+  // Biome Type enum for template
+  biomeType = BiomeType;
+  biomeTypeKeys = Object.keys(BiomeType).filter(key => isNaN(Number(key)));
+  
+  // Generate biome type options with correct enum values
+  biomeTypeOptions = Object.keys(BiomeType)
+    .filter(key => isNaN(Number(key)))
+    .map(key => ({
+      name: key,
+      value: BiomeType[key as keyof typeof BiomeType]
+    }));
+
   BasePlayerType = BasePlayerType;
   BaseEnemyType = BaseEnemyType;
   ObstacleType = ObstacleType;
@@ -75,6 +89,7 @@ export class LevelHeaderComponent {
     this.gridHeight$ = this.store.select(selectLevelGridHeight);
     this.cellSize$ = this.store.select(selectLevelCellSize);
     this.levelType$ = this.store.select(selectLevelType);
+    this.biomeType$ = this.store.select(selectBiomeType);
     this.levelDescription$ = this.store.select(selectLevelDescription);
     this.winPosition$ = this.store.select(selectWinPosition);
     this.numberOfTurns$ = this.store.select(selectNumberOfTurns);
@@ -100,6 +115,11 @@ export class LevelHeaderComponent {
   updateLevelType(value: number | string) {
     const numericValue = typeof value === 'string' ? parseInt(value, 10) : value;
     this.store.dispatch(LevelActions.updateLevelProperties({ levelType: numericValue }));
+  }
+
+  updateBiomeType(value: number | string) {
+    const numericValue = typeof value === 'string' ? parseInt(value, 10) : value;
+    this.store.dispatch(LevelActions.updateLevelProperties({ biomeType: numericValue }));
   }
 
   updateLevelDescription(value: string) {
@@ -158,6 +178,10 @@ export class LevelHeaderComponent {
 
   getLevelTypeName(levelType: number): string {
     return LevelType[levelType] || 'Unknown';
+  }
+
+  getBiomeTypeName(biomeType: number): string {
+    return BiomeType[biomeType] || 'Unknown';
   }
 
   getPlayerTypeName(playerType: number): string {
