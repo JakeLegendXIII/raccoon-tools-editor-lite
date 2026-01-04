@@ -105,6 +105,7 @@ export class Level {
     CellSize: number = 0;
     LevelType: number = 0;
     LevelDescription: string = '';
+    BiomeType: number = 0;
     NumberOfTurns: number = 0;
     WinPosition: LevelPoint = new LevelPoint();
     StartPositionsList: LevelPoint[] = [];
