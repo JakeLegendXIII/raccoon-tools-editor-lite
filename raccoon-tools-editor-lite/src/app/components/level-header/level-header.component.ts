@@ -64,7 +64,7 @@ export class LevelHeaderComponent {
     }));
 
   // Biome Type enum for template
-  biomeType = BiomeType;
+  BiomeType = BiomeType;
   biomeTypeKeys = Object.keys(BiomeType).filter(key => isNaN(Number(key)));
   
   // Generate biome type options with correct enum values

@@ -90,7 +90,7 @@ export const levelReducer = createReducer(
     } : state.currentLevel
   })),
 
-  on(LevelActions.updateLevelProperties, (state, { id, gridWidth, gridHeight, cellSize, levelType, levelDescription, numberOfTurns }) => ({
+  on(LevelActions.updateLevelProperties, (state, { id, gridWidth, gridHeight, cellSize, levelType, biomeType, levelDescription, numberOfTurns }) => ({
     ...state,
     currentLevel: state.currentLevel ? {
       ...state.currentLevel,
@@ -99,6 +99,7 @@ export const levelReducer = createReducer(
       ...(gridHeight !== undefined && { GridHeight: gridHeight }),
       ...(cellSize !== undefined && { CellSize: cellSize }),
       ...(levelType !== undefined && { LevelType: levelType }),
+      ...(biomeType !== undefined && { BiomeType: biomeType }),
       ...(levelDescription !== undefined && { LevelDescription: levelDescription }),
       ...(numberOfTurns !== undefined && { NumberOfTurns: numberOfTurns }),
     } : state.currentLevel
