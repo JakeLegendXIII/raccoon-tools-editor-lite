@@ -113,6 +113,7 @@ export class ObstacleCardComponent {
       case ObstacleType.Mountain:
         target.IsWalkable = false;
         target.IsDestructible = true;
+        target.Health = 3;        
         break;
       case ObstacleType.Water:
         target.IsWalkable = true;
@@ -121,14 +122,17 @@ export class ObstacleCardComponent {
       case ObstacleType.Building:
         target.IsWalkable = false;
         target.IsDestructible = true;
+        target.Health = 5;
         break;
       case ObstacleType.Wall:
         target.IsWalkable = false;
         target.IsDestructible = true;
+        target.Health = 3;
         break;
       case ObstacleType.Tree:
         target.IsWalkable = false;
         target.IsDestructible = true;
+        target.Health = 2;
         break;
       case ObstacleType.Ice:
         target.IsWalkable = true;
@@ -137,6 +141,7 @@ export class ObstacleCardComponent {
       case ObstacleType.Rock:
         target.IsWalkable = false;
         target.IsDestructible = true;
+        target.Health = 1;
         break;
       default:
         // Leave existing values for other types if already set; otherwise set safe defaults
