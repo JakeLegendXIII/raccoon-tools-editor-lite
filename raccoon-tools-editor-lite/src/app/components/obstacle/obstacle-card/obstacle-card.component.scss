@@ -2,6 +2,12 @@
   margin: 10px;
   min-width: 280px;
   max-width: 400px;
+
+  &.editing {
+    mat-card-content {
+      padding-top: 16px;
+    }
+  }
 }
 
 .header-actions {
@@ -29,7 +35,34 @@
 .edit-form {
   display: flex;
   flex-direction: column;
+  gap: 8px;
+}
+
+.form-section {
+  margin-bottom: 8px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  mat-form-field {
+    margin-bottom: 0;
+  }
+}
+
+.form-section-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.input-row {
+  display: flex;
   gap: 16px;
+  align-items: flex-start;
 }
 
 .full-width {
@@ -37,21 +70,16 @@
 }
 
 .half-width {
-  width: 48%;
-}
-
-.size-inputs,
-.position-inputs {
-  display: flex;
-  gap: 4%;
-  align-items: center;
+  flex: 1;
+  min-width: 0;
 }
 
 .flags-row {
   display: flex;
-  gap: 24px;
+  gap: 32px;
   align-items: center;
-  padding: 4px 0;
+  padding: 12px 0;
+  margin: 4px 0;
 }
 
 .card-actions {
@@ -59,6 +87,8 @@
   justify-content: flex-end;
   gap: 8px;
   padding: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 8px;
 }
 
 mat-card-header {

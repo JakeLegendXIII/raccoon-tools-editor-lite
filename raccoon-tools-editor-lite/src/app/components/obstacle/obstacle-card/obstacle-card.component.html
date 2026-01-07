@@ -1,7 +1,9 @@
-<mat-card class="obstacle-card">
+<mat-card class="obstacle-card" [class.editing]="isEditing">
   <mat-card-header>
     <mat-card-title>Obstacle {{obstacle.ID}}</mat-card-title>
-    <mat-card-subtitle>Type: {{getObstacleTypeName(obstacle.ObstacleType)}}</mat-card-subtitle>
+    @if (!isEditing) {
+      <mat-card-subtitle>Type: {{getObstacleTypeName(obstacle.ObstacleType)}}</mat-card-subtitle>
+    }
     <div class="header-actions">
       <button mat-icon-button (click)="toggleEdit()" [attr.aria-label]="isEditing ? 'Cancel edit' : 'Edit obstacle'">
         <mat-icon>{{isEditing ? 'close' : 'edit'}}</mat-icon>
@@ -22,62 +24,70 @@
           <strong>Size:</strong> {{obstacle.Width}} x {{obstacle.Height}}
         </div>
         <div class="property-row">
-          <strong>Position:</strong> ({{obstacle.Position.X}}, {{obstacle.Position.Y}})
-        </div>
-        <div class="property-row">
           <strong>Walkable:</strong> {{ obstacle.IsWalkable ? 'Yes' : 'No' }}
         </div>
         <div class="property-row">
           <strong>Destructible:</strong> {{ obstacle.IsDestructible ? 'Yes' : 'No' }}
+        </div>
+        <div class="property-row">
+          <strong>Position:</strong> ({{obstacle.Position.X}}, {{obstacle.Position.Y}})
         </div>
       </div>
     }
 
     @if (isEditing) {
       <form class="edit-form" (ngSubmit)="saveChanges()">
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Obstacle Type</mat-label>
-          <mat-select [(ngModel)]="editableObstacle.ObstacleType" name="enemyType" (selectionChange)="onObstacleTypeChange()">
-            @for (option of getObstacleTypeOptions(); track option.value) {
-              <mat-option [value]="option.value">{{option.name}}</mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
-
-        <div class="flags-row">
-          <mat-checkbox [(ngModel)]="editableObstacle.IsWalkable" name="isWalkable">Walkable</mat-checkbox>
-          <mat-checkbox [(ngModel)]="editableObstacle.IsDestructible" name="isDestructible">Destructible</mat-checkbox>
-        </div>
-
-        <div class="size-inputs">
-          <mat-form-field appearance="outline" class="half-width">
-            <mat-label>Width</mat-label>
-            <input matInput type="number" [(ngModel)]="editableObstacle.Width" name="width" min="1">
-          </mat-form-field>
-
-          <mat-form-field appearance="outline" class="half-width">
-            <mat-label>Height</mat-label>
-            <input matInput type="number" [(ngModel)]="editableObstacle.Height" name="height" min="1">
+        <div class="form-section">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Obstacle Type</mat-label>
+            <mat-select [(ngModel)]="editableObstacle.ObstacleType" name="obstacleType" (selectionChange)="onObstacleTypeChange()">
+              @for (option of getObstacleTypeOptions(); track option.value) {
+                <mat-option [value]="option.value">{{option.name}}</mat-option>
+              }
+            </mat-select>
           </mat-form-field>
         </div>
 
-        <div class="position-inputs">
-          <mat-form-field appearance="outline" class="half-width">
-            <mat-label>X Position</mat-label>
-            <input matInput type="number" [(ngModel)]="editableObstacle.Position.X" name="posX">
-          </mat-form-field>
-
-          <mat-form-field appearance="outline" class="half-width">
-            <mat-label>Y Position</mat-label>
-            <input matInput type="number" [(ngModel)]="editableObstacle.Position.Y" name="posY">
-          </mat-form-field>
-        </div>
-
-        <div class="health-input">
+        <div class="form-section">
           <mat-form-field appearance="outline" class="full-width">
             <mat-label>Health</mat-label>
             <input matInput type="number" [(ngModel)]="editableObstacle.Health" name="health" min="0">
           </mat-form-field>
+        </div>
+
+        <div class="form-section flags-row">
+          <mat-checkbox [(ngModel)]="editableObstacle.IsWalkable" name="isWalkable">Walkable</mat-checkbox>
+          <mat-checkbox [(ngModel)]="editableObstacle.IsDestructible" name="isDestructible">Destructible</mat-checkbox>
+        </div>
+
+        <div class="form-section">
+          <div class="form-section-label">Size</div>
+          <div class="input-row">
+            <mat-form-field appearance="outline" class="half-width">
+              <mat-label>Width</mat-label>
+              <input matInput type="number" [(ngModel)]="editableObstacle.Width" name="width" min="1">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="half-width">
+              <mat-label>Height</mat-label>
+              <input matInput type="number" [(ngModel)]="editableObstacle.Height" name="height" min="1">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <div class="form-section-label">Position</div>
+          <div class="input-row">
+            <mat-form-field appearance="outline" class="half-width">
+              <mat-label>X Position</mat-label>
+              <input matInput type="number" [(ngModel)]="editableObstacle.Position.X" name="posX">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="half-width">
+              <mat-label>Y Position</mat-label>
+              <input matInput type="number" [(ngModel)]="editableObstacle.Position.Y" name="posY">
+            </mat-form-field>
+          </div>
         </div>
       </form>
     }
