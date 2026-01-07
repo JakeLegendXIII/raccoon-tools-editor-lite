@@ -16,6 +16,9 @@
           <strong>Type:</strong> {{getObstacleTypeName(obstacle.ObstacleType)}}
         </div>
         <div class="property-row">
+          <strong>Health:</strong> {{obstacle.Health}}
+        </div>
+        <div class="property-row">
           <strong>Size:</strong> {{obstacle.Width}} x {{obstacle.Height}}
         </div>
         <div class="property-row">
@@ -52,7 +55,7 @@
             <input matInput type="number" [(ngModel)]="editableObstacle.Width" name="width" min="1">
           </mat-form-field>
 
-            <mat-form-field appearance="outline" class="half-width">
+          <mat-form-field appearance="outline" class="half-width">
             <mat-label>Height</mat-label>
             <input matInput type="number" [(ngModel)]="editableObstacle.Height" name="height" min="1">
           </mat-form-field>
@@ -67,6 +70,13 @@
           <mat-form-field appearance="outline" class="half-width">
             <mat-label>Y Position</mat-label>
             <input matInput type="number" [(ngModel)]="editableObstacle.Position.Y" name="posY">
+          </mat-form-field>
+        </div>
+
+        <div class="health-input">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Health</mat-label>
+            <input matInput type="number" [(ngModel)]="editableObstacle.Health" name="health" min="0">
           </mat-form-field>
         </div>
       </form>

@@ -118,6 +118,7 @@ export class ObstacleCardComponent {
       case ObstacleType.Water:
         target.IsWalkable = true;
         target.IsDestructible = false;
+        target.Health = 0;
         break;
       case ObstacleType.Building:
         target.IsWalkable = false;
@@ -137,6 +138,7 @@ export class ObstacleCardComponent {
       case ObstacleType.Ice:
         target.IsWalkable = true;
         target.IsDestructible = false;
+        target.Health = 0;
         break;
       case ObstacleType.Rock:
         target.IsWalkable = false;
