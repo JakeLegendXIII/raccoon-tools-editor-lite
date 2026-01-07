@@ -1,7 +1,9 @@
-<mat-card class="enemy-card">
+<mat-card class="enemy-card" [class.editing]="isEditing">
   <mat-card-header>
     <mat-card-title>Enemy {{enemy.ID}}</mat-card-title>
-    <mat-card-subtitle>Type: {{getEnemyTypeName(enemy.EnemyType)}}</mat-card-subtitle>
+    @if (!isEditing) {
+      <mat-card-subtitle>Type: {{getEnemyTypeName(enemy.EnemyType)}}</mat-card-subtitle>
+    }
     <div class="header-actions">
       <button mat-icon-button (click)="toggleEdit()" [attr.aria-label]="isEditing ? 'Cancel edit' : 'Edit enemy'">
         <mat-icon>{{isEditing ? 'close' : 'edit'}}</mat-icon>
@@ -29,42 +31,52 @@
 
     @if (isEditing) {
       <form class="edit-form" (ngSubmit)="saveChanges()">
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Enemy Type</mat-label>
-          <mat-select [(ngModel)]="editableEnemy.EnemyType" name="enemyType">
-            @for (option of getEnemyTypeOptions(); track option.value) {
-              <mat-option [value]="option.value">{{option.name}}</mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Health</mat-label>
-          <input matInput type="number" [(ngModel)]="editableEnemy.Health" name="health" min="1">
-        </mat-form-field>
-
-        <div class="size-inputs">
-          <mat-form-field appearance="outline" class="half-width">
-            <mat-label>Width</mat-label>
-            <input matInput type="number" [(ngModel)]="editableEnemy.Width" name="width" min="1">
-          </mat-form-field>
-
-          <mat-form-field appearance="outline" class="half-width">
-            <mat-label>Height</mat-label>
-            <input matInput type="number" [(ngModel)]="editableEnemy.Height" name="height" min="1">
+        <div class="form-section">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Enemy Type</mat-label>
+            <mat-select [(ngModel)]="editableEnemy.EnemyType" name="enemyType">
+              @for (option of getEnemyTypeOptions(); track option.value) {
+                <mat-option [value]="option.value">{{option.name}}</mat-option>
+              }
+            </mat-select>
           </mat-form-field>
         </div>
 
-        <div class="position-inputs">
-          <mat-form-field appearance="outline" class="half-width">
-            <mat-label>Start X</mat-label>
-            <input matInput type="number" [(ngModel)]="editableEnemy.StartPosition.X" name="startX">
+        <div class="form-section">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Health</mat-label>
+            <input matInput type="number" [(ngModel)]="editableEnemy.Health" name="health" min="1">
           </mat-form-field>
+        </div>
 
-          <mat-form-field appearance="outline" class="half-width">
-            <mat-label>Start Y</mat-label>
-            <input matInput type="number" [(ngModel)]="editableEnemy.StartPosition.Y" name="startY">
-          </mat-form-field>
+        <div class="form-section">
+          <div class="form-section-label">Size</div>
+          <div class="input-row">
+            <mat-form-field appearance="outline" class="half-width">
+              <mat-label>Width</mat-label>
+              <input matInput type="number" [(ngModel)]="editableEnemy.Width" name="width" min="1">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="half-width">
+              <mat-label>Height</mat-label>
+              <input matInput type="number" [(ngModel)]="editableEnemy.Height" name="height" min="1">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <div class="form-section-label">Start Position</div>
+          <div class="input-row">
+            <mat-form-field appearance="outline" class="half-width">
+              <mat-label>Start X</mat-label>
+              <input matInput type="number" [(ngModel)]="editableEnemy.StartPosition.X" name="startX">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="half-width">
+              <mat-label>Start Y</mat-label>
+              <input matInput type="number" [(ngModel)]="editableEnemy.StartPosition.Y" name="startY">
+            </mat-form-field>
+          </div>
         </div>
       </form>
     }
