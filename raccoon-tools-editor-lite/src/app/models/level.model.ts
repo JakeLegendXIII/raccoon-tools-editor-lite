@@ -26,7 +26,9 @@ export enum ObstacleType {
     Water = 1,
     Building = 2,
     Wall = 3,
-    Tree = 4
+    Tree = 4,
+    Ice = 5,
+    Rock = 6
 }
 
 /**
