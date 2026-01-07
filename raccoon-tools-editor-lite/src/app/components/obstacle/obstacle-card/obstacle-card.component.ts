@@ -122,6 +122,22 @@ export class ObstacleCardComponent {
         target.IsWalkable = false;
         target.IsDestructible = true;
         break;
+      case ObstacleType.Wall:
+        target.IsWalkable = false;
+        target.IsDestructible = true;
+        break;
+      case ObstacleType.Tree:
+        target.IsWalkable = false;
+        target.IsDestructible = true;
+        break;
+      case ObstacleType.Ice:
+        target.IsWalkable = true;
+        target.IsDestructible = false;
+        break;
+      case ObstacleType.Rock:
+        target.IsWalkable = false;
+        target.IsDestructible = true;
+        break;
       default:
         // Leave existing values for other types if already set; otherwise set safe defaults
         if (target.IsWalkable === undefined) target.IsWalkable = false;
