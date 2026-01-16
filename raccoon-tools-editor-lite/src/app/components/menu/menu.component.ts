@@ -61,4 +61,8 @@ export class MenuComponent {
   navigateToStartPositionList(): void {
     this.router.navigate(['/start-position']);
   }
+
+  navigateToItemList(): void {
+    this.router.navigate(['/items']);
+  }
 }
