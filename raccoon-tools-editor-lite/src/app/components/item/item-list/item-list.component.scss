@@ -1,0 +1,48 @@
+.item-list-container {
+  padding: 1rem;
+}
+
+.item-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #ccc;
+
+  h2 {
+    margin: 0;
+  }
+
+  .header-actions {
+    display: flex;
+    gap: 0.5rem;
+  }
+}
+
+.import-btn,
+.export-btn {
+  padding: 0.5rem 1rem;
+  border: 1px solid #007bff;
+  background-color: #007bff;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.875rem;
+
+  &:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+  }
+}
+
+.import-btn {
+  display: inline-block;
+}
+
+.item-list-content {
+  p {
+    color: #666;
+    font-style: italic;
+  }
+}

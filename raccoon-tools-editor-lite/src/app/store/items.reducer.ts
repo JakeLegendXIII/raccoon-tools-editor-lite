@@ -4,8 +4,13 @@ import * as ItemsActions from './items.actions';
 
 export const itemsReducer = createReducer(
   initialItemState,
-    on(ItemsActions.addItem, (state, { item }) => ({
+  on(ItemsActions.loadItems, (state, { items }) => ({
     ...state,
+    items: items
+  })),
+  on(ItemsActions.addItem, (state, { item }) => ({
+    ...state,
+    items: [...state.items, item],
     currentItem: item
   })),
     on(ItemsActions.updateItem, (state, { item }) => ({

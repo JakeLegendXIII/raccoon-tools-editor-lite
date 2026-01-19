@@ -1,1 +1,16 @@
-<p>item-list works!</p>
+<div class="item-list-container">
+  <header class="item-list-header">
+    <h2>Items</h2>
+    <div class="header-actions">
+      <label class="import-btn">
+        <input type="file" accept=".json" (change)="onFileSelected($event)" hidden />
+        Import JSON
+      </label>
+      <button class="export-btn" (click)="exportItems()">Export JSON</button>
+    </div>
+  </header>
+
+  <div class="item-list-content">
+    <p *ngIf="(items$ | async)?.length === 0">No items loaded.</p>
+  </div>
+</div>

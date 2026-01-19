@@ -1,6 +1,7 @@
 import { Item } from '../models/item.model';
 
 export interface ItemState {
+  items: Item[];
   currentItem: Item | null;
 }
 
@@ -16,5 +17,6 @@ const createDefaultItem = (): Item => {
 };
 
 export const initialItemState: ItemState = {
+  items: [],
   currentItem: createDefaultItem()
 };
