@@ -1,4 +1,15 @@
 /**
+ * Enum representing the type of item effect
+ */
+export enum ItemType {
+    Attack = 0,
+    Heal = 1,
+    Push = 2,
+    Increase = 3,
+    Decrease = 4
+}
+
+/**
  * Represents a game item with all its properties and entities
  */
 export class Item {
@@ -9,6 +20,6 @@ export class Item {
     ParentEntity: any = 0;
     ChangeValue: number = 0;
     TargetEntity: any = 0;
-    ItemType: number = 0;
+    ItemType: ItemType = ItemType.Attack;
     UseCount: number = 1;    
 }
