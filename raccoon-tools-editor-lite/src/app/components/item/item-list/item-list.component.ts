@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable, take } from 'rxjs';
-import { Item } from '../../../models/item.model';
+import { Item, ItemType } from '../../../models/item.model';
 import { selectItems } from '../../../store/items.selectors';
 import { loadItems, addItem, updateItem, deleteItem } from '../../../store/items.actions';
 
@@ -20,8 +20,18 @@ export class ItemListComponent {
   editingItemId: number | null = null;
   editingItem: Item | null = null;
 
+  // Expose enum for template
+  ItemType = ItemType;
+  itemTypeOptions = Object.keys(ItemType)
+    .filter(key => isNaN(Number(key)))
+    .map(key => ({ label: key, value: ItemType[key as keyof typeof ItemType] }));
+
   constructor() {
     this.items$ = this.store.select(selectItems);
+  }
+
+  getItemTypeName(value: ItemType): string {
+    return ItemType[value];
   }
 
   onFileSelected(event: Event): void {
