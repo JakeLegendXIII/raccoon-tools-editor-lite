@@ -1,14 +1,15 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, take } from 'rxjs';
 import { Item } from '../../../models/item.model';
 import { selectItems } from '../../../store/items.selectors';
-import { loadItems } from '../../../store/items.actions';
+import { loadItems, addItem, updateItem, deleteItem } from '../../../store/items.actions';
 
 @Component({
   selector: 'app-item-list',
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './item-list.component.html',
   styleUrl: './item-list.component.scss'
 })
@@ -16,6 +17,8 @@ export class ItemListComponent {
   private store = inject(Store);
 
   items$: Observable<Item[]>;
+  editingItemId: number | null = null;
+  editingItem: Item | null = null;
 
   constructor() {
     this.items$ = this.store.select(selectItems);
@@ -42,7 +45,7 @@ export class ItemListComponent {
   }
 
   exportItems(): void {
-    this.items$.subscribe(items => {
+    this.items$.pipe(take(1)).subscribe(items => {
       if (items && items.length > 0) {
         const jsonStr = JSON.stringify(items, null, 2);
         const blob = new Blob([jsonStr], { type: 'application/json' });
@@ -56,6 +59,44 @@ export class ItemListComponent {
         document.body.removeChild(link);
         window.URL.revokeObjectURL(url);
       }
-    }).unsubscribe();
+    });
+  }
+
+  addNewItem(): void {
+    this.items$.pipe(take(1)).subscribe(items => {
+      const maxId = items.length > 0 ? Math.max(...items.map(i => i.ID)) : 0;
+      const newItem = new Item();
+      newItem.ID = maxId + 1;
+      newItem.Name = 'New Item';
+      this.store.dispatch(addItem({ item: newItem }));
+    });
+  }
+
+  startEditing(item: Item): void {
+    this.editingItemId = item.ID;
+    this.editingItem = { ...item };
+  }
+
+  cancelEditing(): void {
+    this.editingItemId = null;
+    this.editingItem = null;
+  }
+
+  saveItem(): void {
+    if (this.editingItem) {
+      this.store.dispatch(updateItem({ item: this.editingItem }));
+      this.editingItemId = null;
+      this.editingItem = null;
+    }
+  }
+
+  deleteItemById(itemId: number): void {
+    if (confirm('Are you sure you want to delete this item?')) {
+      this.store.dispatch(deleteItem({ itemId }));
+    }
+  }
+
+  isEditing(itemId: number): boolean {
+    return this.editingItemId === itemId;
   }
 }

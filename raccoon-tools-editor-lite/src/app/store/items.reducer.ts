@@ -13,12 +13,14 @@ export const itemsReducer = createReducer(
     items: [...state.items, item],
     currentItem: item
   })),
-    on(ItemsActions.updateItem, (state, { item }) => ({
+  on(ItemsActions.updateItem, (state, { item }) => ({
     ...state,
+    items: state.items.map(i => i.ID === item.ID ? item : i),
     currentItem: state.currentItem && state.currentItem.ID === item.ID ? item : state.currentItem
   })),
-    on(ItemsActions.deleteItem, (state, { itemId }) => ({
+  on(ItemsActions.deleteItem, (state, { itemId }) => ({
     ...state,
+    items: state.items.filter(i => i.ID !== itemId),
     currentItem: state.currentItem && state.currentItem.ID === itemId ? null : state.currentItem
   }))
 );

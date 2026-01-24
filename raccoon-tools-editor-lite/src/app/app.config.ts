@@ -6,12 +6,13 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 
 import { routes } from './app.routes';
 import { levelReducer } from './store/level.reducer';
+import { itemsReducer } from './store/items.reducer';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }), 
     provideRouter(routes),
-    provideStore({ level: levelReducer }),
+    provideStore({ level: levelReducer, item: itemsReducer }),
     provideStoreDevtools({ maxAge: 25 }),
     provideAnimationsAsync()
   ]
