@@ -2,12 +2,7 @@
   <header class="item-list-header">
     <h2>Items</h2>
     <div class="header-actions">
-      <button class="add-btn" (click)="addNewItem()">+ Add Item</button>
-      <label class="import-btn">
-        <input type="file" accept=".json" (change)="onFileSelected($event)" hidden />
-        Import JSON
-      </label>
-      <button class="export-btn" (click)="exportItems()">Export JSON</button>
+      <button class="add-btn" (click)="addNewItem()">+ Add Item</button>      
     </div>
   </header>
 
@@ -26,8 +21,7 @@
             <th>Item Type</th>
             <th>Change Value</th>
             <th>Use Count</th>
-            <th>Parent Entity</th>
-            <th>Target Entity</th>
+
             <th>Actions</th>
           </tr>
         </thead>
@@ -41,8 +35,6 @@
                 <td>{{ getItemTypeName(item.ItemType) }}</td>
                 <td>{{ item.ChangeValue }}</td>
                 <td>{{ item.UseCount }}</td>
-                <td>{{ item.ParentEntity }}</td>
-                <td>{{ item.TargetEntity }}</td>
                 <td class="actions-cell">
                   <button class="edit-btn" (click)="startEditing(item)">Edit</button>
                   <button class="delete-btn" (click)="deleteItemById(item.ID)">Delete</button>
@@ -62,8 +54,6 @@
                 </td>
                 <td><input type="number" [(ngModel)]="editingItem.ChangeValue" class="edit-input" /></td>
                 <td><input type="number" [(ngModel)]="editingItem.UseCount" class="edit-input" /></td>
-                <td><input type="number" [(ngModel)]="editingItem.ParentEntity" class="edit-input" /></td>
-                <td><input type="number" [(ngModel)]="editingItem.TargetEntity" class="edit-input" /></td>
                 <td class="actions-cell">
                   <button class="save-btn" (click)="saveItem()">Save</button>
                   <button class="cancel-btn" (click)="cancelEditing()">Cancel</button>
