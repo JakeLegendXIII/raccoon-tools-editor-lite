@@ -16,6 +16,18 @@
   border: 1px solid #ddd;
 }
 
+.export-type-section {
+  margin-bottom: 20px;
+
+  mat-button-toggle-group {
+    width: 100%;
+
+    mat-button-toggle {
+      flex: 1;
+    }
+  }
+}
+
 .form-group {
   margin-bottom: 20px;
 

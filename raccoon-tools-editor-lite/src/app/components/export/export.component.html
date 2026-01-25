@@ -1,7 +1,14 @@
 <div class="export-container">
-  <h2>Export Level</h2>
+  <h2>Export {{ exportType === 'level' ? 'Level' : 'Items' }}</h2>
   
   <div class="export-form">
+    <div class="export-type-section">
+      <mat-button-toggle-group [(ngModel)]="exportType" (change)="onExportTypeChange()">
+        <mat-button-toggle value="level">Level</mat-button-toggle>
+        <mat-button-toggle value="items">Items</mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+
     <div class="form-group">
       <label for="fileName">File Name:</label>
       <input 
@@ -13,31 +20,61 @@
       <small class="help-text">.json extension will be added automatically</small>
     </div>
 
-    @if (currentLevel$ | async; as level) {
-      <div class="preview-section">
-        <h3>Level Preview</h3>
-        <div class="level-info">
-          <p><strong>Level ID:</strong> {{ level.ID }}</p>
-          <p><strong>Description:</strong> {{ level.LevelDescription || 'No description' }}</p>
-          <p><strong>Grid Size:</strong> {{ level.GridWidth }} x {{ level.GridHeight }}</p>
-          <p><strong>Players:</strong> {{ level.Players.length }}</p>
-          <p><strong>Enemies:</strong> {{ level.Enemies.length }}</p>
-          <p><strong>Obstacles:</strong> {{ level.Obstacles.length }}</p>
+    @if (exportType === 'level') {
+      @if (currentLevel$ | async; as level) {
+        <div class="preview-section">
+          <h3>Level Preview</h3>
+          <div class="level-info">
+            <p><strong>Level ID:</strong> {{ level.ID }}</p>
+            <p><strong>Description:</strong> {{ level.LevelDescription || 'No description' }}</p>
+            <p><strong>Grid Size:</strong> {{ level.GridWidth }} x {{ level.GridHeight }}</p>
+            <p><strong>Players:</strong> {{ level.Players.length }}</p>
+            <p><strong>Enemies:</strong> {{ level.Enemies.length }}</p>
+            <p><strong>Obstacles:</strong> {{ level.Obstacles.length }}</p>
+          </div>
         </div>
-      </div>
 
-      <div class="export-actions">
-        <button 
-          class="export-btn" 
-          (click)="exportLevel()"
-          [disabled]="!fileName.trim()">
-          Export Level as JSON
-        </button>
-      </div>
+        <div class="export-actions">
+          <button 
+            class="export-btn" 
+            (click)="exportLevel()"
+            [disabled]="!fileName.trim()">
+            Export Level as JSON
+          </button>
+        </div>
+      } @else {
+        <div class="no-level">
+          <p>No level data available to export. Please create a level first.</p>
+        </div>
+      }
     } @else {
-      <div class="no-level">
-        <p>No level data available to export. Please create a level first.</p>
-      </div>
+      @if (items$ | async; as items) {
+        @if (items.length > 0) {
+          <div class="preview-section">
+            <h3>Items Preview</h3>
+            <div class="level-info">
+              <p><strong>Total Items:</strong> {{ items.length }}</p>
+            </div>
+          </div>
+
+          <div class="export-actions">
+            <button 
+              class="export-btn" 
+              (click)="exportItems()"
+              [disabled]="!fileName.trim()">
+              Export Items as JSON
+            </button>
+          </div>
+        } @else {
+          <div class="no-level">
+            <p>No items available to export. Please add items first.</p>
+          </div>
+        }
+      } @else {
+        <div class="no-level">
+          <p>No items available to export. Please add items first.</p>
+        </div>
+      }
     }
   </div>
 </div>
