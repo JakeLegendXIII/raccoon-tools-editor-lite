@@ -3,6 +3,18 @@
   min-width: 350px;
 }
 
+.import-type-section {
+  margin-bottom: 16px;
+  
+  mat-button-toggle-group {
+    width: 100%;
+    
+    mat-button-toggle {
+      flex: 1;
+    }
+  }
+}
+
 .file-upload-section {
   margin-bottom: 16px;
   margin-top: 8px;

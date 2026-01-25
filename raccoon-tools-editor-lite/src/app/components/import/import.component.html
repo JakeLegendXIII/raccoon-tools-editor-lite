@@ -1,10 +1,17 @@
 <div class="import-dialog">
-  <h2 mat-dialog-title>Import Level</h2>
+  <h2 mat-dialog-title>Import {{ importType === 'level' ? 'Level' : 'Items' }}</h2>
   
   <mat-dialog-content>
+    <div class="import-type-section">
+      <mat-button-toggle-group [(ngModel)]="importType" (change)="onImportTypeChange()">
+        <mat-button-toggle value="level">Level</mat-button-toggle>
+        <mat-button-toggle value="items">Items</mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+
     <div class="file-upload-section">
       <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Select JSON Level File</mat-label>
+        <mat-label>Select JSON {{ importType === 'level' ? 'Level' : 'Items' }} File</mat-label>
         <input matInput readonly [value]="selectedFile?.name || 'No file selected'" />
         <button mat-icon-button matSuffix (click)="fileInput.click()">
           <mat-icon>folder_open</mat-icon>
@@ -30,7 +37,7 @@
     @if (selectedFile && isValidJson) {
       <div class="success-message">
         <mat-icon color="primary">check_circle</mat-icon>
-        <span>Valid level file selected</span>
+        <span>Valid {{ importType === 'level' ? 'level' : 'items' }} file selected</span>
       </div>
     }
   </mat-dialog-content>
