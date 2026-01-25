@@ -108,10 +108,8 @@ export class ImportComponent {
       const item = new Item();
       item.ID = i.ID || 0;
       item.Name = i.Name || '';
-      item.Description = i.Description || '';
-      item.ParentEntity = i.ParentEntity || 0;
-      item.ChangeValue = i.ChangeValue || 0;
-      item.TargetEntity = i.TargetEntity || 0;
+      item.Description = i.Description || '';      
+      item.ChangeValue = i.ChangeValue || 0;      
       item.ItemType = i.ItemType ?? ItemType.Attack;
       item.UseCount = i.UseCount ?? 1;
       return item;

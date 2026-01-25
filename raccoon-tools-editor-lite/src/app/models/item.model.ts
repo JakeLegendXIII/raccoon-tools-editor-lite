@@ -17,9 +17,7 @@ export class Item {
 
     Name: string = '';
     Description: string = '';
-    ParentEntity: any = 0;
     ChangeValue: number = 0;
-    TargetEntity: any = 0;
     ItemType: ItemType = ItemType.Attack;
     UseCount: number = 1;    
 }
