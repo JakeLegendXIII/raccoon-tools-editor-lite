@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable, take } from 'rxjs';
-import { Item, ItemType } from '../../../models/item.model';
+import { Item, ItemType, TargetType } from '../../../models/item.model';
 import { selectItems } from '../../../store/items.selectors';
 import { loadItems, addItem, updateItem, deleteItem } from '../../../store/items.actions';
 
@@ -26,12 +26,21 @@ export class ItemListComponent {
     .filter(key => isNaN(Number(key)))
     .map(key => ({ label: key, value: ItemType[key as keyof typeof ItemType] }));
 
+  TargetType = TargetType;
+  targetTypeOptions = Object.keys(TargetType)
+    .filter(key => isNaN(Number(key)))
+    .map(key => ({ label: key, value: TargetType[key as keyof typeof TargetType] }));
+
   constructor() {
     this.items$ = this.store.select(selectItems);
   }
 
   getItemTypeName(value: ItemType): string {
     return ItemType[value];
+  }
+
+  getTargetTypeName(value: TargetType): string {
+    return TargetType[value];
   }
 
   onFileSelected(event: Event): void {

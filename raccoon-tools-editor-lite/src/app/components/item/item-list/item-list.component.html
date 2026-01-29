@@ -22,6 +22,7 @@
             <th>Change Value</th>
             <th>Use Count</th>
             <th>Target Range</th>
+            <th>Target Type</th>
             <th>Usage Range</th>
 
             <th>Actions</th>
@@ -38,6 +39,7 @@
                 <td>{{ item.ChangeValue }}</td>
                 <td>{{ item.UseCount }}</td>
                 <td>{{ item.TargetRange }}</td>
+                <td>{{ getTargetTypeName(item.TargetType) }}</td>
                 <td>{{ item.UsageRange }}</td>
                 <td class="actions-cell">
                   <button class="edit-btn" (click)="startEditing(item)">Edit</button>
@@ -59,6 +61,13 @@
                 <td><input type="number" [(ngModel)]="editingItem.ChangeValue" class="edit-input" /></td>
                 <td><input type="number" [(ngModel)]="editingItem.UseCount" class="edit-input" /></td>
                 <td><input type="number" [(ngModel)]="editingItem.TargetRange" class="edit-input" /></td>
+                <td>
+                  <select [(ngModel)]="editingItem.TargetType" class="edit-input">
+                    @for (opt of targetTypeOptions; track opt.value) {
+                      <option [ngValue]="opt.value">{{ opt.label }}</option>
+                    }
+                  </select>
+                </td>
                 <td><input type="number" [(ngModel)]="editingItem.UsageRange" class="edit-input" /></td>
                 <td class="actions-cell">
                   <button class="save-btn" (click)="saveItem()">Save</button>
