@@ -10,6 +10,19 @@ export enum ItemType {
 }
 
 /**
+ * Enum representing the target type of an item
+ */
+export enum TargetType {
+    Self = 0,
+    Ally = 1,
+    Enemy = 2,
+    Area = 3,
+    Line = 4,
+    Star = 5,
+    Cross = 6
+}
+
+/**
  * Represents a game item with all its properties and entities
  */
 export class Item {
@@ -21,5 +34,6 @@ export class Item {
     ItemType: ItemType = ItemType.Attack;
     UseCount: number = 1;    
     TargetRange: number = 0;
+    TargetType: TargetType = TargetType.Self;
     UsageRange: number = 0;
 }
