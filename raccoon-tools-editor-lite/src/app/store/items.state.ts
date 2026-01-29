@@ -11,6 +11,8 @@ const createDefaultItem = (): Item => {
     item.ItemType = 0;
     item.UseCount = 1;
     item.ChangeValue = 0;
+    item.TargetRange = 0;
+    item.UsageRange = 0;
   return item;
 };
 

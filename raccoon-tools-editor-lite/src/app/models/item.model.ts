@@ -20,4 +20,6 @@ export class Item {
     ChangeValue: number = 0;
     ItemType: ItemType = ItemType.Attack;
     UseCount: number = 1;    
+    TargetRange: number = 0;
+    UsageRange: number = 0;
 }

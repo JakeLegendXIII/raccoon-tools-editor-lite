@@ -21,6 +21,8 @@
             <th>Item Type</th>
             <th>Change Value</th>
             <th>Use Count</th>
+            <th>Target Range</th>
+            <th>Usage Range</th>
 
             <th>Actions</th>
           </tr>
@@ -35,6 +37,8 @@
                 <td>{{ getItemTypeName(item.ItemType) }}</td>
                 <td>{{ item.ChangeValue }}</td>
                 <td>{{ item.UseCount }}</td>
+                <td>{{ item.TargetRange }}</td>
+                <td>{{ item.UsageRange }}</td>
                 <td class="actions-cell">
                   <button class="edit-btn" (click)="startEditing(item)">Edit</button>
                   <button class="delete-btn" (click)="deleteItemById(item.ID)">Delete</button>
@@ -54,6 +58,8 @@
                 </td>
                 <td><input type="number" [(ngModel)]="editingItem.ChangeValue" class="edit-input" /></td>
                 <td><input type="number" [(ngModel)]="editingItem.UseCount" class="edit-input" /></td>
+                <td><input type="number" [(ngModel)]="editingItem.TargetRange" class="edit-input" /></td>
+                <td><input type="number" [(ngModel)]="editingItem.UsageRange" class="edit-input" /></td>
                 <td class="actions-cell">
                   <button class="save-btn" (click)="saveItem()">Save</button>
                   <button class="cancel-btn" (click)="cancelEditing()">Cancel</button>
