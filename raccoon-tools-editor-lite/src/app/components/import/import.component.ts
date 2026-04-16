@@ -5,7 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Level, LevelPoint, PlayerData, EnemyData, ObstacleData } from '../../models/level.model';
@@ -18,15 +18,14 @@ export type ImportType = 'level' | 'items';
 @Component({
   selector: 'app-import',
   imports: [
-    CommonModule,
     FormsModule,
-    MatButtonModule, 
-    MatDialogModule, 
-    MatFormFieldModule, 
+    MatButtonModule,
+    MatDialogModule,
+    MatFormFieldModule,
     MatInputModule,
     MatIconModule,
     MatButtonToggleModule
-  ],
+],
   templateUrl: './import.component.html',
   styleUrls: ['./import.component.scss']
 })

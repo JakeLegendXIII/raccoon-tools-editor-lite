@@ -2,7 +2,7 @@ import { Component, inject, Input } from '@angular/core';
 import { BaseEnemyType, EnemyData } from '../../../models/level.model';
 import { Store } from '@ngrx/store';
 import { deleteEnemy, updateEnemy } from '../../../store/level.actions';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -14,7 +14,6 @@ import { MatSelectModule } from '@angular/material/select';
 @Component({
   selector: 'app-enemy-card',
   imports: [
-    CommonModule,
     FormsModule,
     MatCardModule,
     MatFormFieldModule,
@@ -22,7 +21,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatButtonModule,
     MatIconModule,
     MatSelectModule
-  ],
+],
   templateUrl: './enemy-card.component.html',
   styleUrls: ['./enemy-card.component.scss']
 })

@@ -2,7 +2,7 @@ import { Component, inject, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ObstacleData, ObstacleType } from '../../../models/level.model';
 import { deleteObstacle, updateObstacle } from '../../../store/level.actions';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
@@ -15,7 +15,6 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 @Component({
   selector: 'app-obstacle-card',
   imports: [
-    CommonModule,
     FormsModule,
     MatCardModule,
     MatFormFieldModule,
@@ -24,7 +23,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatIconModule,
     MatSelectModule,
     MatCheckboxModule
-  ],
+],
   templateUrl: './obstacle-card.component.html',
   styleUrls: ['./obstacle-card.component.scss']
 })
