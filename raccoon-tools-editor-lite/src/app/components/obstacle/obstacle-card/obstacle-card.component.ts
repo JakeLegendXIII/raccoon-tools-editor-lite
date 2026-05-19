@@ -112,36 +112,43 @@ export class ObstacleCardComponent {
       case ObstacleType.Mountain:
         target.IsWalkable = false;
         target.IsDestructible = true;
+        target.IsInteractive = false;
         target.Health = 3;        
         break;
       case ObstacleType.Water:
         target.IsWalkable = true;
         target.IsDestructible = false;
+        target.IsInteractive = false;
         target.Health = 0;
         break;
       case ObstacleType.Building:
         target.IsWalkable = false;
         target.IsDestructible = true;
+        target.IsInteractive = true;
         target.Health = 5;
         break;
       case ObstacleType.Wall:
         target.IsWalkable = false;
         target.IsDestructible = true;
+        target.IsInteractive = false;
         target.Health = 3;
         break;
       case ObstacleType.Tree:
         target.IsWalkable = false;
         target.IsDestructible = true;
+        target.IsInteractive = false;
         target.Health = 2;
         break;
       case ObstacleType.Ice:
         target.IsWalkable = true;
         target.IsDestructible = false;
+        target.IsInteractive = false;
         target.Health = 0;
         break;
       case ObstacleType.Rock:
         target.IsWalkable = false;
         target.IsDestructible = true;
+        target.IsInteractive = false;
         target.Health = 1;
         break;
       default:
