@@ -155,6 +155,7 @@ export class ObstacleCardComponent {
         // Leave existing values for other types if already set; otherwise set safe defaults
         if (target.IsWalkable === undefined) target.IsWalkable = false;
         if (target.IsDestructible === undefined) target.IsDestructible = false;
+        if (target.IsInteractive === undefined) target.IsInteractive = false;
         break;
     }
   }
