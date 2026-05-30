@@ -6,5 +6,3 @@ Web hosted tool that will allow for importing and exporting json based level fil
 There are various simple tools and a visualizer for placing Players, Enemies, Start Positions, and Obstacles on a Grid.
 
 You can also create Items and potentially Passive abilities someday.
-
-I may want to expand this to allow for working on multiple Level files at a time.
