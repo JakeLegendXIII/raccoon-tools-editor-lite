@@ -1,10 +1,16 @@
 .import-dialog {
-  padding: 18px;
-  min-width: 350px;
+  padding: 16px;
+  min-width: 360px;
+}
+
+mat-dialog-content {
+  margin: 0;
+  padding: 0 0 8px;
+  overflow: visible;
 }
 
 .import-type-section {
-  margin-bottom: 16px;
+  margin-bottom: 12px;
   
   mat-button-toggle-group {
     width: 100%;
@@ -16,8 +22,7 @@
 }
 
 .file-upload-section {
-  margin-bottom: 16px;
-  margin-top: 8px;
+  margin: 0;
 }
 
 .full-width {
@@ -25,7 +30,7 @@
 }
 
 .selection-hint {
-  margin: 8px 0 0;
+  margin: 4px 0 0;
   font-size: 13px;
   color: #666;
 }
@@ -36,7 +41,7 @@
   gap: 8px;
   color: #f44336;
   font-size: 14px;
-  margin-top: 16px;
+  margin-top: 12px;
 }
 
 .success-message {
@@ -45,10 +50,10 @@
   gap: 8px;
   color: #4caf50;
   font-size: 14px;
-  margin-top: 8px;
+  margin-top: 12px;
 }
 
 mat-dialog-actions {
-  margin-top: 24px;
-  padding-top: 16px;
+  margin-top: 12px;
+  padding: 12px 0 0;
 }
