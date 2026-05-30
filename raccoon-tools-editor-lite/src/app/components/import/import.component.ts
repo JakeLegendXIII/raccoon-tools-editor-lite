@@ -8,12 +8,32 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 import { FormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Level, LevelPoint, PlayerData, EnemyData, ObstacleData } from '../../models/level.model';
-import { Item, ItemType } from '../../models/item.model';
+import {
+  BaseEnemyType,
+  BasePlayerType,
+  BiomeType,
+  EnemyData,
+  Level,
+  LevelPoint,
+  LevelType,
+  ObstacleData,
+  ObstacleType,
+  PlayerData
+} from '../../models/level.model';
+import { Item, ItemType, TargetType } from '../../models/item.model';
 import { loadLevels } from '../../store/level.actions';
 import { loadItems } from '../../store/items.actions';
 
 export type ImportType = 'level' | 'items';
+
+const MAX_ID = 50000;
+const MAX_GRID_SIZE = 100;
+const MAX_CELL_SIZE = 256;
+const MIN_CELL_SIZE = 16;
+const MAX_TEXT_LENGTH = 200;
+const MAX_ENTITY_STAT = 9999;
+const MAX_TURNS = 9999;
+const MAX_RANGE = 99;
 
 @Component({
   selector: 'app-import',
@@ -117,88 +137,138 @@ export class ImportComponent {
     }
   }
 
+  private toClampedNumber(value: unknown, fallback: number, min: number, max: number): number {
+    const numericValue = typeof value === 'string' ? Number(value.trim()) : Number(value);
+    if (!Number.isFinite(numericValue)) {
+      return fallback;
+    }
+
+    return Math.min(max, Math.max(min, numericValue));
+  }
+
+  private toClampedInteger(value: unknown, fallback: number, min: number, max: number): number {
+    return Math.round(this.toClampedNumber(value, fallback, min, max));
+  }
+
+  private toSanitizedString(value: unknown, maxLength: number): string {
+    if (typeof value !== 'string') {
+      return '';
+    }
+
+    return value.trim().slice(0, maxLength);
+  }
+
+  private toBoolean(value: unknown, fallback: boolean = false): boolean {
+    if (typeof value === 'boolean') {
+      return value;
+    }
+
+    if (typeof value === 'string') {
+      const normalizedValue = value.trim().toLowerCase();
+      if (normalizedValue === 'true') {
+        return true;
+      }
+
+      if (normalizedValue === 'false') {
+        return false;
+      }
+    }
+
+    return fallback;
+  }
+
+  private toEnumValue<T extends Record<string, string | number>>(
+    enumType: T,
+    value: unknown,
+    fallback: number
+  ): number {
+    const numericValue = this.toClampedInteger(value, fallback, Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER);
+    return Object.values(enumType).includes(numericValue) ? numericValue : fallback;
+  }
+
+  private toLevelPoint(data: any, maxX: number, maxY: number): LevelPoint {
+    const point = new LevelPoint();
+    point.X = this.toClampedInteger(data?.X, 0, 0, maxX);
+    point.Y = this.toClampedInteger(data?.Y, 0, 0, maxY);
+    return point;
+  }
+
   private deserializeItems(data: any[]): Item[] {
     return data.map((i: any) => {
       const item = new Item();
-      item.ID = i.ID || 0;
-      item.Name = i.Name || '';
-      item.Description = i.Description || '';      
-      item.ChangeValue = i.ChangeValue || 0;      
-      item.ItemType = i.ItemType ?? ItemType.Attack;
-      item.UseCount = i.UseCount ?? 1;
+      item.ID = this.toClampedInteger(i?.ID, 0, 0, MAX_ID);
+      item.Name = this.toSanitizedString(i?.Name, 80);
+      item.Description = this.toSanitizedString(i?.Description, MAX_TEXT_LENGTH);
+      item.ChangeValue = this.toClampedInteger(i?.ChangeValue, 0, -MAX_ENTITY_STAT, MAX_ENTITY_STAT);
+      item.ItemType = this.toEnumValue(ItemType, i?.ItemType, ItemType.Attack);
+      item.UseCount = this.toClampedInteger(i?.UseCount, 1, 1, 99);
+      item.TargetRange = this.toClampedInteger(i?.TargetRange, 0, 0, MAX_RANGE);
+      item.TargetType = this.toEnumValue(TargetType, i?.TargetType, TargetType.Self);
+      item.UsageRange = this.toClampedInteger(i?.UsageRange, 0, 0, MAX_RANGE);
       return item;
     });
   }
 
   private deserializeLevel(data: any): Level {
     const level = new Level();
+    const gridWidth = this.toClampedInteger(data?.GridWidth, 8, 1, MAX_GRID_SIZE);
+    const gridHeight = this.toClampedInteger(data?.GridHeight, 8, 1, MAX_GRID_SIZE);
+    const maxGridX = Math.max(0, gridWidth - 1);
+    const maxGridY = Math.max(0, gridHeight - 1);
     
     // Map basic properties
-    level.ID = data.ID || 0;    
-    level.GridWidth = data.GridWidth || 0;
-    level.GridHeight = data.GridHeight || 0;
-    level.CellSize = data.CellSize || 0;
-    level.LevelType = data.LevelType || 0;
-    level.LevelDescription = data.LevelDescription || '';
-    level.NumberOfTurns = data.NumberOfTurns || 0;
+    level.ID = this.toClampedInteger(data?.ID, 0, 0, MAX_ID);
+    level.GridWidth = gridWidth;
+    level.GridHeight = gridHeight;
+    level.CellSize = this.toClampedInteger(data?.CellSize, 64, MIN_CELL_SIZE, MAX_CELL_SIZE);
+    level.LevelType = this.toEnumValue(LevelType, data?.LevelType, LevelType.Deathmatch);
+    level.LevelDescription = this.toSanitizedString(data?.LevelDescription, MAX_TEXT_LENGTH);
+    level.BiomeType = this.toEnumValue(BiomeType, data?.BiomeType, BiomeType.Forest);
+    level.NumberOfTurns = this.toClampedInteger(data?.NumberOfTurns, 0, 0, MAX_TURNS);
     
     // Map win position
-    if (data.WinPosition) {
-      level.WinPosition.X = data.WinPosition.X || 0;
-      level.WinPosition.Y = data.WinPosition.Y || 0;
-    }
+    level.WinPosition = this.toLevelPoint(data?.WinPosition, maxGridX, maxGridY);
 
     // Map arrays
     level.Players = (data.Players || []).map((p: any) => {
       const player = new PlayerData();
-      player.ID = p.ID || 0;
-      player.PlayerType = p.PlayerType || 0;
-      player.Health = p.Health || 0;
-      player.Height = p.Height || 0;
-      player.Width = p.Width || 0;
-      if (p.StartPosition) {
-        player.StartPosition.X = p.StartPosition.X || 0;
-        player.StartPosition.Y = p.StartPosition.Y || 0;
-      }
+      player.ID = this.toClampedInteger(p?.ID, 0, 0, MAX_ID);
+      player.PlayerType = this.toEnumValue(BasePlayerType, p?.PlayerType, BasePlayerType.Paladin);
+      player.Health = this.toClampedInteger(p?.Health, 0, 0, MAX_ENTITY_STAT);
+      player.Height = this.toClampedInteger(p?.Height, 1, 1, MAX_GRID_SIZE);
+      player.Width = this.toClampedInteger(p?.Width, 1, 1, MAX_GRID_SIZE);
+      player.StartPosition = this.toLevelPoint(p?.StartPosition, maxGridX, maxGridY);
       return player;
     });
 
     level.Enemies = (data.Enemies || []).map((e: any) => {
       const enemy = new EnemyData();
-      enemy.ID = e.ID || 0;
-      enemy.EnemyType = e.EnemyType || 0;
-      enemy.Health = e.Health || 0;
-      enemy.Height = e.Height || 0;
-      enemy.Width = e.Width || 0;
-      if (e.StartPosition) {
-        enemy.StartPosition.X = e.StartPosition.X || 0;
-        enemy.StartPosition.Y = e.StartPosition.Y || 0;
-      }
+      enemy.ID = this.toClampedInteger(e?.ID, 0, 0, MAX_ID);
+      enemy.EnemyType = this.toEnumValue(BaseEnemyType, e?.EnemyType, BaseEnemyType.Grunt);
+      enemy.Health = this.toClampedInteger(e?.Health, 0, 0, MAX_ENTITY_STAT);
+      enemy.Height = this.toClampedInteger(e?.Height, 1, 1, MAX_GRID_SIZE);
+      enemy.Width = this.toClampedInteger(e?.Width, 1, 1, MAX_GRID_SIZE);
+      enemy.StartPosition = this.toLevelPoint(e?.StartPosition, maxGridX, maxGridY);
       return enemy;
     });
 
     level.Obstacles = (data.Obstacles || []).map((o: any) => {
       const obstacle = new ObstacleData();
-      obstacle.ID = o.ID || 0;
-      obstacle.Health = o.Health || 0;
-      obstacle.Height = o.Height || 0;
-      obstacle.Width = o.Width || 0;
-      obstacle.ObstacleType = o.ObstacleType || 0;
-      obstacle.IsWalkable = o.IsWalkable || false;
-      obstacle.IsDestructible = o.IsDestructible || false;
-      if (o.Position) {
-        obstacle.Position.X = o.Position.X || 0;
-        obstacle.Position.Y = o.Position.Y || 0;
-      }
+      obstacle.ID = this.toClampedInteger(o?.ID, 0, 0, MAX_ID);
+      obstacle.Health = this.toClampedInteger(o?.Health, 0, 0, MAX_ENTITY_STAT);
+      obstacle.Height = this.toClampedInteger(o?.Height, 1, 1, MAX_GRID_SIZE);
+      obstacle.Width = this.toClampedInteger(o?.Width, 1, 1, MAX_GRID_SIZE);
+      obstacle.ObstacleType = this.toEnumValue(ObstacleType, o?.ObstacleType, ObstacleType.Mountain);
+      obstacle.IsWalkable = this.toBoolean(o?.IsWalkable, false);
+      obstacle.IsDestructible = this.toBoolean(o?.IsDestructible, false);
+      obstacle.IsInteractive = this.toBoolean(o?.IsInteractive, false);
+      obstacle.Position = this.toLevelPoint(o?.Position, maxGridX, maxGridY);
       return obstacle;
     });
 
     // Map start positions
     level.StartPositionsList = (data.StartPositionsList || []).map((sp: any) => {
-      const startPosition = new LevelPoint();
-      startPosition.X = sp.X || 0;
-      startPosition.Y = sp.Y || 0;
-      return startPosition;
+      return this.toLevelPoint(sp, maxGridX, maxGridY);
     });
     
     return level;
