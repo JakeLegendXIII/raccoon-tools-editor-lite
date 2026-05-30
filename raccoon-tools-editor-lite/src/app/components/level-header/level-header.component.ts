@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 
 import { PlayerData, EnemyData, ObstacleData, LevelPoint, LevelType, BasePlayerType, BaseEnemyType, ObstacleType, BiomeType } from '../../models/level.model';
 import { 
+  selectLoadedLevels,
   selectPlayers, 
   selectEnemies, 
   selectObstacles,
@@ -17,10 +18,12 @@ import {
   selectWinPosition,
   selectNumberOfTurns,
   selectLevelID,
-  selectBiomeType
+  selectBiomeType,
+  selectSelectedLevelIndex
 } from '../../store/level.selectors';
 import * as LevelActions from '../../store/level.actions';
 import { VisualizerComponent } from '../visualizer/visualizer.component';
+import { Level } from '../../models/level.model';
 
 @Component({
   selector: 'app-level-header',  
@@ -38,6 +41,8 @@ export class LevelHeaderComponent {
   players$: Observable<PlayerData[]>;
   enemies$: Observable<EnemyData[]>;
   obstacles$: Observable<ObstacleData[]>;
+  loadedLevels$: Observable<Level[]>;
+  selectedLevelIndex$: Observable<number>;
   
   iD$: Observable<number>;
   gridWidth$: Observable<number>;
@@ -80,6 +85,8 @@ export class LevelHeaderComponent {
   ObstacleType = ObstacleType;
 
   constructor() {
+    this.loadedLevels$ = this.store.select(selectLoadedLevels);
+    this.selectedLevelIndex$ = this.store.select(selectSelectedLevelIndex);
     this.players$ = this.store.select(selectPlayers);
     this.enemies$ = this.store.select(selectEnemies);
     this.obstacles$ = this.store.select(selectObstacles);
@@ -138,6 +145,11 @@ export class LevelHeaderComponent {
     this.store.dispatch(LevelActions.updateLevelProperties({ id: value }));
   }
 
+  selectLevel(levelIndex: number | string) {
+    const numericValue = typeof levelIndex === 'string' ? parseInt(levelIndex, 10) : levelIndex;
+    this.store.dispatch(LevelActions.selectLevel({ levelIndex: numericValue }));
+  }
+
   onGridWidthChange(event: Event) {
     const target = event.target as HTMLInputElement;
     this.updateGridWidth(+target.value);
@@ -194,5 +206,11 @@ export class LevelHeaderComponent {
 
   getObstacleTypeName(obstacleType: number): string {
     return ObstacleType[obstacleType] || 'Unknown';
+  }
+
+  getLevelOptionLabel(level: Level, index: number): string {
+    const levelId = level.ID || index + 1;
+    const description = level.LevelDescription?.trim() || 'Untitled Level';
+    return `${levelId} - ${description}`;
   }
 }

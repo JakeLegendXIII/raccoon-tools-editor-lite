@@ -1,5 +1,17 @@
 <div class="visualizer-container">
   <h2>Level Visualizer</h2>
+
+  <div class="level-switcher">
+    <label for="visualizer-level-select">Loaded Levels:</label>
+    <select
+      id="visualizer-level-select"
+      [value]="selectedLevelIndex$ | async"
+      (change)="onLevelSelectionChange($event)">
+      @for (level of loadedLevels$ | async; track $index) {
+        <option [value]="$index">{{ getLevelOptionLabel(level, $index) }}</option>
+      }
+    </select>
+  </div>
   
   @if (level) {
     <div class="level-info">

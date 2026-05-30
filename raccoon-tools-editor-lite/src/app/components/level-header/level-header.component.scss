@@ -11,6 +11,25 @@
   padding: 8px 16px;
 }
 
+.level-switcher {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+
+  label {
+    font-weight: 600;
+  }
+
+  select {
+    min-width: 260px;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+}
+
 .lists {
   display: flex;
   gap: 20px;

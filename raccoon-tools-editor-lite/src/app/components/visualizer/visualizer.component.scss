@@ -10,6 +10,28 @@
   }
 }
 
+.level-switcher {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 20px;
+
+  label {
+    font-weight: 600;
+    color: #495057;
+  }
+
+  select {
+    min-width: 280px;
+    padding: 8px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    background: #fff;
+    color: #495057;
+  }
+}
+
 .drag-message {
   position: fixed;
   top: 20px;

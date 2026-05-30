@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 
 import { Level, PlayerData, EnemyData, ObstacleData, LevelPoint, BasePlayerType, BaseEnemyType, ObstacleType, LevelType } from '../../models/level.model';
-import { selectCurrentLevel } from '../../store/level.selectors';
-import { updatePlayer, updateEnemy, updateObstacle, updateWinPosition, updateStartPosition } from '../../store/level.actions';
+import { selectCurrentLevel, selectLoadedLevels, selectSelectedLevelIndex } from '../../store/level.selectors';
+import { updatePlayer, updateEnemy, updateObstacle, updateWinPosition, updateStartPosition, selectLevel } from '../../store/level.actions';
 
 interface GridCell {
   x: number;
@@ -36,6 +36,8 @@ export class VisualizerComponent implements OnInit {
   private store = inject(Store);
 
   currentLevel$: Observable<Level | null>;
+  loadedLevels$: Observable<Level[]>;
+  selectedLevelIndex$: Observable<number>;
   gridCells: GridCell[][] = [];
   level: Level | null = null;
   dragData: DragData | null = null;
@@ -49,6 +51,8 @@ export class VisualizerComponent implements OnInit {
 
   constructor() {
     this.currentLevel$ = this.store.select(selectCurrentLevel);
+    this.loadedLevels$ = this.store.select(selectLoadedLevels);
+    this.selectedLevelIndex$ = this.store.select(selectSelectedLevelIndex);
   }
 
   ngOnInit() {
@@ -156,6 +160,18 @@ export class VisualizerComponent implements OnInit {
   getFlattenedCells(): GridCell[] {
     return this.gridCells.flat();
   }
+
+  onLevelSelectionChange(event: Event): void {
+    const target = event.target as HTMLSelectElement;
+    this.store.dispatch(selectLevel({ levelIndex: Number(target.value) }));
+  }
+
+  getLevelOptionLabel(level: Level, index: number): string {
+    const levelId = level.ID || index + 1;
+    const description = level.LevelDescription?.trim() || 'Untitled Level';
+    return `${levelId} - ${description}`;
+  }
+
   // Drag and Drop functionality
   onDragStart(event: DragEvent, cell: GridCell): void {
     if (cell.player) {

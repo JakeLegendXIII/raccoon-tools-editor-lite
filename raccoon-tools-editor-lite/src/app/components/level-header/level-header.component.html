@@ -1,5 +1,16 @@
 <div class="level-editor">
   <h2>Level Header</h2>
+  <div class="level-switcher">
+    <label for="header-level-select">Loaded Levels:</label>
+    <select
+      id="header-level-select"
+      [ngModel]="selectedLevelIndex$ | async"
+      (ngModelChange)="selectLevel($event)">
+      @for (level of loadedLevels$ | async; track $index) {
+        <option [value]="$index">{{ getLevelOptionLabel(level, $index) }}</option>
+      }
+    </select>
+  </div>
     <!-- Level Properties Editor -->
   <div class="level-properties">
     <h3>Level Properties</h3>           

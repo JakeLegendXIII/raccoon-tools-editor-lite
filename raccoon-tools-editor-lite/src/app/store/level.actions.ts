@@ -51,6 +51,16 @@ export const loadLevel = createAction(
   props<{ level: Level }>()
 );
 
+export const loadLevels = createAction(
+  '[Level] Load Levels',
+  props<{ levels: Level[] }>()
+);
+
+export const selectLevel = createAction(
+  '[Level] Select Level',
+  props<{ levelIndex: number }>()
+);
+
 export const updateWinPosition = createAction(
   '[Level] Update Level Win Position',
   props<{ winPosition: LevelPoint }>()
