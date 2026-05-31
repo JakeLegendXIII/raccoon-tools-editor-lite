@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { Level, PlayerData, EnemyData, ObstacleData, LevelPoint, BasePlayerType, BaseEnemyType, ObstacleType, LevelType } from '../../models/level.model';
 import { selectCurrentLevel, selectLoadedLevels, selectSelectedLevelIndex } from '../../store/level.selectors';
@@ -28,7 +29,7 @@ interface DragData {
 
 @Component({
   selector: 'app-visualizer',
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './visualizer.component.html',
   styleUrls: ['./visualizer.component.scss']
 })
@@ -161,9 +162,9 @@ export class VisualizerComponent implements OnInit {
     return this.gridCells.flat();
   }
 
-  onLevelSelectionChange(event: Event): void {
-    const target = event.target as HTMLSelectElement;
-    this.store.dispatch(selectLevel({ levelIndex: Number(target.value) }));
+  onLevelSelectionChange(levelIndex: number | string): void {
+    const numericValue = typeof levelIndex === 'string' ? parseInt(levelIndex, 10) : levelIndex;
+    this.store.dispatch(selectLevel({ levelIndex: numericValue }));
   }
 
   getLevelOptionLabel(level: Level, index: number): string {
