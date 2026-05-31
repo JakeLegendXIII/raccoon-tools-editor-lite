@@ -56,6 +56,7 @@ export class LevelHeaderComponent {
 
   // Current values for form handling
   currentWinPosition: LevelPoint = { X: 0, Y: 0 };
+  currentLoadedLevels: Level[] = [];
   // Level Type enum for template
   LevelType = LevelType;
   levelTypeKeys = Object.keys(LevelType).filter(key => isNaN(Number(key)));
@@ -105,6 +106,10 @@ export class LevelHeaderComponent {
     this.winPosition$.subscribe(pos => {
       this.currentWinPosition = pos || { X: 0, Y: 0 };
     });
+
+    this.loadedLevels$.subscribe(levels => {
+      this.currentLoadedLevels = levels;
+    });
   }
 
   updateGridWidth(value: number) {
@@ -145,9 +150,28 @@ export class LevelHeaderComponent {
     this.store.dispatch(LevelActions.updateLevelProperties({ id: value }));
   }
 
+  createLevel() {
+    const nextLevelId = this.getNextLevelId();
+    const level = new Level();
+    level.ID = nextLevelId;
+    level.GridWidth = 8;
+    level.GridHeight = 8;
+    level.CellSize = 64;
+    level.LevelDescription = `Level ${nextLevelId}`;
+    level.NumberOfTurns = 0;
+
+    this.store.dispatch(LevelActions.loadLevel({ level }));
+  }
+
   selectLevel(levelIndex: number | string) {
     const numericValue = typeof levelIndex === 'string' ? parseInt(levelIndex, 10) : levelIndex;
     this.store.dispatch(LevelActions.selectLevel({ levelIndex: numericValue }));
+  }
+
+  private getNextLevelId(): number {
+    return this.currentLoadedLevels.reduce((maxId, level) => {
+      return Math.max(maxId, level.ID || 0);
+    }, 0) + 1;
   }
 
   onGridWidthChange(event: Event) {

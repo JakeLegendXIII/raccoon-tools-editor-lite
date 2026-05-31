@@ -10,6 +10,7 @@
         <option [value]="$index">{{ getLevelOptionLabel(level, $index) }}</option>
       }
     </select>
+    <button type="button" class="create-level-button" (click)="createLevel()">New Level</button>
   </div>
     <!-- Level Properties Editor -->
   <div class="level-properties">
