@@ -57,6 +57,7 @@ export class LevelHeaderComponent {
   // Current values for form handling
   currentWinPosition: LevelPoint = { X: 0, Y: 0 };
   currentLoadedLevels: Level[] = [];
+  currentSelectedLevelIndex: number = 0;
   // Level Type enum for template
   LevelType = LevelType;
   levelTypeKeys = Object.keys(LevelType).filter(key => isNaN(Number(key)));
@@ -109,6 +110,10 @@ export class LevelHeaderComponent {
 
     this.loadedLevels$.subscribe(levels => {
       this.currentLoadedLevels = levels;
+    });
+
+    this.selectedLevelIndex$.subscribe(index => {
+      this.currentSelectedLevelIndex = index;
     });
   }
 
@@ -163,6 +168,20 @@ export class LevelHeaderComponent {
     this.store.dispatch(LevelActions.loadLevel({ level }));
   }
 
+  duplicateLevel() {
+    const sourceLevel = this.currentLoadedLevels[this.currentSelectedLevelIndex];
+    if (!sourceLevel) {
+      return;
+    }
+
+    const duplicatedLevel = this.cloneLevel(sourceLevel);
+    const nextLevelId = this.getNextLevelId();
+    duplicatedLevel.ID = nextLevelId;
+    duplicatedLevel.LevelDescription = this.getDuplicatedLevelDescription(sourceLevel.LevelDescription, nextLevelId);
+
+    this.store.dispatch(LevelActions.loadLevel({ level: duplicatedLevel }));
+  }
+
   selectLevel(levelIndex: number | string) {
     const numericValue = typeof levelIndex === 'string' ? parseInt(levelIndex, 10) : levelIndex;
     this.store.dispatch(LevelActions.selectLevel({ levelIndex: numericValue }));
@@ -172,6 +191,67 @@ export class LevelHeaderComponent {
     return this.currentLoadedLevels.reduce((maxId, level) => {
       return Math.max(maxId, level.ID || 0);
     }, 0) + 1;
+  }
+
+  private getDuplicatedLevelDescription(description: string, levelId: number): string {
+    const trimmedDescription = description.trim();
+    return trimmedDescription ? `${trimmedDescription} Copy` : `Level ${levelId}`;
+  }
+
+  private cloneLevel(levelToClone: Level): Level {
+    const duplicatedLevel = new Level();
+    duplicatedLevel.ID = levelToClone.ID;
+    duplicatedLevel.GridWidth = levelToClone.GridWidth;
+    duplicatedLevel.GridHeight = levelToClone.GridHeight;
+    duplicatedLevel.CellSize = levelToClone.CellSize;
+    duplicatedLevel.LevelType = levelToClone.LevelType;
+    duplicatedLevel.LevelDescription = levelToClone.LevelDescription;
+    duplicatedLevel.BiomeType = levelToClone.BiomeType;
+    duplicatedLevel.NumberOfTurns = levelToClone.NumberOfTurns;
+    duplicatedLevel.WinPosition = this.cloneLevelPoint(levelToClone.WinPosition);
+    duplicatedLevel.StartPositionsList = levelToClone.StartPositionsList.map((position) => this.cloneLevelPoint(position));
+    duplicatedLevel.Players = levelToClone.Players.map((player) => {
+      const duplicatedPlayer = new PlayerData();
+      duplicatedPlayer.ID = player.ID;
+      duplicatedPlayer.PlayerType = player.PlayerType;
+      duplicatedPlayer.Health = player.Health;
+      duplicatedPlayer.Height = player.Height;
+      duplicatedPlayer.Width = player.Width;
+      duplicatedPlayer.StartPosition = this.cloneLevelPoint(player.StartPosition);
+      return duplicatedPlayer;
+    });
+    duplicatedLevel.Enemies = levelToClone.Enemies.map((enemy) => {
+      const duplicatedEnemy = new EnemyData();
+      duplicatedEnemy.ID = enemy.ID;
+      duplicatedEnemy.EnemyType = enemy.EnemyType;
+      duplicatedEnemy.Health = enemy.Health;
+      duplicatedEnemy.Height = enemy.Height;
+      duplicatedEnemy.Width = enemy.Width;
+      duplicatedEnemy.StartPosition = this.cloneLevelPoint(enemy.StartPosition);
+      return duplicatedEnemy;
+    });
+    duplicatedLevel.Obstacles = levelToClone.Obstacles.map((obstacle) => {
+      const duplicatedObstacle = new ObstacleData();
+      duplicatedObstacle.ID = obstacle.ID;
+      duplicatedObstacle.Health = obstacle.Health;
+      duplicatedObstacle.Height = obstacle.Height;
+      duplicatedObstacle.Width = obstacle.Width;
+      duplicatedObstacle.ObstacleType = obstacle.ObstacleType;
+      duplicatedObstacle.IsWalkable = obstacle.IsWalkable;
+      duplicatedObstacle.IsDestructible = obstacle.IsDestructible;
+      duplicatedObstacle.IsInteractive = obstacle.IsInteractive;
+      duplicatedObstacle.Position = this.cloneLevelPoint(obstacle.Position);
+      return duplicatedObstacle;
+    });
+
+    return duplicatedLevel;
+  }
+
+  private cloneLevelPoint(levelPoint: LevelPoint): LevelPoint {
+    const duplicatedPoint = new LevelPoint();
+    duplicatedPoint.X = levelPoint.X;
+    duplicatedPoint.Y = levelPoint.Y;
+    return duplicatedPoint;
   }
 
   onGridWidthChange(event: Event) {
