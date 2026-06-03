@@ -84,6 +84,7 @@ export class LevelHeaderComponent {
       value: BiomeType[key as keyof typeof BiomeType]
     }));
   
+  // Level Difficulty Type enum for template
   LevelDifficultyType = LevelDifficultyType;
   levelDifficultyTypeKeys = Object.keys(LevelDifficultyType)
     .filter(key => isNaN(Number(key)))
