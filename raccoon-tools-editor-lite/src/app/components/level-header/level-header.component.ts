@@ -85,8 +85,12 @@ export class LevelHeaderComponent {
     }));
   
   LevelDifficultyType = LevelDifficultyType;
-  levelDifficultyTypeKeys = Object.keys(LevelDifficultyType).filter(key => isNaN(Number(key)));
-  
+  levelDifficultyTypeKeys = Object.keys(LevelDifficultyType)
+    .filter(key => isNaN(Number(key)))
+    .map(key => ({
+      name: key,
+      value: LevelDifficultyType[key as keyof typeof LevelDifficultyType]
+    }));
 
   BasePlayerType = BasePlayerType;
   BaseEnemyType = BaseEnemyType;
@@ -144,6 +148,11 @@ export class LevelHeaderComponent {
   updateBiomeType(value: number | string) {
     const numericValue = typeof value === 'string' ? parseInt(value, 10) : value;
     this.store.dispatch(LevelActions.updateLevelProperties({ biomeType: numericValue }));
+  }
+
+  updateLevelDifficultyType(value: number | string) {
+    const numericValue = typeof value === 'string' ? parseInt(value, 10) : value;
+    this.store.dispatch(LevelActions.updateLevelProperties({ levelDifficultyType: numericValue }));
   }
 
   updateLevelDescription(value: string) {
@@ -214,6 +223,7 @@ export class LevelHeaderComponent {
     duplicatedLevel.LevelType = levelToClone.LevelType;
     duplicatedLevel.LevelDescription = levelToClone.LevelDescription;
     duplicatedLevel.BiomeType = levelToClone.BiomeType;
+    duplicatedLevel.LevelDifficultyType = levelToClone.LevelDifficultyType;
     duplicatedLevel.NumberOfTurns = levelToClone.NumberOfTurns;
     duplicatedLevel.WinPosition = this.cloneLevelPoint(levelToClone.WinPosition);
     duplicatedLevel.StartPositionsList = levelToClone.StartPositionsList.map((position) => this.cloneLevelPoint(position));
@@ -305,6 +315,10 @@ export class LevelHeaderComponent {
 
   getBiomeTypeName(biomeType: number): string {
     return BiomeType[biomeType] || 'Unknown';
+  }
+
+  getLevelDifficultyTypeName(levelDifficultyType: number): string {
+    return LevelDifficultyType[levelDifficultyType] || 'Unknown';
   }
 
   getPlayerTypeName(playerType: number): string {

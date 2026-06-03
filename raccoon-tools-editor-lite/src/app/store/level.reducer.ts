@@ -111,7 +111,7 @@ export const levelReducer = createReducer(
     }))
   ),
 
-  on(LevelActions.updateLevelProperties, (state, { id, gridWidth, gridHeight, cellSize, levelType, biomeType, levelDescription, numberOfTurns }) =>
+  on(LevelActions.updateLevelProperties, (state, { id, gridWidth, gridHeight, cellSize, levelType, biomeType, levelDifficultyType, levelDescription, numberOfTurns }) =>
     updateSelectedLevel(state, (level) => ({
       ...level,
       ...(id !== undefined && { ID: id }),
@@ -120,6 +120,7 @@ export const levelReducer = createReducer(
       ...(cellSize !== undefined && { CellSize: cellSize }),
       ...(levelType !== undefined && { LevelType: levelType }),
       ...(biomeType !== undefined && { BiomeType: biomeType }),
+      ...(levelDifficultyType !== undefined && { LevelDifficultyType: levelDifficultyType }),
       ...(levelDescription !== undefined && { LevelDescription: levelDescription }),
       ...(numberOfTurns !== undefined && { NumberOfTurns: numberOfTurns })
     }))

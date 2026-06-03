@@ -84,6 +84,18 @@
           }
         </select>
       </div>
+
+      <div class="property-group">
+        <label for="levelDifficultyType">Level Difficulty:</label>
+        <select
+          id="levelDifficultyType"
+          [ngModel]="levelDifficultyType$ | async"
+          (ngModelChange)="updateLevelDifficultyType($event)">
+          @for (option of levelDifficultyTypeKeys; track option.value) {
+            <option [value]="option.value">{{ option.name }}</option>
+          }
+        </select>
+      </div>
       
       <div class="property-group full-width">
         <label for="levelDescription">Level Description:</label>
