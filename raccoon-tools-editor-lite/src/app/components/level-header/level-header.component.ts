@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { PlayerData, EnemyData, ObstacleData, LevelPoint, LevelType, BasePlayerType, BaseEnemyType, ObstacleType, BiomeType } from '../../models/level.model';
+import { PlayerData, EnemyData, ObstacleData, LevelPoint, LevelType, LevelDifficultyType, BasePlayerType, BaseEnemyType, ObstacleType, BiomeType } from '../../models/level.model';
 import { 
   selectLoadedLevels,
   selectPlayers, 
@@ -19,7 +19,8 @@ import {
   selectNumberOfTurns,
   selectLevelID,
   selectBiomeType,
-  selectSelectedLevelIndex
+  selectSelectedLevelIndex,
+  selectLevelDifficultyType
 } from '../../store/level.selectors';
 import * as LevelActions from '../../store/level.actions';
 import { VisualizerComponent } from '../visualizer/visualizer.component';
@@ -50,6 +51,7 @@ export class LevelHeaderComponent {
   cellSize$: Observable<number>;
   levelType$: Observable<number>;
   biomeType$: Observable<number>;
+  levelDifficultyType$: Observable<number>;
   levelDescription$: Observable<string>;
   winPosition$: Observable<LevelPoint>;
   numberOfTurns$: Observable<number>;
@@ -81,6 +83,10 @@ export class LevelHeaderComponent {
       name: key,
       value: BiomeType[key as keyof typeof BiomeType]
     }));
+  
+  LevelDifficultyType = LevelDifficultyType;
+  levelDifficultyTypeKeys = Object.keys(LevelDifficultyType).filter(key => isNaN(Number(key)));
+  
 
   BasePlayerType = BasePlayerType;
   BaseEnemyType = BaseEnemyType;
@@ -99,6 +105,7 @@ export class LevelHeaderComponent {
     this.cellSize$ = this.store.select(selectLevelCellSize);
     this.levelType$ = this.store.select(selectLevelType);
     this.biomeType$ = this.store.select(selectBiomeType);
+    this.levelDifficultyType$ = this.store.select(selectLevelDifficultyType);
     this.levelDescription$ = this.store.select(selectLevelDescription);
     this.winPosition$ = this.store.select(selectWinPosition);
     this.numberOfTurns$ = this.store.select(selectNumberOfTurns);

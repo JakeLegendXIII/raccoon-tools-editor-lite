@@ -59,6 +59,11 @@ export const selectBiomeType = createSelector(
   (level) => level?.BiomeType || 0
 );
 
+export const selectLevelDifficultyType = createSelector(
+  selectCurrentLevel,
+  (level) => level?.LevelDifficultyType || 0
+);
+
 export const selectLevelDescription = createSelector(
   selectCurrentLevel,
   (level) => level?.LevelDescription || ''
