@@ -11,16 +11,16 @@ import { ItemListComponent } from './components/item/item-list/item-list.compone
 import { LevelEditorComponent } from './components/level-editor/level-editor.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/visualizer', pathMatch: 'full' },  
-  { path: 'level-header', component: LevelHeaderComponent },
+  { path: '', redirectTo: '/level-editor', pathMatch: 'full' },  
+  // { path: 'level-header', component: LevelHeaderComponent },
   { path: 'level-editor', component: LevelEditorComponent },
-  { path: 'player-list', component: PlayerListComponent },
-  { path: 'enemy-list', component: EnemyListComponent },
-  { path: 'obstacle-list', component: ObstacleListComponent },
-  { path: 'export', component: ExportComponent },
-  { path: 'visualizer', component: VisualizerComponent },
+  // { path: 'player-list', component: PlayerListComponent },
+  // { path: 'enemy-list', component: EnemyListComponent },
+  // { path: 'obstacle-list', component: ObstacleListComponent },
+  // { path: 'export', component: ExportComponent },
+  // { path: 'visualizer', component: VisualizerComponent },
   { path: 'conversion', component: ConversionComponent },
-  { path: 'start-position', component: StartPositionListComponent },
+  // { path: 'start-position', component: StartPositionListComponent },
   { path: 'items', component: ItemListComponent },
-  { path: '**', redirectTo: '/visualizer' } // Wildcard route for unmatched paths 
+  { path: '**', redirectTo: '/level-editor' } // Wildcard route for unmatched paths 
 ];
