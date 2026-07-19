@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { selectCurrentLevel, selectObstacles } from '../../../store/level.selectors';
 import { combineLatest, Observable, take } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -24,6 +24,8 @@ import { VisualizerComponent } from "../../visualizer/visualizer.component";
 })
 export class ObstacleListComponent {
   private store = inject(Store);
+
+  @Input() showVisualizer = true;
 
   obstacles$: Observable<ObstacleData[]>;
 

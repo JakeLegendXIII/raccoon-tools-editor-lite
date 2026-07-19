@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { PlayerCardComponent } from "../player-card/player-card.component";
 import { Observable, take, combineLatest } from 'rxjs';
 import { CommonModule } from '@angular/common';
@@ -24,6 +24,8 @@ import { VisualizerComponent } from '../../visualizer/visualizer.component';
 })
 export class PlayerListComponent {
   private store = inject(Store);
+
+  @Input() showVisualizer = true;
 
   players$: Observable<PlayerData[]>;
 

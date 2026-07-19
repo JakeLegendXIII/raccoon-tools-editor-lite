@@ -34,6 +34,10 @@ export class MenuComponent {
     this.router.navigate(['/level-header']);
   }
 
+  navigateToLevelEditor(): void {
+    this.router.navigate(['/level-editor']);
+  }
+
   navigateToPlayerList(): void {
     this.router.navigate(['/player-list']);
   }

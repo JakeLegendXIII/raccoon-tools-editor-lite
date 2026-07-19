@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { EnemyData } from '../../../models/level.model';
 import { combineLatest, Observable, take } from 'rxjs';
 import { EnemyCardComponent } from '../enemy-card/enemy-card.component';
@@ -24,6 +24,8 @@ import { VisualizerComponent } from "../../visualizer/visualizer.component";
 })
 export class EnemyListComponent {
   private store = inject(Store);
+
+  @Input() showVisualizer = true;
 
   enemies$: Observable<EnemyData[]>;
   

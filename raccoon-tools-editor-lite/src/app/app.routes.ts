@@ -8,10 +8,12 @@ import { LevelHeaderComponent } from './components/level-header/level-header.com
 import { ConversionComponent } from './components/conversion/conversion.component';
 import { StartPositionListComponent } from './components/start-position/start-position-list/start-position-list.component';
 import { ItemListComponent } from './components/item/item-list/item-list.component';
+import { LevelEditorComponent } from './components/level-editor/level-editor.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/visualizer', pathMatch: 'full' },  
   { path: 'level-header', component: LevelHeaderComponent },
+  { path: 'level-editor', component: LevelEditorComponent },
   { path: 'player-list', component: PlayerListComponent },
   { path: 'enemy-list', component: EnemyListComponent },
   { path: 'obstacle-list', component: ObstacleListComponent },

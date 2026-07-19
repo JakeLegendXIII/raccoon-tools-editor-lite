@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { Observable, take, combineLatest } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
@@ -24,7 +24,9 @@ import { VisualizerComponent } from '../../visualizer/visualizer.component';
 })
 export class StartPositionListComponent {
   private store = inject(Store);
-  
+
+  @Input() showVisualizer = true;
+
   startPositions$: Observable<LevelPoint[]>;
 
   constructor() {

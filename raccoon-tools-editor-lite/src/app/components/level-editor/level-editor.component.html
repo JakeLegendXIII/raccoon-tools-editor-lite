@@ -1,0 +1,71 @@
+<div class="level-editor-container">
+  <div class="panels-column">
+    <h2>Level Editor</h2>
+
+    <mat-accordion class="entity-accordion">
+      <mat-expansion-panel expanded>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon>people</mat-icon>
+            <span>Players</span>
+          </mat-panel-title>
+          @if (counts$ | async; as counts) {
+            <mat-panel-description>{{ counts.players }}</mat-panel-description>
+          }
+        </mat-expansion-panel-header>
+        <ng-template matExpansionPanelContent>
+          <app-player-list [showVisualizer]="false"></app-player-list>
+        </ng-template>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon>bug_report</mat-icon>
+            <span>Enemies</span>
+          </mat-panel-title>
+          @if (counts$ | async; as counts) {
+            <mat-panel-description>{{ counts.enemies }}</mat-panel-description>
+          }
+        </mat-expansion-panel-header>
+        <ng-template matExpansionPanelContent>
+          <app-enemy-list [showVisualizer]="false"></app-enemy-list>
+        </ng-template>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon>block</mat-icon>
+            <span>Obstacles</span>
+          </mat-panel-title>
+          @if (counts$ | async; as counts) {
+            <mat-panel-description>{{ counts.obstacles }}</mat-panel-description>
+          }
+        </mat-expansion-panel-header>
+        <ng-template matExpansionPanelContent>
+          <app-obstacle-list [showVisualizer]="false"></app-obstacle-list>
+        </ng-template>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon>library_add</mat-icon>
+            <span>Start Positions</span>
+          </mat-panel-title>
+          @if (counts$ | async; as counts) {
+            <mat-panel-description>{{ counts.startPositions }}</mat-panel-description>
+          }
+        </mat-expansion-panel-header>
+        <ng-template matExpansionPanelContent>
+          <app-start-position-list [showVisualizer]="false"></app-start-position-list>
+        </ng-template>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+
+  <div class="visualizer-column">
+    <app-visualizer></app-visualizer>
+  </div>
+</div>
