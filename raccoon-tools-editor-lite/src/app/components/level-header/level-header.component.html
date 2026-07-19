@@ -1,5 +1,7 @@
 <div class="level-editor">
-  <h2>Level Header</h2>
+  @if (showTitle) {
+    <h2>Level Header</h2>
+  }
     <!-- Level Properties Editor -->
   <div class="level-properties">
     <h3>Level Properties</h3>           
@@ -114,35 +116,39 @@
   </div>
 
   <!-- Entity Lists -->
-  <div class="lists">
-    <div class="list">
-      <h3>Players ({{ (players$ | async)?.length || 0 }})</h3>
-      <ul>
-        @for (player of players$ | async; track player.ID) {
-          <li>Player {{ player.ID }} - Type: {{ getPlayerTypeName(player.PlayerType) }}</li>
-        }
-      </ul>
-    </div>
+  @if (showEntityLists) {
+    <div class="lists">
+      <div class="list">
+        <h3>Players ({{ (players$ | async)?.length || 0 }})</h3>
+        <ul>
+          @for (player of players$ | async; track player.ID) {
+            <li>Player {{ player.ID }} - Type: {{ getPlayerTypeName(player.PlayerType) }}</li>
+          }
+        </ul>
+      </div>
 
-    <div class="list">
-      <h3>Enemies ({{ (enemies$ | async)?.length || 0 }})</h3>
-      <ul>
-        @for (enemy of enemies$ | async; track enemy.ID) {
-          <li>Enemy {{ enemy.ID }} - Type: {{ getEnemyTypeName(enemy.EnemyType) }}</li>
-        }
-      </ul>
-    </div>
+      <div class="list">
+        <h3>Enemies ({{ (enemies$ | async)?.length || 0 }})</h3>
+        <ul>
+          @for (enemy of enemies$ | async; track enemy.ID) {
+            <li>Enemy {{ enemy.ID }} - Type: {{ getEnemyTypeName(enemy.EnemyType) }}</li>
+          }
+        </ul>
+      </div>
 
-    <div class="list">
-      <h3>Obstacles ({{ (obstacles$ | async)?.length || 0 }})</h3>
-      <ul>
-        @for (obstacle of obstacles$ | async; track obstacle.ID) {
-          <li>Obstacle {{ obstacle.ID }} - Type: {{ getObstacleTypeName(obstacle.ObstacleType) }}</li>
-        }
-      </ul>
+      <div class="list">
+        <h3>Obstacles ({{ (obstacles$ | async)?.length || 0 }})</h3>
+        <ul>
+          @for (obstacle of obstacles$ | async; track obstacle.ID) {
+            <li>Obstacle {{ obstacle.ID }} - Type: {{ getObstacleTypeName(obstacle.ObstacleType) }}</li>
+          }
+        </ul>
+      </div>
     </div>
-  </div>
-  
-  <app-visualizer></app-visualizer>
+  }
+
+  @if (showVisualizer) {
+    <app-visualizer></app-visualizer>
+  }
 </div>
 

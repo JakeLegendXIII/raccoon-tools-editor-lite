@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
@@ -34,6 +34,10 @@ import { VisualizerComponent } from '../visualizer/visualizer.component';
 })
 export class LevelHeaderComponent {
   private store = inject(Store);
+
+  @Input() showVisualizer = true;
+  @Input() showEntityLists = true;
+  @Input() showTitle = true;
 
   players$: Observable<PlayerData[]>;
   enemies$: Observable<EnemyData[]>;

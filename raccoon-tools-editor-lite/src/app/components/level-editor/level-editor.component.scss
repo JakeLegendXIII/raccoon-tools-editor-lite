@@ -47,6 +47,14 @@
       max-width: none;
     }
 
+    .level-editor {
+      padding: 0;
+
+      .level-properties {
+        margin-bottom: 0;
+      }
+    }
+
     .players-grid,
     .enemies-grid,
     .obstacles-grid,

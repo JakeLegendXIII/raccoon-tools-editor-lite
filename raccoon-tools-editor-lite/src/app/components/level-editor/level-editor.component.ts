@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { Level } from '../../models/level.model';
 import { selectCurrentLevel } from '../../store/level.selectors';
 import { VisualizerComponent } from '../visualizer/visualizer.component';
+import { LevelHeaderComponent } from '../level-header/level-header.component';
 import { PlayerListComponent } from '../player/player-list/player-list.component';
 import { EnemyListComponent } from '../enemy/enemy-list/enemy-list.component';
 import { ObstacleListComponent } from '../obstacle/obstacle-list/obstacle-list.component';
@@ -20,6 +21,7 @@ import { StartPositionListComponent } from '../start-position/start-position-lis
     MatExpansionModule,
     MatIconModule,
     VisualizerComponent,
+    LevelHeaderComponent,
     PlayerListComponent,
     EnemyListComponent,
     ObstacleListComponent,

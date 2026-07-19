@@ -6,6 +6,18 @@
       <mat-expansion-panel expanded>
         <mat-expansion-panel-header>
           <mat-panel-title>
+            <mat-icon>view_quilt</mat-icon>
+            <span>Level Properties</span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <ng-template matExpansionPanelContent>
+          <app-level-header [showVisualizer]="false" [showEntityLists]="false" [showTitle]="false"></app-level-header>
+        </ng-template>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
             <mat-icon>people</mat-icon>
             <span>Players</span>
           </mat-panel-title>
