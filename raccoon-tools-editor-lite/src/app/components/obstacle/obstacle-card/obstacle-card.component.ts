@@ -2,7 +2,7 @@ import { Component, inject, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ObstacleData, ObstacleType } from '../../../models/level.model';
 import { deleteObstacle, updateObstacle } from '../../../store/level.actions';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
@@ -15,7 +15,6 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 @Component({
   selector: 'app-obstacle-card',
   imports: [
-    CommonModule,
     FormsModule,
     MatCardModule,
     MatFormFieldModule,
@@ -24,7 +23,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatIconModule,
     MatSelectModule,
     MatCheckboxModule
-  ],
+],
   templateUrl: './obstacle-card.component.html',
   styleUrls: ['./obstacle-card.component.scss']
 })
@@ -113,42 +112,50 @@ export class ObstacleCardComponent {
       case ObstacleType.Mountain:
         target.IsWalkable = false;
         target.IsDestructible = true;
+        target.IsInteractive = false;
         target.Health = 3;        
         break;
       case ObstacleType.Water:
         target.IsWalkable = true;
         target.IsDestructible = false;
+        target.IsInteractive = false;
         target.Health = 0;
         break;
       case ObstacleType.Building:
         target.IsWalkable = false;
         target.IsDestructible = true;
+        target.IsInteractive = true;
         target.Health = 5;
         break;
       case ObstacleType.Wall:
         target.IsWalkable = false;
         target.IsDestructible = true;
+        target.IsInteractive = false;
         target.Health = 3;
         break;
       case ObstacleType.Tree:
         target.IsWalkable = false;
         target.IsDestructible = true;
+        target.IsInteractive = false;
         target.Health = 2;
         break;
       case ObstacleType.Ice:
         target.IsWalkable = true;
         target.IsDestructible = false;
+        target.IsInteractive = false;
         target.Health = 0;
         break;
       case ObstacleType.Rock:
         target.IsWalkable = false;
         target.IsDestructible = true;
+        target.IsInteractive = false;
         target.Health = 1;
         break;
       default:
         // Leave existing values for other types if already set; otherwise set safe defaults
         if (target.IsWalkable === undefined) target.IsWalkable = false;
         if (target.IsDestructible === undefined) target.IsDestructible = false;
+        if (target.IsInteractive === undefined) target.IsInteractive = false;
         break;
     }
   }

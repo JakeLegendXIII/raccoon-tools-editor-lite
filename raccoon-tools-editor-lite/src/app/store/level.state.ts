@@ -1,7 +1,8 @@
 import { Level } from '../models/level.model';
 
 export interface LevelState {
-  currentLevel: Level | null;
+  loadedLevels: Level[];
+  selectedLevelIndex: number;
 }
 
 const createDefaultLevel = (): Level => {
@@ -16,5 +17,6 @@ const createDefaultLevel = (): Level => {
 };
 
 export const initialLevelState: LevelState = {
-  currentLevel: createDefaultLevel()
+  loadedLevels: [createDefaultLevel()],
+  selectedLevelIndex: 0
 };

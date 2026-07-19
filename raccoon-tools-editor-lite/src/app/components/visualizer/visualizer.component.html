@@ -1,5 +1,17 @@
 <div class="visualizer-container">
   <h2>Level Visualizer</h2>
+
+  <div class="level-switcher">
+    <label for="visualizer-level-select">Loaded Levels:</label>
+    <select
+      id="visualizer-level-select"
+      [ngModel]="selectedLevelIndex$ | async"
+      (ngModelChange)="onLevelSelectionChange($event)">
+      @for (level of loadedLevels$ | async; track $index) {
+        <option [value]="$index">{{ getLevelOptionLabel(level, $index) }}</option>
+      }
+    </select>
+  </div>
   
   @if (level) {
     <div class="level-info">
@@ -49,7 +61,7 @@
         }
         <div class="legend-item">
           <div class="legend-color cell-startposition"></div>
-          <span>Start Positions (Orange) - Draggable Background</span>
+          <span>Start Positions (Amber) - Draggable Background</span>
         </div>
         <div class="legend-item">
           <div class="legend-color cell-empty"></div>

@@ -3,9 +3,20 @@ import { LevelState } from './level.state';
 
 export const selectLevelState = createFeatureSelector<LevelState>('level');
 
-export const selectCurrentLevel = createSelector(
+export const selectLoadedLevels = createSelector(
   selectLevelState,
-  (state) => state.currentLevel
+  (state) => state.loadedLevels
+);
+
+export const selectSelectedLevelIndex = createSelector(
+  selectLevelState,
+  (state) => state.selectedLevelIndex
+);
+
+export const selectCurrentLevel = createSelector(
+  selectLoadedLevels,
+  selectSelectedLevelIndex,
+  (loadedLevels, selectedLevelIndex) => loadedLevels[selectedLevelIndex] ?? null
 );
 
 export const selectPlayers = createSelector(
@@ -46,6 +57,11 @@ export const selectLevelType = createSelector(
 export const selectBiomeType = createSelector(
   selectCurrentLevel,
   (level) => level?.BiomeType || 0
+);
+
+export const selectLevelDifficultyType = createSelector(
+  selectCurrentLevel,
+  (level) => level?.LevelDifficultyType || 0
 );
 
 export const selectLevelDescription = createSelector(

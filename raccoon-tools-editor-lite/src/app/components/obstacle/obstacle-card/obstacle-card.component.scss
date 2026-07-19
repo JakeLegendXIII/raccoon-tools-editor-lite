@@ -76,10 +76,16 @@
 
 .flags-row {
   display: flex;
-  gap: 32px;
+  flex-wrap: wrap;
+  gap: 12px 24px;
   align-items: center;
   padding: 12px 0;
   margin: 4px 0;
+
+  mat-checkbox {
+    flex: 1 1 140px;
+    min-width: 0;
+  }
 }
 
 .card-actions {

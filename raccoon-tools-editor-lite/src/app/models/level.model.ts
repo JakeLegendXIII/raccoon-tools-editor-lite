@@ -51,6 +51,15 @@ export enum BiomeType {
 }
 
 /**
+ * Enum for Level Difficulty Types
+ */
+export enum LevelDifficultyType {
+    Easy = 0,
+    Medium = 1,
+    Hard = 2
+}
+
+/**
  * Represents a point in the level grid
  */
 export class LevelPoint {
@@ -93,6 +102,7 @@ export class ObstacleData {
     ObstacleType: number = 0;
     IsWalkable: boolean = false;
     IsDestructible: boolean = false;
+    IsInteractive: boolean = false;
     Position: LevelPoint = new LevelPoint();
 }
 
@@ -108,6 +118,7 @@ export class Level {
     LevelType: number = 0;
     LevelDescription: string = '';
     BiomeType: number = 0;
+    LevelDifficultyType: number = 0;
     NumberOfTurns: number = 0;
     WinPosition: LevelPoint = new LevelPoint();
     StartPositionsList: LevelPoint[] = [];

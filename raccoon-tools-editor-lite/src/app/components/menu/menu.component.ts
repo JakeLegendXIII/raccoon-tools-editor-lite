@@ -19,8 +19,8 @@ export class MenuComponent {
 
   openImportDialog(): void {
     const dialogRef = this.dialog.open(ImportComponent, {
-      width: '400px',
-      height: '350px'
+      width: '420px',
+      maxWidth: 'calc(100vw - 32px)'
     });
 
     dialogRef.afterClosed().subscribe(result => {

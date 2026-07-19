@@ -30,6 +30,9 @@
           <strong>Destructible:</strong> {{ obstacle.IsDestructible ? 'Yes' : 'No' }}
         </div>
         <div class="property-row">
+            <strong>Interactive:</strong> {{ obstacle.IsInteractive ? 'Yes' : 'No' }}
+        </div>
+        <div class="property-row">
           <strong>Position:</strong> ({{obstacle.Position.X}}, {{obstacle.Position.Y}})
         </div>
       </div>
@@ -58,6 +61,7 @@
         <div class="form-section flags-row">
           <mat-checkbox [(ngModel)]="editableObstacle.IsWalkable" name="isWalkable">Walkable</mat-checkbox>
           <mat-checkbox [(ngModel)]="editableObstacle.IsDestructible" name="isDestructible">Destructible</mat-checkbox>
+          <mat-checkbox [(ngModel)]="editableObstacle.IsInteractive" name="isInteractive">Interactive</mat-checkbox>
         </div>
 
         <div class="form-section">

@@ -4,8 +4,9 @@ import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { PlayerData, EnemyData, ObstacleData, LevelPoint, LevelType, BasePlayerType, BaseEnemyType, ObstacleType, BiomeType } from '../../models/level.model';
+import { PlayerData, EnemyData, ObstacleData, LevelPoint, LevelType, LevelDifficultyType, BasePlayerType, BaseEnemyType, ObstacleType, BiomeType } from '../../models/level.model';
 import { 
+  selectLoadedLevels,
   selectPlayers, 
   selectEnemies, 
   selectObstacles,
@@ -17,10 +18,13 @@ import {
   selectWinPosition,
   selectNumberOfTurns,
   selectLevelID,
-  selectBiomeType
+  selectBiomeType,
+  selectSelectedLevelIndex,
+  selectLevelDifficultyType
 } from '../../store/level.selectors';
 import * as LevelActions from '../../store/level.actions';
 import { VisualizerComponent } from '../visualizer/visualizer.component';
+import { Level } from '../../models/level.model';
 
 @Component({
   selector: 'app-level-header',  
@@ -42,6 +46,8 @@ export class LevelHeaderComponent {
   players$: Observable<PlayerData[]>;
   enemies$: Observable<EnemyData[]>;
   obstacles$: Observable<ObstacleData[]>;
+  loadedLevels$: Observable<Level[]>;
+  selectedLevelIndex$: Observable<number>;
   
   iD$: Observable<number>;
   gridWidth$: Observable<number>;
@@ -49,12 +55,15 @@ export class LevelHeaderComponent {
   cellSize$: Observable<number>;
   levelType$: Observable<number>;
   biomeType$: Observable<number>;
+  levelDifficultyType$: Observable<number>;
   levelDescription$: Observable<string>;
   winPosition$: Observable<LevelPoint>;
   numberOfTurns$: Observable<number>;
 
   // Current values for form handling
   currentWinPosition: LevelPoint = { X: 0, Y: 0 };
+  currentLoadedLevels: Level[] = [];
+  currentSelectedLevelIndex: number = 0;
   // Level Type enum for template
   LevelType = LevelType;
   levelTypeKeys = Object.keys(LevelType).filter(key => isNaN(Number(key)));
@@ -78,12 +87,23 @@ export class LevelHeaderComponent {
       name: key,
       value: BiomeType[key as keyof typeof BiomeType]
     }));
+  
+  // Level Difficulty Type enum for template
+  LevelDifficultyType = LevelDifficultyType;
+  levelDifficultyTypeKeys = Object.keys(LevelDifficultyType)
+    .filter(key => isNaN(Number(key)))
+    .map(key => ({
+      name: key,
+      value: LevelDifficultyType[key as keyof typeof LevelDifficultyType]
+    }));
 
   BasePlayerType = BasePlayerType;
   BaseEnemyType = BaseEnemyType;
   ObstacleType = ObstacleType;
 
   constructor() {
+    this.loadedLevels$ = this.store.select(selectLoadedLevels);
+    this.selectedLevelIndex$ = this.store.select(selectSelectedLevelIndex);
     this.players$ = this.store.select(selectPlayers);
     this.enemies$ = this.store.select(selectEnemies);
     this.obstacles$ = this.store.select(selectObstacles);
@@ -94,6 +114,7 @@ export class LevelHeaderComponent {
     this.cellSize$ = this.store.select(selectLevelCellSize);
     this.levelType$ = this.store.select(selectLevelType);
     this.biomeType$ = this.store.select(selectBiomeType);
+    this.levelDifficultyType$ = this.store.select(selectLevelDifficultyType);
     this.levelDescription$ = this.store.select(selectLevelDescription);
     this.winPosition$ = this.store.select(selectWinPosition);
     this.numberOfTurns$ = this.store.select(selectNumberOfTurns);
@@ -101,6 +122,14 @@ export class LevelHeaderComponent {
     // Subscribe to win position changes to keep current value updated
     this.winPosition$.subscribe(pos => {
       this.currentWinPosition = pos || { X: 0, Y: 0 };
+    });
+
+    this.loadedLevels$.subscribe(levels => {
+      this.currentLoadedLevels = levels;
+    });
+
+    this.selectedLevelIndex$.subscribe(index => {
+      this.currentSelectedLevelIndex = index;
     });
   }
 
@@ -126,6 +155,11 @@ export class LevelHeaderComponent {
     this.store.dispatch(LevelActions.updateLevelProperties({ biomeType: numericValue }));
   }
 
+  updateLevelDifficultyType(value: number | string) {
+    const numericValue = typeof value === 'string' ? parseInt(value, 10) : value;
+    this.store.dispatch(LevelActions.updateLevelProperties({ levelDifficultyType: numericValue }));
+  }
+
   updateLevelDescription(value: string) {
     this.store.dispatch(LevelActions.updateLevelProperties({ levelDescription: value }));
   }
@@ -140,6 +174,106 @@ export class LevelHeaderComponent {
 
   updateID(value: number) {
     this.store.dispatch(LevelActions.updateLevelProperties({ id: value }));
+  }
+
+  createLevel() {
+    const nextLevelId = this.getNextLevelId();
+    const level = new Level();
+    level.ID = nextLevelId;
+    level.GridWidth = 8;
+    level.GridHeight = 8;
+    level.CellSize = 64;
+    level.LevelDescription = `Level ${nextLevelId}`;
+    level.NumberOfTurns = 0;
+
+    this.store.dispatch(LevelActions.loadLevel({ level }));
+  }
+
+  duplicateLevel() {
+    const sourceLevel = this.currentLoadedLevels[this.currentSelectedLevelIndex];
+    if (!sourceLevel) {
+      return;
+    }
+
+    const duplicatedLevel = this.cloneLevel(sourceLevel);
+    const nextLevelId = this.getNextLevelId();
+    duplicatedLevel.ID = nextLevelId;
+    duplicatedLevel.LevelDescription = this.getDuplicatedLevelDescription(sourceLevel.LevelDescription, nextLevelId);
+
+    this.store.dispatch(LevelActions.loadLevel({ level: duplicatedLevel }));
+  }
+
+  selectLevel(levelIndex: number | string) {
+    const numericValue = typeof levelIndex === 'string' ? parseInt(levelIndex, 10) : levelIndex;
+    this.store.dispatch(LevelActions.selectLevel({ levelIndex: numericValue }));
+  }
+
+  private getNextLevelId(): number {
+    return this.currentLoadedLevels.reduce((maxId, level) => {
+      return Math.max(maxId, level.ID || 0);
+    }, 0) + 1;
+  }
+
+  private getDuplicatedLevelDescription(description: string, levelId: number): string {
+    const trimmedDescription = description.trim();
+    return trimmedDescription ? `${trimmedDescription} Copy` : `Level ${levelId}`;
+  }
+
+  private cloneLevel(levelToClone: Level): Level {
+    const duplicatedLevel = new Level();
+    duplicatedLevel.ID = levelToClone.ID;
+    duplicatedLevel.GridWidth = levelToClone.GridWidth;
+    duplicatedLevel.GridHeight = levelToClone.GridHeight;
+    duplicatedLevel.CellSize = levelToClone.CellSize;
+    duplicatedLevel.LevelType = levelToClone.LevelType;
+    duplicatedLevel.LevelDescription = levelToClone.LevelDescription;
+    duplicatedLevel.BiomeType = levelToClone.BiomeType;
+    duplicatedLevel.LevelDifficultyType = levelToClone.LevelDifficultyType;
+    duplicatedLevel.NumberOfTurns = levelToClone.NumberOfTurns;
+    duplicatedLevel.WinPosition = this.cloneLevelPoint(levelToClone.WinPosition);
+    duplicatedLevel.StartPositionsList = levelToClone.StartPositionsList.map((position) => this.cloneLevelPoint(position));
+    duplicatedLevel.Players = levelToClone.Players.map((player) => {
+      const duplicatedPlayer = new PlayerData();
+      duplicatedPlayer.ID = player.ID;
+      duplicatedPlayer.PlayerType = player.PlayerType;
+      duplicatedPlayer.Health = player.Health;
+      duplicatedPlayer.Height = player.Height;
+      duplicatedPlayer.Width = player.Width;
+      duplicatedPlayer.StartPosition = this.cloneLevelPoint(player.StartPosition);
+      return duplicatedPlayer;
+    });
+    duplicatedLevel.Enemies = levelToClone.Enemies.map((enemy) => {
+      const duplicatedEnemy = new EnemyData();
+      duplicatedEnemy.ID = enemy.ID;
+      duplicatedEnemy.EnemyType = enemy.EnemyType;
+      duplicatedEnemy.Health = enemy.Health;
+      duplicatedEnemy.Height = enemy.Height;
+      duplicatedEnemy.Width = enemy.Width;
+      duplicatedEnemy.StartPosition = this.cloneLevelPoint(enemy.StartPosition);
+      return duplicatedEnemy;
+    });
+    duplicatedLevel.Obstacles = levelToClone.Obstacles.map((obstacle) => {
+      const duplicatedObstacle = new ObstacleData();
+      duplicatedObstacle.ID = obstacle.ID;
+      duplicatedObstacle.Health = obstacle.Health;
+      duplicatedObstacle.Height = obstacle.Height;
+      duplicatedObstacle.Width = obstacle.Width;
+      duplicatedObstacle.ObstacleType = obstacle.ObstacleType;
+      duplicatedObstacle.IsWalkable = obstacle.IsWalkable;
+      duplicatedObstacle.IsDestructible = obstacle.IsDestructible;
+      duplicatedObstacle.IsInteractive = obstacle.IsInteractive;
+      duplicatedObstacle.Position = this.cloneLevelPoint(obstacle.Position);
+      return duplicatedObstacle;
+    });
+
+    return duplicatedLevel;
+  }
+
+  private cloneLevelPoint(levelPoint: LevelPoint): LevelPoint {
+    const duplicatedPoint = new LevelPoint();
+    duplicatedPoint.X = levelPoint.X;
+    duplicatedPoint.Y = levelPoint.Y;
+    return duplicatedPoint;
   }
 
   onGridWidthChange(event: Event) {
@@ -188,6 +322,10 @@ export class LevelHeaderComponent {
     return BiomeType[biomeType] || 'Unknown';
   }
 
+  getLevelDifficultyTypeName(levelDifficultyType: number): string {
+    return LevelDifficultyType[levelDifficultyType] || 'Unknown';
+  }
+
   getPlayerTypeName(playerType: number): string {
       return BasePlayerType[playerType] || 'Unknown';
   }
@@ -198,5 +336,11 @@ export class LevelHeaderComponent {
 
   getObstacleTypeName(obstacleType: number): string {
     return ObstacleType[obstacleType] || 'Unknown';
+  }
+
+  getLevelOptionLabel(level: Level, index: number): string {
+    const levelId = level.ID || index + 1;
+    const description = level.LevelDescription?.trim() || 'Untitled Level';
+    return `${levelId} - ${description}`;
   }
 }

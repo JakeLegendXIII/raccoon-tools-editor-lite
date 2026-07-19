@@ -11,17 +11,22 @@
 
     <div class="file-upload-section">
       <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Select JSON {{ importType === 'level' ? 'Level' : 'Items' }} File</mat-label>
-        <input matInput readonly [value]="selectedFile?.name || 'No file selected'" />
+        <mat-label>Select JSON {{ importType === 'level' ? 'Level' : 'Items' }} File{{ importType === 'level' ? '(s)' : '' }}</mat-label>
+        <input matInput readonly [value]="getSelectedFileLabel()" />
         <button mat-icon-button matSuffix (click)="fileInput.click()">
           <mat-icon>folder_open</mat-icon>
         </button>
       </mat-form-field>
+
+      @if (importType === 'level') {
+        <p class="selection-hint">You can select multiple level JSON files in one import.</p>
+      }
       
       <input
         #fileInput
         type="file"
         accept=".json"
+        [multiple]="importType === 'level'"
         style="display: none;"
         (change)="onFileSelected($event)"
       />
@@ -34,10 +39,12 @@
       </div>
     }
 
-    @if (selectedFile && isValidJson) {
+    @if (selectedFiles.length > 0 && isValidJson) {
       <div class="success-message">
         <mat-icon color="primary">check_circle</mat-icon>
-        <span>Valid {{ importType === 'level' ? 'level' : 'items' }} file selected</span>
+        <span>
+          Valid {{ importType === 'level' ? 'level' : 'items' }} {{ selectedFiles.length === 1 ? 'file' : 'files' }} selected
+        </span>
       </div>
     }
   </mat-dialog-content>
