@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, Input, ChangeDetectionStrategy } from '@angular/core';
 import { BaseEnemyType, EnemyData } from '../../../models/level.model';
 import { Store } from '@ngrx/store';
 import { deleteEnemy, updateEnemy } from '../../../store/level.actions';
@@ -23,6 +23,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatSelectModule
 ],
   templateUrl: './enemy-card.component.html',
+  changeDetection: ChangeDetectionStrategy.Default,
   styleUrls: ['./enemy-card.component.scss']
 })
 export class EnemyCardComponent {

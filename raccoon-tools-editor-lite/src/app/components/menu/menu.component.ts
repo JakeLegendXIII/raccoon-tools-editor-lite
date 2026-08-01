@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
@@ -11,6 +11,7 @@ import { ImportComponent } from '../import/import.component';
   selector: 'app-menu',
   imports: [MatButtonModule, MatMenuModule, MatIconModule, MatDividerModule],
   templateUrl: './menu.component.html',
+  changeDetection: ChangeDetectionStrategy.Default,
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent {

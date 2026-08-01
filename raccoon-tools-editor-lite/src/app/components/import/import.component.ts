@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -47,6 +47,7 @@ const MAX_RANGE = 99;
     MatButtonToggleModule
 ],
   templateUrl: './import.component.html',
+  changeDetection: ChangeDetectionStrategy.Default,
   styleUrls: ['./import.component.scss']
 })
 export class ImportComponent {

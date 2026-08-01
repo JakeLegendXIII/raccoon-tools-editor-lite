@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
@@ -31,6 +31,7 @@ interface DragData {
   selector: 'app-visualizer',
   imports: [CommonModule, FormsModule],
   templateUrl: './visualizer.component.html',
+  changeDetection: ChangeDetectionStrategy.Default,
   styleUrls: ['./visualizer.component.scss']
 })
 export class VisualizerComponent implements OnInit {

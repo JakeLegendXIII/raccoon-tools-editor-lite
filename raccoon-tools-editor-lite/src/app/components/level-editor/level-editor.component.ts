@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { Observable, map } from 'rxjs';
@@ -28,6 +28,7 @@ import { StartPositionListComponent } from '../start-position/start-position-lis
     StartPositionListComponent
   ],
   templateUrl: './level-editor.component.html',
+  changeDetection: ChangeDetectionStrategy.Default,
   styleUrls: ['./level-editor.component.scss']
 })
 export class LevelEditorComponent {

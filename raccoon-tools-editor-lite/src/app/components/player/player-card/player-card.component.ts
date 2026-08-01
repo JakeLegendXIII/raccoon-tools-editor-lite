@@ -1,4 +1,4 @@
-import { Component, Input, inject, OnInit } from '@angular/core';
+import { Component, Input, inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
@@ -23,6 +23,7 @@ import { updatePlayer, deletePlayer } from '../../../store/level.actions';
     MatSelectModule
 ],
   templateUrl: './player-card.component.html',
+  changeDetection: ChangeDetectionStrategy.Default,
   styleUrls: ['./player-card.component.scss']
 })
 export class PlayerCardComponent implements OnInit {

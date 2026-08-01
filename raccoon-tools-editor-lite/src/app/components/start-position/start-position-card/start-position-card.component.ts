@@ -1,4 +1,4 @@
-import { Component, Input, inject, OnInit } from '@angular/core';
+import { Component, Input, inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
@@ -21,6 +21,7 @@ import { updateStartPosition, deleteStartPosition } from '../../../store/level.a
     MatIconModule
 ],
   templateUrl: './start-position-card.component.html',
+  changeDetection: ChangeDetectionStrategy.Default,
   styleUrls: ['./start-position-card.component.scss']
 })
 export class StartPositionCardComponent implements OnInit {

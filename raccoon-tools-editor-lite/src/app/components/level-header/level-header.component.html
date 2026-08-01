@@ -114,7 +114,7 @@
           id="winX"
           type="number" 
           min="0"
-          [value]="(winPosition$ | async)?.X" 
+          [value]="$safeNavigationMigration((winPosition$ | async)?.X)" 
           (change)="onWinXChange($event)">
       </div>
       
@@ -124,7 +124,7 @@
           id="winY"
           type="number" 
           min="0"
-          [value]="(winPosition$ | async)?.Y" 
+          [value]="$safeNavigationMigration((winPosition$ | async)?.Y)" 
           (change)="onWinYChange($event)">
       </div>
     </div>

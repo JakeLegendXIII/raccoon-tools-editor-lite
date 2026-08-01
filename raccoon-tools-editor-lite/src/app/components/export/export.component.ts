@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
@@ -16,6 +16,7 @@ export type ExportType = 'level' | 'items';
   selector: 'app-export',
   imports: [CommonModule, FormsModule, MatButtonToggleModule],
   templateUrl: './export.component.html',
+  changeDetection: ChangeDetectionStrategy.Default,
   styleUrls: ['./export.component.scss']
 })
 export class ExportComponent {

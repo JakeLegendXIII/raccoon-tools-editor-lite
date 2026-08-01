@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
@@ -19,6 +19,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatIconModule
   ],
   templateUrl: './conversion.component.html',
+  changeDetection: ChangeDetectionStrategy.Default,
   styleUrls: ['./conversion.component.scss'],
 })
 export class ConversionComponent {

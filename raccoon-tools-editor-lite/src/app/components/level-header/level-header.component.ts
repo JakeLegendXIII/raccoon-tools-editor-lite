@@ -1,4 +1,4 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, Input, inject, ChangeDetectionStrategy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
@@ -34,6 +34,7 @@ import { Level } from '../../models/level.model';
     VisualizerComponent
   ],  
   templateUrl: './level-header.component.html',
+  changeDetection: ChangeDetectionStrategy.Default,
   styleUrls: ['./level-header.component.scss']
 })
 export class LevelHeaderComponent {

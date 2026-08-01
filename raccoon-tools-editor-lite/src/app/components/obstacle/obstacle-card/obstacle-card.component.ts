@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ObstacleData, ObstacleType } from '../../../models/level.model';
 import { deleteObstacle, updateObstacle } from '../../../store/level.actions';
@@ -25,6 +25,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatCheckboxModule
 ],
   templateUrl: './obstacle-card.component.html',
+  changeDetection: ChangeDetectionStrategy.Default,
   styleUrls: ['./obstacle-card.component.scss']
 })
 export class ObstacleCardComponent {

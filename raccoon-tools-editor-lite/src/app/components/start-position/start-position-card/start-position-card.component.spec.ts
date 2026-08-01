@@ -9,7 +9,7 @@ describe('StartPositionCardComponent', () => {
 
   const initialState = {
     level: {
-      currentLevel: {
+      loadedLevels: [{
         ID: 0,
         GridWidth: 8,
         GridHeight: 8,
@@ -22,7 +22,8 @@ describe('StartPositionCardComponent', () => {
         Players: [],
         Enemies: [],
         Obstacles: []
-      }
+      }],
+      selectedLevelIndex: 0
     }
   };
 

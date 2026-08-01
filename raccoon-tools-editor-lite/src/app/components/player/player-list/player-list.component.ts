@@ -1,4 +1,4 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, Input, inject, ChangeDetectionStrategy } from '@angular/core';
 import { PlayerCardComponent } from "../player-card/player-card.component";
 import { Observable, take, combineLatest } from 'rxjs';
 import { CommonModule } from '@angular/common';
@@ -20,6 +20,7 @@ import { VisualizerComponent } from '../../visualizer/visualizer.component';
     VisualizerComponent
   ],
   templateUrl: './player-list.component.html',
+  changeDetection: ChangeDetectionStrategy.Default,
   styleUrls: ['./player-list.component.scss']
 })
 export class PlayerListComponent {

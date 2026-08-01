@@ -1,4 +1,4 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, Input, inject, ChangeDetectionStrategy } from '@angular/core';
 import { Observable, take, combineLatest } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
@@ -20,6 +20,7 @@ import { VisualizerComponent } from '../../visualizer/visualizer.component';
     VisualizerComponent
   ],
   templateUrl: './start-position-list.component.html',
+  changeDetection: ChangeDetectionStrategy.Default,
   styleUrls: ['./start-position-list.component.scss']
 })
 export class StartPositionListComponent {

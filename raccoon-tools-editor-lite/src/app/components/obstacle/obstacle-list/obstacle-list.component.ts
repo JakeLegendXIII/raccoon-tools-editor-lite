@@ -1,4 +1,4 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, Input, inject, ChangeDetectionStrategy } from '@angular/core';
 import { selectCurrentLevel, selectObstacles } from '../../../store/level.selectors';
 import { combineLatest, Observable, take } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -20,6 +20,7 @@ import { VisualizerComponent } from "../../visualizer/visualizer.component";
     VisualizerComponent
 ],
   templateUrl: './obstacle-list.component.html',
+  changeDetection: ChangeDetectionStrategy.Default,
   styleUrls: ['./obstacle-list.component.scss']
 })
 export class ObstacleListComponent {

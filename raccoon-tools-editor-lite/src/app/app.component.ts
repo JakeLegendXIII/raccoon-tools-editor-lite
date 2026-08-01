@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MenuComponent } from "./components/menu/menu.component";
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -10,6 +10,7 @@ import { MatMenuModule } from '@angular/material/menu';
   selector: 'app-root',
   imports: [RouterOutlet, MenuComponent, MatToolbarModule, MatButtonModule, MatIconModule, MatMenuModule],
   templateUrl: './app.component.html',
+  changeDetection: ChangeDetectionStrategy.Default,
   styleUrl: './app.component.scss'
 })
 export class AppComponent {

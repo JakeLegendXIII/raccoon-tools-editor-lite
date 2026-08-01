@@ -1,4 +1,4 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, Input, inject, ChangeDetectionStrategy } from '@angular/core';
 import { EnemyData } from '../../../models/level.model';
 import { combineLatest, Observable, take } from 'rxjs';
 import { EnemyCardComponent } from '../enemy-card/enemy-card.component';
@@ -20,6 +20,7 @@ import { VisualizerComponent } from "../../visualizer/visualizer.component";
     VisualizerComponent
 ],
   templateUrl: './enemy-list.component.html',
+  changeDetection: ChangeDetectionStrategy.Default,
   styleUrls: ['./enemy-list.component.scss']
 })
 export class EnemyListComponent {

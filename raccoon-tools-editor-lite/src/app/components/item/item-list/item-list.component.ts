@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
@@ -11,6 +11,7 @@ import { loadItems, addItem, updateItem, deleteItem } from '../../../store/items
   selector: 'app-item-list',
   imports: [CommonModule, FormsModule],
   templateUrl: './item-list.component.html',
+  changeDetection: ChangeDetectionStrategy.Default,
   styleUrl: './item-list.component.scss'
 })
 export class ItemListComponent {
