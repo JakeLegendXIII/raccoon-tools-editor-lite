@@ -47,7 +47,7 @@ const MAX_RANGE = 99;
     MatButtonToggleModule
 ],
   templateUrl: './import.component.html',
-  changeDetection: ChangeDetectionStrategy.Default,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./import.component.scss']
 })
 export class ImportComponent {

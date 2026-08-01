@@ -20,7 +20,7 @@ import { VisualizerComponent } from "../../visualizer/visualizer.component";
     VisualizerComponent
 ],
   templateUrl: './obstacle-list.component.html',
-  changeDetection: ChangeDetectionStrategy.Default,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./obstacle-list.component.scss']
 })
 export class ObstacleListComponent {

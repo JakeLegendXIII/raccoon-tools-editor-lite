@@ -25,7 +25,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatCheckboxModule
 ],
   templateUrl: './obstacle-card.component.html',
-  changeDetection: ChangeDetectionStrategy.Default,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./obstacle-card.component.scss']
 })
 export class ObstacleCardComponent {

@@ -20,7 +20,7 @@ import { VisualizerComponent } from '../../visualizer/visualizer.component';
     VisualizerComponent
   ],
   templateUrl: './start-position-list.component.html',
-  changeDetection: ChangeDetectionStrategy.Default,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./start-position-list.component.scss']
 })
 export class StartPositionListComponent {

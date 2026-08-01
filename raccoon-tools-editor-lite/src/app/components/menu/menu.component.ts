@@ -11,7 +11,7 @@ import { ImportComponent } from '../import/import.component';
   selector: 'app-menu',
   imports: [MatButtonModule, MatMenuModule, MatIconModule, MatDividerModule],
   templateUrl: './menu.component.html',
-  changeDetection: ChangeDetectionStrategy.Default,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent {

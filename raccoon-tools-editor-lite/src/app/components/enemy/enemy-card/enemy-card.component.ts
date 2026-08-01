@@ -23,7 +23,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatSelectModule
 ],
   templateUrl: './enemy-card.component.html',
-  changeDetection: ChangeDetectionStrategy.Default,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./enemy-card.component.scss']
 })
 export class EnemyCardComponent {

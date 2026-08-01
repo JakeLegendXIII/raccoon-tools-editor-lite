@@ -31,7 +31,7 @@ interface DragData {
   selector: 'app-visualizer',
   imports: [CommonModule, FormsModule],
   templateUrl: './visualizer.component.html',
-  changeDetection: ChangeDetectionStrategy.Default,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./visualizer.component.scss']
 })
 export class VisualizerComponent implements OnInit {

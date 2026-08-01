@@ -23,7 +23,7 @@ import { updatePlayer, deletePlayer } from '../../../store/level.actions';
     MatSelectModule
 ],
   templateUrl: './player-card.component.html',
-  changeDetection: ChangeDetectionStrategy.Default,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./player-card.component.scss']
 })
 export class PlayerCardComponent implements OnInit {

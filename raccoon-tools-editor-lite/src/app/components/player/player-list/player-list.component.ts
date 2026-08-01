@@ -20,7 +20,7 @@ import { VisualizerComponent } from '../../visualizer/visualizer.component';
     VisualizerComponent
   ],
   templateUrl: './player-list.component.html',
-  changeDetection: ChangeDetectionStrategy.Default,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./player-list.component.scss']
 })
 export class PlayerListComponent {

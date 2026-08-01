@@ -11,7 +11,7 @@ import { loadItems, addItem, updateItem, deleteItem } from '../../../store/items
   selector: 'app-item-list',
   imports: [CommonModule, FormsModule],
   templateUrl: './item-list.component.html',
-  changeDetection: ChangeDetectionStrategy.Default,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './item-list.component.scss'
 })
 export class ItemListComponent {

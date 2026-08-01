@@ -21,7 +21,7 @@ import { updateStartPosition, deleteStartPosition } from '../../../store/level.a
     MatIconModule
 ],
   templateUrl: './start-position-card.component.html',
-  changeDetection: ChangeDetectionStrategy.Default,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./start-position-card.component.scss']
 })
 export class StartPositionCardComponent implements OnInit {

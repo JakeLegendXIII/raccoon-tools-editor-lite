@@ -20,7 +20,7 @@ import { VisualizerComponent } from "../../visualizer/visualizer.component";
     VisualizerComponent
 ],
   templateUrl: './enemy-list.component.html',
-  changeDetection: ChangeDetectionStrategy.Default,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./enemy-list.component.scss']
 })
 export class EnemyListComponent {

@@ -16,7 +16,7 @@ export type ExportType = 'level' | 'items';
   selector: 'app-export',
   imports: [CommonModule, FormsModule, MatButtonToggleModule],
   templateUrl: './export.component.html',
-  changeDetection: ChangeDetectionStrategy.Default,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./export.component.scss']
 })
 export class ExportComponent {

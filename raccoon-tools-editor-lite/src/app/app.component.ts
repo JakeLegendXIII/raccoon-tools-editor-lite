@@ -10,7 +10,7 @@ import { MatMenuModule } from '@angular/material/menu';
   selector: 'app-root',
   imports: [RouterOutlet, MenuComponent, MatToolbarModule, MatButtonModule, MatIconModule, MatMenuModule],
   templateUrl: './app.component.html',
-  changeDetection: ChangeDetectionStrategy.Default,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './app.component.scss'
 })
 export class AppComponent {

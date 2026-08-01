@@ -28,7 +28,7 @@ import { StartPositionListComponent } from '../start-position/start-position-lis
     StartPositionListComponent
   ],
   templateUrl: './level-editor.component.html',
-  changeDetection: ChangeDetectionStrategy.Default,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./level-editor.component.scss']
 })
 export class LevelEditorComponent {

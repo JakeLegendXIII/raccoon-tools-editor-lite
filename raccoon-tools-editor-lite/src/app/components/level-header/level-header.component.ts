@@ -34,7 +34,7 @@ import { Level } from '../../models/level.model';
     VisualizerComponent
   ],  
   templateUrl: './level-header.component.html',
-  changeDetection: ChangeDetectionStrategy.Default,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./level-header.component.scss']
 })
 export class LevelHeaderComponent {
