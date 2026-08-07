@@ -1,26 +1,45 @@
 <div class="level-editor">
   @if (showTitle) {
-    <h2>Level Header</h2>
+    <header class="component-header">
+      <p class="eyebrow">Level setup</p>
+      <h2>Level properties</h2>
+    </header>
   }
   <div class="level-switcher">
-    <label for="header-level-select">Loaded Levels:</label>
-    <select
-      id="header-level-select"
-      [ngModel]="selectedLevelIndex$ | async"
-      (ngModelChange)="selectLevel($event)">
-      @for (level of loadedLevels$ | async; track $index) {
-        <option [value]="$index">{{ getLevelOptionLabel(level, $index) }}</option>
-      }
-    </select>
-    <button type="button" class="create-level-button" (click)="createLevel()">New Level</button>
-    <button type="button" class="duplicate-level-button" (click)="duplicateLevel()">Duplicate Level</button>
+    <label class="property-group level-selector" for="header-level-select">
+      <span>Loaded level</span>
+      <select
+        id="header-level-select"
+        [ngModel]="selectedLevelIndex$ | async"
+        (ngModelChange)="selectLevel($event)">
+        @for (level of loadedLevels$ | async; track $index) {
+          <option [value]="$index">{{ getLevelOptionLabel(level, $index) }}</option>
+        }
+      </select>
+    </label>
+    <div class="switcher-actions">
+      <button mat-stroked-button type="button" (click)="duplicateLevel()">
+        <mat-icon>content_copy</mat-icon>
+        Duplicate
+      </button>
+      <button mat-flat-button type="button" (click)="createLevel()">
+        <mat-icon>add</mat-icon>
+        New level
+      </button>
+    </div>
   </div>
-    <!-- Level Properties Editor -->
-  <div class="level-properties">
-    <h3>Level Properties</h3>           
+
+  <section class="level-properties">
+    <div class="section-heading">
+      <div>
+        <p class="section-label">Configuration</p>
+        <h3>Level details</h3>
+      </div>
+      <mat-icon>tune</mat-icon>
+    </div>
     <div class="properties-grid">
       <div class="property-group">
-        <label for="id">ID:</label>
+        <label for="id">ID</label>
         <input 
           id="id"
           type="number" 
@@ -31,7 +50,7 @@
     </div>
 
       <div class="property-group">
-        <label for="gridWidth">Grid Width:</label>
+        <label for="gridWidth">Grid width</label>
         <input 
           id="gridWidth"
           type="number" 
@@ -42,7 +61,7 @@
       </div>
       
       <div class="property-group">
-        <label for="gridHeight">Grid Height:</label>
+        <label for="gridHeight">Grid height</label>
         <input 
           id="gridHeight"
           type="number" 
@@ -53,7 +72,7 @@
       </div>
       
       <div class="property-group">
-        <label for="cellSize">Cell Size:</label>
+        <label for="cellSize">Cell size</label>
         <input 
           id="cellSize"
           type="number" 
@@ -64,7 +83,7 @@
           (change)="onCellSizeChange($event)">
       </div>        
       <div class="property-group">
-        <label for="levelType">Level Type:</label>
+        <label for="levelType">Level type</label>
         <select 
           id="levelType"
           [ngModel]="levelType$ | async" 
@@ -76,7 +95,7 @@
       </div>
 
        <div class="property-group">
-        <label for="biomeType">Biome Type:</label>
+        <label for="biomeType">Biome type</label>
         <select 
           id="biomeType"
           [ngModel]="biomeType$ | async" 
@@ -88,7 +107,7 @@
       </div>
 
       <div class="property-group">
-        <label for="levelDifficultyType">Level Difficulty:</label>
+        <label for="levelDifficultyType">Level difficulty</label>
         <select
           id="levelDifficultyType"
           [ngModel]="levelDifficultyType$ | async"
@@ -100,16 +119,16 @@
       </div>
       
       <div class="property-group full-width">
-        <label for="levelDescription">Level Description:</label>
+        <label for="levelDescription">Level description</label>
         <input 
           id="levelDescription"
           type="text" 
           [value]="levelDescription$ | async" 
           (input)="onLevelDescriptionInput($event)"
-          placeholder="Enter level description...">
+          placeholder="Enter level description">
       </div>
-        <div class="property-group">
-        <label for="winX">Win Position X:</label>
+      <div class="property-group">
+        <label for="winX">Win position X</label>
         <input 
           id="winX"
           type="number" 
@@ -119,7 +138,7 @@
       </div>
       
       <div class="property-group">
-        <label for="winY">Win Position Y:</label>
+        <label for="winY">Win position Y</label>
         <input 
           id="winY"
           type="number" 
@@ -127,18 +146,18 @@
           [value]="$safeNavigationMigration((winPosition$ | async)?.Y)" 
           (change)="onWinYChange($event)">
       </div>
-    </div>
 
-    <div class="property-group">
-      <label for="numberOfTurns">Number of Turns:</label>
-      <input 
-        id="numberOfTurns"
-        type="number" 
-        min="0"
-        [value]="numberOfTurns$ | async" 
-        (change)="onNumberOfTurnsChange($event)">
+      <div class="property-group">
+        <label for="numberOfTurns">Number of turns</label>
+        <input 
+          id="numberOfTurns"
+          type="number" 
+          min="0"
+          [value]="numberOfTurns$ | async" 
+          (change)="onNumberOfTurnsChange($event)">
+      </div>
     </div>
-  </div>
+  </section>
 
   <!-- Entity Lists -->
   @if (showEntityLists) {

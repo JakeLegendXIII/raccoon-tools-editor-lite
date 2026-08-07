@@ -3,6 +3,8 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 import { PlayerData, EnemyData, ObstacleData, LevelPoint, LevelType, LevelDifficultyType, BasePlayerType, BaseEnemyType, ObstacleType, BiomeType } from '../../models/level.model';
 import { 
@@ -31,6 +33,8 @@ import { Level } from '../../models/level.model';
   imports: [
     CommonModule,
     FormsModule,
+    MatButtonModule,
+    MatIconModule,
     VisualizerComponent
   ],  
   templateUrl: './level-header.component.html',
