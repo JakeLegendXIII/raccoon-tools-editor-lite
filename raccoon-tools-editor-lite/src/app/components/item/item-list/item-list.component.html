@@ -1,83 +1,133 @@
-<div class="item-list-container">
-  <header class="item-list-header">
-    <h2>Items</h2>
-    <div class="header-actions">
-      <button class="add-btn" (click)="addNewItem()">+ Add Item</button>      
+<section class="item-tool">
+  <header class="tool-header">
+    <div>
+      <p class="eyebrow">Game data</p>
+      <h1>Items</h1>
+    </div>
+
+    <div class="tool-actions">
+      <input #fileInput type="file" accept="application/json,.json" hidden (change)="onFileSelected($event)" />
+      <button mat-stroked-button type="button" (click)="fileInput.click()">
+        <mat-icon>upload_file</mat-icon>
+        Import
+      </button>
+      <button mat-stroked-button type="button" (click)="exportItems()">
+        <mat-icon>download</mat-icon>
+        Export
+      </button>
+      <button mat-flat-button type="button" (click)="addNewItem()">
+        <mat-icon>add</mat-icon>
+        Add item
+      </button>
     </div>
   </header>
 
-  <div class="item-list-content">
-    @if ((items$ | async)?.length === 0) {
-      <p class="empty-message">No items loaded.</p>
-    }
-    
-    @if ((items$ | async)?.length) {
-      <table class="items-table">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Item Type</th>
-            <th>Change Value</th>
-            <th>Use Count</th>
-            <th>Target Range</th>
-            <th>Target Type</th>
-            <th>Usage Range</th>
+  @if (errorMessage) {
+    <div class="error-banner" role="alert">
+      <mat-icon>error_outline</mat-icon>
+      <span>{{ errorMessage }}</span>
+      <button type="button" class="dismiss-button" title="Dismiss" aria-label="Dismiss error" (click)="errorMessage = ''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  }
 
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          @for (item of items$ | async; track item.ID) {
-            <tr [class.editing]="isEditing(item.ID)">
-              @if (!isEditing(item.ID)) {
-                <td>{{ item.ID }}</td>
-                <td>{{ item.Name }}</td>
-                <td>{{ item.Description }}</td>
-                <td>{{ getItemTypeName(item.ItemType) }}</td>
-                <td>{{ item.ChangeValue }}</td>
-                <td>{{ item.UseCount }}</td>
-                <td>{{ item.TargetRange }}</td>
-                <td>{{ getTargetTypeName(item.TargetType) }}</td>
-                <td>{{ item.UsageRange }}</td>
-                <td class="actions-cell">
-                  <button class="edit-btn" (click)="startEditing(item)">Edit</button>
-                  <button class="delete-btn" (click)="deleteItemById(item.ID)">Delete</button>
-                </td>
-              }
-              
-              @if (isEditing(item.ID) && editingItem) {
-                <td>{{ editingItem.ID }}</td>
-                <td><input type="text" [(ngModel)]="editingItem.Name" class="edit-input" /></td>
-                <td><input type="text" [(ngModel)]="editingItem.Description" class="edit-input" /></td>
-                <td>
-                  <select [(ngModel)]="editingItem.ItemType" class="edit-input">
-                    @for (opt of itemTypeOptions; track opt.value) {
-                      <option [ngValue]="opt.value">{{ opt.label }}</option>
-                    }
-                  </select>
-                </td>
-                <td><input type="number" [(ngModel)]="editingItem.ChangeValue" class="edit-input" /></td>
-                <td><input type="number" [(ngModel)]="editingItem.UseCount" class="edit-input" /></td>
-                <td><input type="number" [(ngModel)]="editingItem.TargetRange" class="edit-input" /></td>
-                <td>
-                  <select [(ngModel)]="editingItem.TargetType" class="edit-input">
-                    @for (opt of targetTypeOptions; track opt.value) {
-                      <option [ngValue]="opt.value">{{ opt.label }}</option>
-                    }
-                  </select>
-                </td>
-                <td><input type="number" [(ngModel)]="editingItem.UsageRange" class="edit-input" /></td>
-                <td class="actions-cell">
-                  <button class="save-btn" (click)="saveItem()">Save</button>
-                  <button class="cancel-btn" (click)="cancelEditing()">Cancel</button>
-                </td>
-              }
-            </tr>
-          }
-        </tbody>
-      </table>
+  <div class="item-list">
+    @for (item of items$ | async; track item.ID) {
+      <article class="item-entry" [class.is-editing]="isEditing(item.ID)">
+        @if (!isEditing(item.ID)) {
+          <div class="entry-summary">
+            <span class="item-id">#{{ item.ID }}</span>
+            <div class="item-copy">
+              <h2>{{ item.Name }}</h2>
+              <p>{{ item.Description || 'No description' }}</p>
+            </div>
+            <div class="value-block">
+              <span>Change</span>
+              <strong>{{ item.ChangeValue }}</strong>
+            </div>
+          </div>
+
+          <div class="entry-footer">
+            <div class="item-details">
+              <span class="type-chip">{{ getItemTypeName(item.ItemType) }}</span>
+              <span class="type-chip secondary">{{ getTargetTypeName(item.TargetType) }}</span>
+              <span>Uses <strong>{{ item.UseCount }}</strong></span>
+              <span>Target range <strong>{{ item.TargetRange }}</strong></span>
+              <span>Usage range <strong>{{ item.UsageRange }}</strong></span>
+            </div>
+            <div class="entry-actions">
+              <button mat-icon-button type="button" title="Edit item" [attr.aria-label]="'Edit ' + item.Name" (click)="startEditing(item)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button type="button" class="delete-button" title="Delete item" [attr.aria-label]="'Delete ' + item.Name" (click)="deleteItemById(item.ID)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </div>
+        } @else if (editingItem) {
+          <div class="edit-grid">
+            <label class="field name-field">
+              <span>Name</span>
+              <input type="text" maxlength="80" [(ngModel)]="editingItem.Name" />
+            </label>
+            <label class="field change-field">
+              <span>Change value</span>
+              <input type="number" step="1" [(ngModel)]="editingItem.ChangeValue" />
+            </label>
+            <label class="field description-field">
+              <span>Description</span>
+              <textarea rows="3" maxlength="500" [(ngModel)]="editingItem.Description"></textarea>
+            </label>
+            <label class="field">
+              <span>Item type</span>
+              <select [(ngModel)]="editingItem.ItemType">
+                @for (option of itemTypeOptions; track option.value) {
+                  <option [ngValue]="option.value">{{ option.label }}</option>
+                }
+              </select>
+            </label>
+            <label class="field">
+              <span>Target type</span>
+              <select [(ngModel)]="editingItem.TargetType">
+                @for (option of targetTypeOptions; track option.value) {
+                  <option [ngValue]="option.value">{{ option.label }}</option>
+                }
+              </select>
+            </label>
+            <label class="field">
+              <span>Use count</span>
+              <input type="number" min="1" step="1" [(ngModel)]="editingItem.UseCount" />
+            </label>
+            <label class="field">
+              <span>Target range</span>
+              <input type="number" min="0" step="1" [(ngModel)]="editingItem.TargetRange" />
+            </label>
+            <label class="field">
+              <span>Usage range</span>
+              <input type="number" min="0" step="1" [(ngModel)]="editingItem.UsageRange" />
+            </label>
+          </div>
+
+          <div class="edit-actions">
+            <span class="item-id">ID #{{ editingItem.ID }}</span>
+            <button mat-button type="button" (click)="cancelEditing()">Cancel</button>
+            <button mat-flat-button type="button" (click)="saveItem()">
+              <mat-icon>save</mat-icon>
+              Save
+            </button>
+          </div>
+        }
+      </article>
+    } @empty {
+      <div class="empty-state">
+        <mat-icon>bolt</mat-icon>
+        <h2>No items yet</h2>
+        <button mat-flat-button type="button" (click)="addNewItem()">
+          <mat-icon>add</mat-icon>
+          Create item
+        </button>
+      </div>
     }
   </div>
-</div>
+</section>
