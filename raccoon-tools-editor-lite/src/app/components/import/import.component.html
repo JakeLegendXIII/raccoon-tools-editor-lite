@@ -1,12 +1,15 @@
 <div class="import-dialog">
-  <h2 mat-dialog-title>Import Levels</h2>
+  <header class="dialog-header">
+    <p class="eyebrow">Game data</p>
+    <h2 mat-dialog-title>Import levels</h2>
+  </header>
   
   <mat-dialog-content>
     <div class="file-upload-section">
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Select JSON Level File(s)</mat-label>
         <input matInput readonly [value]="getSelectedFileLabel()" />
-        <button mat-icon-button matSuffix (click)="fileInput.click()">
+        <button mat-icon-button matSuffix type="button" title="Choose files" aria-label="Choose level files" (click)="fileInput.click()">
           <mat-icon>folder_open</mat-icon>
         </button>
       </mat-form-field>
@@ -24,15 +27,15 @@
     </div>
 
     @if (errorMessage) {
-      <div class="error-message">
-        <mat-icon color="warn">error</mat-icon>
+      <div class="status-banner error-message" role="alert">
+        <mat-icon>error_outline</mat-icon>
         <span>{{ errorMessage }}</span>
       </div>
     }
 
     @if (selectedFiles.length > 0 && isValidJson) {
-      <div class="success-message">
-        <mat-icon color="primary">check_circle</mat-icon>
+      <div class="status-banner success-message" role="status">
+        <mat-icon>check_circle</mat-icon>
         <span>
           Valid level {{ selectedFiles.length === 1 ? 'file' : 'files' }} selected
         </span>
@@ -41,12 +44,13 @@
   </mat-dialog-content>
 
   <mat-dialog-actions align="end">
-    <button mat-button (click)="onCancel()">Cancel</button>
+    <button mat-button type="button" (click)="onCancel()">Cancel</button>
     <button 
-      mat-raised-button 
-      color="primary" 
+      mat-flat-button
+      type="button"
       [disabled]="!isValidJson" 
       (click)="onImport()">
+      <mat-icon>upload_file</mat-icon>
       Import
     </button>
   </mat-dialog-actions>

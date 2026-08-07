@@ -3,13 +3,15 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 import { Level } from '../../models/level.model';
 import { selectCurrentLevel } from '../../store/level.selectors';
 
 @Component({
   selector: 'app-export',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, MatButtonModule, MatIconModule],
   templateUrl: './export.component.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./export.component.scss']

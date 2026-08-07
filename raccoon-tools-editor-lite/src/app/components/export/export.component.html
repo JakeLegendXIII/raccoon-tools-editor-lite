@@ -1,43 +1,56 @@
-<div class="export-container">
-  <h2>Export Level</h2>
+<section class="export-tool">
+  <header class="tool-header">
+    <div>
+      <p class="eyebrow">Game data</p>
+      <h1>Export level</h1>
+    </div>
+  </header>
   
   <div class="export-form">
-    <div class="form-group">
-      <label for="fileName">File Name:</label>
+    <label class="field" for="fileName">
+      <span>File name</span>
       <input 
         type="text" 
         id="fileName" 
         [(ngModel)]="fileName" 
         placeholder="Enter file name"
-        class="form-control">
-      <small class="help-text">.json extension will be added automatically</small>
-    </div>
+        aria-describedby="fileNameHint">
+      <small id="fileNameHint">The .json extension is added automatically</small>
+    </label>
 
     @if (currentLevel$ | async; as level) {
       <div class="preview-section">
-        <h3>Level Preview</h3>
+        <div class="preview-heading">
+          <div>
+            <p class="section-label">Level preview</p>
+            <h2>{{ level.LevelDescription || 'Untitled level' }}</h2>
+          </div>
+          <span class="level-id">#{{ level.ID }}</span>
+        </div>
         <div class="level-info">
-          <p><strong>Level ID:</strong> {{ level.ID }}</p>
-          <p><strong>Description:</strong> {{ level.LevelDescription || 'No description' }}</p>
-          <p><strong>Grid Size:</strong> {{ level.GridWidth }} x {{ level.GridHeight }}</p>
-          <p><strong>Players:</strong> {{ level.Players.length }}</p>
-          <p><strong>Enemies:</strong> {{ level.Enemies.length }}</p>
-          <p><strong>Obstacles:</strong> {{ level.Obstacles.length }}</p>
+          <div><span>Grid size</span><strong>{{ level.GridWidth }} x {{ level.GridHeight }}</strong></div>
+          <div><span>Players</span><strong>{{ level.Players.length }}</strong></div>
+          <div><span>Enemies</span><strong>{{ level.Enemies.length }}</strong></div>
+          <div><span>Obstacles</span><strong>{{ level.Obstacles.length }}</strong></div>
         </div>
       </div>
 
       <div class="export-actions">
         <button 
-          class="export-btn" 
+          mat-flat-button
+          type="button"
           (click)="exportLevel()"
           [disabled]="!fileName.trim()">
-          Export Level as JSON
+          <mat-icon>download</mat-icon>
+          Export JSON
         </button>
       </div>
     } @else {
       <div class="no-level">
-        <p>No level data available to export. Please create a level first.</p>
+        <mat-icon>draft</mat-icon>
+        <h2>No level to export</h2>
+        <p>Create or import a level before exporting.</p>
       </div>
     }
   </div>
-</div>
+</section>

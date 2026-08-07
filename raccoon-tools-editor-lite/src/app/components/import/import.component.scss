@@ -1,16 +1,41 @@
 .import-dialog {
-  padding: 16px;
-  min-width: 360px;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  padding: 24px;
+}
+
+.dialog-header {
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--mat-sys-outline-variant);
+
+  h2 {
+    margin: 0;
+    padding: 0;
+    font-size: 24px;
+    line-height: 1.2;
+  }
+}
+
+.eyebrow {
+  margin: 0 0 4px;
+  color: var(--mat-sys-primary);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
 mat-dialog-content {
   margin: 0;
-  padding: 0 0 8px;
+  padding: 20px 0 8px;
   overflow: visible;
 }
 
 .file-upload-section {
-  margin: 0;
+  padding: 16px;
+  border: 1px solid var(--mat-sys-outline-variant);
+  border-radius: 6px;
+  background: var(--mat-sys-surface-container-low);
 }
 
 .full-width {
@@ -20,28 +45,47 @@ mat-dialog-content {
 .selection-hint {
   margin: 4px 0 0;
   font-size: 13px;
-  color: #666;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.status-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+  padding: 10px 12px;
+  border-left: 3px solid;
+  font-size: 14px;
 }
 
 .error-message {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: #f44336;
-  font-size: 14px;
-  margin-top: 12px;
+  border-color: var(--mat-sys-error);
+  background: var(--mat-sys-error-container);
+  color: var(--mat-sys-on-error-container);
 }
 
 .success-message {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: #4caf50;
-  font-size: 14px;
-  margin-top: 12px;
+  border-color: var(--mat-sys-primary);
+  background: color-mix(in srgb, var(--mat-sys-primary) 12%, var(--mat-sys-surface-container));
+  color: var(--mat-sys-on-surface);
+
+  mat-icon {
+    color: var(--mat-sys-primary);
+  }
 }
 
 mat-dialog-actions {
   margin-top: 12px;
   padding: 12px 0 0;
+  border-top: 1px solid var(--mat-sys-outline-variant);
+}
+
+@media (max-width: 480px) {
+  .import-dialog {
+    padding: 20px;
+  }
+
+  .file-upload-section {
+    padding: 12px;
+  }
 }
