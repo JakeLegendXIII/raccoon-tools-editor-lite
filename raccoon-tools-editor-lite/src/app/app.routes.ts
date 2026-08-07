@@ -18,7 +18,7 @@ export const routes: Routes = [
   // { path: 'player-list', component: PlayerListComponent },
   // { path: 'enemy-list', component: EnemyListComponent },
   // { path: 'obstacle-list', component: ObstacleListComponent },
-  // { path: 'export', component: ExportComponent },
+  { path: 'export', component: ExportComponent },
   // { path: 'visualizer', component: VisualizerComponent },
   { path: 'conversion', component: ConversionComponent },
   // { path: 'start-position', component: StartPositionListComponent },
