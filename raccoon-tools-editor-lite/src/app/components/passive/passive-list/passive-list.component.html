@@ -1,0 +1,111 @@
+<section class="passive-tool">
+  <header class="tool-header">
+    <div>
+      <p class="eyebrow">Game data</p>
+      <h1>Passives</h1>
+    </div>
+
+    <div class="tool-actions">
+      <input #fileInput type="file" accept="application/json,.json" hidden (change)="onFileSelected($event)" />
+      <button mat-stroked-button type="button" (click)="fileInput.click()">
+        <mat-icon>upload_file</mat-icon>
+        Import
+      </button>
+      <button mat-stroked-button type="button" (click)="exportPassives()">
+        <mat-icon>download</mat-icon>
+        Export
+      </button>
+      <button mat-flat-button type="button" (click)="addNewPassive()">
+        <mat-icon>add</mat-icon>
+        Add passive
+      </button>
+    </div>
+  </header>
+
+  @if (errorMessage) {
+    <div class="error-banner" role="alert">
+      <mat-icon>error_outline</mat-icon>
+      <span>{{ errorMessage }}</span>
+      <button type="button" class="dismiss-button" title="Dismiss" aria-label="Dismiss error" (click)="errorMessage = ''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  }
+
+  <div class="passive-list">
+    @for (passive of passives$ | async; track passive.ID) {
+      <article class="passive-entry" [class.is-editing]="isEditing(passive.ID)">
+        @if (!isEditing(passive.ID)) {
+          <div class="entry-summary">
+            <span class="passive-id">#{{ passive.ID }}</span>
+            <div class="passive-copy">
+              <h2>{{ passive.Name }}</h2>
+              <p>{{ passive.Description || 'No description' }}</p>
+            </div>
+            <div class="amount-block">
+              <span>Amount</span>
+              <strong>{{ passive.Amount }}</strong>
+            </div>
+          </div>
+
+          <div class="entry-footer">
+            <div class="flag-list" aria-label="Enabled passive effects">
+              @for (flag of activeFlags(passive); track flag) {
+                <span class="flag-chip">{{ flag }}</span>
+              } @empty {
+                <span class="no-flags">No effects enabled</span>
+              }
+            </div>
+            <div class="entry-actions">
+              <button mat-icon-button type="button" title="Edit passive" [attr.aria-label]="'Edit ' + passive.Name" (click)="startEditing(passive)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button type="button" class="delete-button" title="Delete passive" [attr.aria-label]="'Delete ' + passive.Name" (click)="deletePassiveById(passive.ID)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </div>
+        } @else if (editingPassive) {
+          <div class="edit-grid">
+            <label class="field name-field">
+              <span>Name</span>
+              <input type="text" maxlength="80" [(ngModel)]="editingPassive.Name" />
+            </label>
+            <label class="field amount-field">
+              <span>Amount</span>
+              <input type="number" step="1" [(ngModel)]="editingPassive.Amount" />
+            </label>
+            <label class="field description-field">
+              <span>Description</span>
+              <textarea rows="3" maxlength="500" [(ngModel)]="editingPassive.Description"></textarea>
+            </label>
+          </div>
+
+          <div class="flag-editor">
+            @for (option of flagOptions; track option.key) {
+              <mat-checkbox [(ngModel)]="editingPassive[option.key]">{{ option.label }}</mat-checkbox>
+            }
+          </div>
+
+          <div class="edit-actions">
+            <span class="passive-id">ID #{{ editingPassive.ID }}</span>
+            <button mat-button type="button" (click)="cancelEditing()">Cancel</button>
+            <button mat-flat-button type="button" (click)="savePassive()">
+              <mat-icon>save</mat-icon>
+              Save
+            </button>
+          </div>
+        }
+      </article>
+    } @empty {
+      <div class="empty-state">
+        <mat-icon>auto_awesome</mat-icon>
+        <h2>No passives yet</h2>
+        <button mat-flat-button type="button" (click)="addNewPassive()">
+          <mat-icon>add</mat-icon>
+          Create passive
+        </button>
+      </div>
+    }
+  </div>
+</section>

@@ -9,6 +9,7 @@ import { ConversionComponent } from './components/conversion/conversion.componen
 import { StartPositionListComponent } from './components/start-position/start-position-list/start-position-list.component';
 import { ItemListComponent } from './components/item/item-list/item-list.component';
 import { LevelEditorComponent } from './components/level-editor/level-editor.component';
+import { PassiveListComponent } from './components/passive/passive-list/passive-list.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/level-editor', pathMatch: 'full' },  
@@ -22,5 +23,6 @@ export const routes: Routes = [
   { path: 'conversion', component: ConversionComponent },
   // { path: 'start-position', component: StartPositionListComponent },
   { path: 'items', component: ItemListComponent },
+  { path: 'passives', component: PassiveListComponent },
   { path: '**', redirectTo: '/level-editor' } // Wildcard route for unmatched paths 
 ];

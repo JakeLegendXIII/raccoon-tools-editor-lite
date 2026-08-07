@@ -70,4 +70,8 @@ export class MenuComponent {
   navigateToItemList(): void {
     this.router.navigate(['/items']);
   }
+
+  navigateToPassiveList(): void {
+    this.router.navigate(['/passives']);
+  }
 }
