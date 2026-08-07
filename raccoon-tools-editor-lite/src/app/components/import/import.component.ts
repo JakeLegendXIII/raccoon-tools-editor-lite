@@ -4,9 +4,7 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
-import { FormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import {
   BaseEnemyType,
@@ -20,11 +18,7 @@ import {
   ObstacleType,
   PlayerData
 } from '../../models/level.model';
-import { Item, ItemType, TargetType } from '../../models/item.model';
 import { loadLevels } from '../../store/level.actions';
-import { loadItems } from '../../store/items.actions';
-
-export type ImportType = 'level' | 'items';
 
 const MAX_ID = 50000;
 const MAX_GRID_SIZE = 100;
@@ -33,18 +27,15 @@ const MIN_CELL_SIZE = 16;
 const MAX_TEXT_LENGTH = 200;
 const MAX_ENTITY_STAT = 9999;
 const MAX_TURNS = 9999;
-const MAX_RANGE = 99;
 
 @Component({
   selector: 'app-import',
   imports: [
-    FormsModule,
     MatButtonModule,
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
-    MatIconModule,
-    MatButtonToggleModule
+    MatIconModule
 ],
   templateUrl: './import.component.html',
   changeDetection: ChangeDetectionStrategy.Eager,
@@ -58,7 +49,6 @@ export class ImportComponent {
   fileContents: string[] = [];
   isValidJson: boolean = false;
   errorMessage: string = '';
-  importType: ImportType = 'level';
 
   onFileSelected(event: any): void {
     const files = Array.from(event.target.files ?? []) as File[];
@@ -71,12 +61,6 @@ export class ImportComponent {
     const hasInvalidFile = files.some((file) => !this.isJsonFile(file));
     if (hasInvalidFile) {
       this.errorMessage = 'Please select a valid JSON file';
-      this.resetSelection(false);
-      return;
-    }
-
-    if (this.importType === 'items' && files.length > 1) {
-      this.errorMessage = 'Items import only supports a single JSON file';
       this.resetSelection(false);
       return;
     }
@@ -103,13 +87,7 @@ export class ImportComponent {
       const fileContents = await Promise.all(files.map((file) => this.readFile(file)));
       const parsedFiles = fileContents.map((content) => JSON.parse(content));
 
-      if (this.importType === 'items') {
-        if (!Array.isArray(parsedFiles[0])) {
-          this.errorMessage = 'Invalid items format: expected an array of items';
-          this.isValidJson = false;
-          return;
-        }
-      } else if (!parsedFiles.every((data) => typeof data === 'object' && data !== null && !Array.isArray(data))) {
+      if (!parsedFiles.every((data) => typeof data === 'object' && data !== null && !Array.isArray(data))) {
         this.errorMessage = 'Invalid level data format';
         this.isValidJson = false;
         return;
@@ -123,10 +101,6 @@ export class ImportComponent {
       this.fileContents = [];
       this.isValidJson = false;
     }
-  }
-
-  onImportTypeChange(): void {
-    this.resetSelection();
   }
 
   private resetSelection(clearError: boolean = true): void {
@@ -192,22 +166,6 @@ export class ImportComponent {
     point.X = this.toClampedInteger(data?.X, 0, 0, maxX);
     point.Y = this.toClampedInteger(data?.Y, 0, 0, maxY);
     return point;
-  }
-
-  private deserializeItems(data: any[]): Item[] {
-    return data.map((i: any) => {
-      const item = new Item();
-      item.ID = this.toClampedInteger(i?.ID, 0, 0, MAX_ID);
-      item.Name = this.toSanitizedString(i?.Name, 80);
-      item.Description = this.toSanitizedString(i?.Description, MAX_TEXT_LENGTH);
-      item.ChangeValue = this.toClampedInteger(i?.ChangeValue, 0, -MAX_ENTITY_STAT, MAX_ENTITY_STAT);
-      item.ItemType = this.toEnumValue(ItemType, i?.ItemType, ItemType.Attack);
-      item.UseCount = this.toClampedInteger(i?.UseCount, 1, 1, 99);
-      item.TargetRange = this.toClampedInteger(i?.TargetRange, 0, 0, MAX_RANGE);
-      item.TargetType = this.toEnumValue(TargetType, i?.TargetType, TargetType.Self);
-      item.UsageRange = this.toClampedInteger(i?.UsageRange, 0, 0, MAX_RANGE);
-      return item;
-    });
   }
 
   private deserializeLevel(data: any): Level {
@@ -278,17 +236,11 @@ export class ImportComponent {
   onImport(): void {
     if (this.isValidJson && this.fileContents.length > 0) {
       try {
-        if (this.importType === 'items') {
-          const items = this.deserializeItems(JSON.parse(this.fileContents[0]));
-          this.store.dispatch(loadItems({ items }));
-          this.dialogRef.close({ type: 'items', data: items });
-        } else {
-          const levels = this.fileContents.map((fileContent) => this.deserializeLevel(JSON.parse(fileContent)));
-          this.store.dispatch(loadLevels({ levels }));
-          this.dialogRef.close({ type: 'level', data: levels });
-        }
+        const levels = this.fileContents.map((fileContent) => this.deserializeLevel(JSON.parse(fileContent)));
+        this.store.dispatch(loadLevels({ levels }));
+        this.dialogRef.close({ type: 'level', data: levels });
       } catch {
-        this.errorMessage = this.importType === 'items' ? 'Failed to import items data' : 'Failed to import level data';
+        this.errorMessage = 'Failed to import level data';
       }
     }
   }

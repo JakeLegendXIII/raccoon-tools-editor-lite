@@ -1,32 +1,23 @@
 <div class="import-dialog">
-  <h2 mat-dialog-title>Import {{ importType === 'level' ? 'Level' : 'Items' }}</h2>
+  <h2 mat-dialog-title>Import Levels</h2>
   
   <mat-dialog-content>
-    <div class="import-type-section">
-      <mat-button-toggle-group [(ngModel)]="importType" (change)="onImportTypeChange()">
-        <mat-button-toggle value="level">Level</mat-button-toggle>
-        <mat-button-toggle value="items">Items</mat-button-toggle>
-      </mat-button-toggle-group>
-    </div>
-
     <div class="file-upload-section">
       <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Select JSON {{ importType === 'level' ? 'Level' : 'Items' }} File{{ importType === 'level' ? '(s)' : '' }}</mat-label>
+        <mat-label>Select JSON Level File(s)</mat-label>
         <input matInput readonly [value]="getSelectedFileLabel()" />
         <button mat-icon-button matSuffix (click)="fileInput.click()">
           <mat-icon>folder_open</mat-icon>
         </button>
       </mat-form-field>
 
-      @if (importType === 'level') {
-        <p class="selection-hint">You can select multiple level JSON files in one import.</p>
-      }
+      <p class="selection-hint">You can select multiple level JSON files in one import.</p>
       
       <input
         #fileInput
         type="file"
         accept=".json"
-        [multiple]="importType === 'level'"
+        multiple
         style="display: none;"
         (change)="onFileSelected($event)"
       />
@@ -43,7 +34,7 @@
       <div class="success-message">
         <mat-icon color="primary">check_circle</mat-icon>
         <span>
-          Valid {{ importType === 'level' ? 'level' : 'items' }} {{ selectedFiles.length === 1 ? 'file' : 'files' }} selected
+          Valid level {{ selectedFiles.length === 1 ? 'file' : 'files' }} selected
         </span>
       </div>
     }

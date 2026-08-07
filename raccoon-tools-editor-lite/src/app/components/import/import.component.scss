@@ -9,18 +9,6 @@ mat-dialog-content {
   overflow: visible;
 }
 
-.import-type-section {
-  margin-bottom: 12px;
-  
-  mat-button-toggle-group {
-    width: 100%;
-    
-    mat-button-toggle {
-      flex: 1;
-    }
-  }
-}
-
 .file-upload-section {
   margin: 0;
 }
