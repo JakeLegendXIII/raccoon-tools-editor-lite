@@ -5,7 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { Store } from '@ngrx/store';
-import { Observable, take } from 'rxjs';
+import { firstValueFrom, Observable, take } from 'rxjs';
 
 import { Passive } from '../../../models/passive.model';
 import { addPassive, deletePassive, loadPassives, updatePassive } from '../../../store/passives.actions';
@@ -90,15 +90,14 @@ export class PassiveListComponent {
     });
   }
 
-  addNewPassive(): void {
-    this.passives$.pipe(take(1)).subscribe(passives => {
-      const passive = new Passive();
-      passive.ID = passives.length === 0 ? 1 : Math.max(...passives.map(current => current.ID)) + 1;
-      passive.Name = 'New Passive';
-      this.store.dispatch(addPassive({ passive }));
-      this.startEditing(passive);
-      this.errorMessage = '';
-    });
+  async addNewPassive(): Promise<void> {
+    const passives = await firstValueFrom(this.passives$);
+    const passive = new Passive();
+    passive.ID = passives.length === 0 ? 1 : Math.max(...passives.map(current => current.ID)) + 1;
+    passive.Name = 'New Passive';
+    this.store.dispatch(addPassive({ passive }));
+    this.startEditing(passive);
+    this.errorMessage = '';
   }
 
   startEditing(passive: Passive): void {
