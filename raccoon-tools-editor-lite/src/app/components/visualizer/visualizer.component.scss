@@ -187,7 +187,7 @@
   &.cell-enemy { background: #fd7e14; }
   &.cell-obstacle { background: #28a745; }
   &.cell-winposition { background: #dfe227; }
-  &.cell-startposition { background: rgba(255, 193, 7, 0.3); border-style: dashed; }
+  &.cell-startposition { background: #6a581d; border-color: #ffc107; border-style: dashed; }
   &.cell-empty { background: var(--mat-sys-surface-container-high); }
 }
 
@@ -378,44 +378,48 @@
   }
 
   &.cell-startposition {
-    background-color: rgba(255, 193, 7, 0.3); // Transparent yellow/orange
-    color: #856404;
-    border: 1px dashed #ffc107;
+    background-color: #6a581d;
+    color: #fff;
+    border: 2px dashed #ffc107;
     position: relative;
 
     .cell-coordinates {
-      color: #856404;
+      color: #fff3c4;
     }
 
     .cell-content {
-      font-size: 8px;
-      color: #856404;
-      font-style: italic;
+      font-size: 10px;
+      color: #fff;
+      font-style: normal;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.75);
     }
 
-    // When other entities are on top of start positions, blend the colors
+    // Keep the entity color readable and mark the start position with a gold inset.
+    &.cell-player,
+    &.cell-enemy,
+    &.cell-obstacle,
+    &.cell-winposition {
+      box-shadow: inset 0 0 0 2px #ffc107;
+    }
+
     &.cell-player {
-      background: linear-gradient(rgba(0, 123, 255, 0.8), rgba(255, 193, 7, 0.2));
+      background: linear-gradient(rgba(0, 123, 255, 0.9), rgba(106, 88, 29, 0.75));
       border: 2px solid #0056b3;
-      color: white;
     }
 
     &.cell-enemy {
-      background: linear-gradient(rgba(253, 126, 20, 0.8), rgba(255, 193, 7, 0.2));
+      background: #fd7e14;
       border: 2px solid #e55a00;
-      color: white;
     }
 
     &.cell-obstacle {
-      background: linear-gradient(rgba(40, 167, 69, 0.8), rgba(255, 193, 7, 0.2));
+      background: #28a745;
       border: 2px solid #1e7e34;
-      color: white;
     }
 
     &.cell-winposition {
-      background: linear-gradient(rgba(223, 226, 39, 0.8), rgba(255, 193, 7, 0.2));
-      border: 2px solid #1e7e34;
-      color: white;
+      background: #8a7200;
+      border: 2px solid #6b5900;
     }
   }
 }
