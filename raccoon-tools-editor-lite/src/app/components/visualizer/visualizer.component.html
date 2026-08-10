@@ -1,23 +1,29 @@
 <div class="visualizer-container">
-  <h2>Level Visualizer</h2>
+  <header class="component-header">
+    <p class="eyebrow">Level preview</p>
+    <h2>Visualizer</h2>
+  </header>
 
   <div class="level-switcher">
-    <label for="visualizer-level-select">Loaded Levels:</label>
-    <select
-      id="visualizer-level-select"
-      [ngModel]="selectedLevelIndex$ | async"
-      (ngModelChange)="onLevelSelectionChange($event)">
-      @for (level of loadedLevels$ | async; track $index) {
-        <option [value]="$index">{{ getLevelOptionLabel(level, $index) }}</option>
-      }
-    </select>
+    <label class="property-group" for="visualizer-level-select">
+      <span>Loaded level</span>
+      <select
+        id="visualizer-level-select"
+        [ngModel]="selectedLevelIndex$ | async"
+        (ngModelChange)="onLevelSelectionChange($event)">
+        @for (level of loadedLevels$ | async; track $index) {
+          <option [value]="$index">{{ getLevelOptionLabel(level, $index) }}</option>
+        }
+      </select>
+    </label>
   </div>
   
   @if (level) {
     <div class="level-info">
       <!-- Drag message display -->
       @if (dragMessage) {
-        <div class="drag-message" 
+           <div class="drag-message"
+             role="status"
              [ngClass]="{
                'drag-message-success': dragMessage.includes('moved to'),
                'drag-message-error': dragMessage.includes('Cannot drop')
@@ -26,54 +32,60 @@
         </div>
       }
     
-      <div class="level-header">
-        <h3>Level: {{ level.ID || '0' }}</h3>      
-        <h3>{{ level.LevelDescription || 'Untitled Level' }}</h3>
-        <div class="level-stats">
-          <span>Grid: {{ level.GridWidth }}x{{ level.GridHeight }}</span>
-          <span>Cell Size: {{ level.CellSize }}px</span>
-          <span>LevelType: {{ getLevelTypeName(level.LevelType)}}</span>
-          <span>Players: {{ level.Players.length }}</span>
-          <span>Enemies: {{ level.Enemies.length }}</span>
-          <span>Obstacles: {{ level.Obstacles.length }}</span>
-          <span>Start Positions: {{ level.StartPositionsList.length }}</span>
-        </div>
-      </div>
-      
-      <div class="legend">
-        <div class="legend-item">
-          <div class="legend-color cell-player"></div>
-          <span>Players (Blue) - Draggable</span>
-        </div>
-        <div class="legend-item">
-          <div class="legend-color cell-enemy"></div>
-          <span>Enemies (Orange) - Draggable</span>
-        </div>
-        <div class="legend-item">
-          <div class="legend-color cell-obstacle"></div>
-          <span>Obstacles (Green) - Draggable</span>
-        </div>
-        @if (level.LevelType === LevelType.Escape) {
-          <div class="legend-item">
-            <div class="legend-color cell-winposition"></div>
-            <span>Win Position (Gold) - Draggable</span>
+      <section class="level-overview">
+        <div class="overview-heading">
+          <div>
+            <p class="section-label">Active level</p>
+            <h3>{{ level.LevelDescription || 'Untitled Level' }}</h3>
           </div>
-        }
-        <div class="legend-item">
-          <div class="legend-color cell-startposition"></div>
-          <span>Start Positions (Amber) - Draggable Background</span>
+          <span class="level-id">#{{ level.ID || '0' }}</span>
         </div>
-        <div class="legend-item">
-          <div class="legend-color cell-empty"></div>
-          <span>Empty - Drop target</span>
-        </div>      
-      </div>
-
-      <div class="instructions">
-        <p><strong>Instructions:</strong> Click and drag any player, enemy, or obstacle to move it to a new position on the grid. You cannot drop entities on occupied cells. Start positions can be dragged anywhere and will appear as transparent background elements.</p>
-      </div>
+        <div class="level-stats">
+          <div><span>Grid size</span><strong>{{ level.GridWidth }} x {{ level.GridHeight }}</strong></div>
+          <div><span>Cell size</span><strong>{{ level.CellSize }}px</strong></div>
+          <div><span>Level type</span><strong>{{ getLevelTypeName(level.LevelType)}}</strong></div>
+          <div><span>Players</span><strong>{{ level.Players.length }}</strong></div>
+          <div><span>Enemies</span><strong>{{ level.Enemies.length }}</strong></div>
+          <div><span>Obstacles</span><strong>{{ level.Obstacles.length }}</strong></div>
+          <div><span>Starts</span><strong>{{ level.StartPositionsList.length }}</strong></div>
+        </div>
+      </section>
       
-      <div class="grid-container">
+      <section class="legend">
+        <p class="section-label">Grid legend</p>
+        <div class="legend-items">
+          <div class="legend-item">
+            <span class="legend-color cell-player"></span>
+            <span>Players</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-color cell-enemy"></span>
+            <span>Enemies</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-color cell-obstacle"></span>
+            <span>Obstacles</span>
+          </div>
+          @if (level.LevelType === LevelType.Escape) {
+            <div class="legend-item">
+              <span class="legend-color cell-winposition"></span>
+              <span>Win position</span>
+            </div>
+          }
+          <div class="legend-item">
+            <span class="legend-color cell-startposition"></span>
+            <span>Start positions</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-color cell-empty"></span>
+            <span>Empty</span>
+          </div>
+        </div>      
+      </section>
+      
+      <section class="board-section">
+        <p class="section-label">Board</p>
+        <div class="grid-container">
         <!-- Y-axis labels -->
         <div class="y-axis-labels">
           <div class="axis-title"></div>
@@ -121,11 +133,13 @@
             }
           </div>
         </div>
-      </div>
+        </div>
+      </section>
     </div>
   } @else {
     <div class="no-level">
-      <p>No level data available. Please create or load a level to visualize.</p>
+      <h3>No level to visualize</h3>
+      <p>Create or import a level to preview its grid.</p>
     </div>
   }
 </div>
