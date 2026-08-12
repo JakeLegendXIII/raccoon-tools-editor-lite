@@ -3,7 +3,7 @@ import { PlayerCardComponent } from "../player-card/player-card.component";
 import { Observable, take, combineLatest } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
-import { PlayerData } from '../../../models/level.model';
+import { EnemyData, ObstacleData, PlayerData } from '../../../models/level.model';
 import { selectPlayers, selectCurrentLevel } from '../../../store/level.selectors';
 import { addPlayer } from '../../../store/level.actions';
 import { MatButtonModule } from '@angular/material/button';
@@ -66,17 +66,24 @@ export class PlayerListComponent {
     });
   }
   
-  private findRandomAvailablePosition(gridWidth: number, gridHeight: number, players: any[], enemies: any[], obstacles: any[]): { x: number, y: number } {
+  private findRandomAvailablePosition(
+    gridWidth: number,
+    gridHeight: number,
+    players: PlayerData[],
+    enemies: EnemyData[],
+    obstacles: ObstacleData[]
+  ): { x: number, y: number } {
     const GRID_WIDTH = gridWidth;
     const GRID_HEIGHT = gridHeight;
     
     // Collect all occupied positions
     const occupiedPositions = new Set<string>();
     
-    [...players, ...enemies, ...obstacles].forEach(entity => {
-      if (entity.StartPositionX !== undefined && entity.StartPositionY !== undefined) {
-        occupiedPositions.add(`${entity.StartPositionX},${entity.StartPositionY}`);
-      }
+    [...players, ...enemies].forEach(entity => {
+      occupiedPositions.add(`${entity.StartPosition.X},${entity.StartPosition.Y}`);
+    });
+    obstacles.forEach(obstacle => {
+      occupiedPositions.add(`${obstacle.Position.X},${obstacle.Position.Y}`);
     });
     
     // Find available positions
