@@ -32,6 +32,9 @@ jobs:
       - name: Install dependencies
         working-directory: ./raccoon-tools-editor-lite
         run: npm ci
+      - name: Run unit tests
+        working-directory: ./raccoon-tools-editor-lite
+        run: npm test -- --watch=false
       - name: Build application
         working-directory: ./raccoon-tools-editor-lite
         run: npm run build
