@@ -1,3 +1,4 @@
+import '@angular/compiler';
 import { describe, expect, it } from 'vitest';
 
 import { EnemyData, Level, LevelPoint, ObstacleData, PlayerData } from '../models/level.model';
