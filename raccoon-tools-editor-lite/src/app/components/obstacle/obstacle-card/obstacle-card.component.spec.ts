@@ -17,6 +17,7 @@ describe('ObstacleCardComponent', () => {
     Health: 5,
     Height: 64,
     Width: 48,
+    NumberOfSquares: 3,
     IsWalkable: false,
     IsDestructible: true,
     IsInteractive: true,
@@ -52,6 +53,7 @@ describe('ObstacleCardComponent', () => {
     expect(content).toContain('Building');
     expect(content).toContain('Health: 5');
     expect(content).toContain('Size: 48 x 64');
+    expect(content).toContain('Number of Squares: 3');
     expect(content).toContain('Walkable: No');
     expect(content).toContain('Destructible: Yes');
     expect(content).toContain('Interactive: Yes');
@@ -123,6 +125,24 @@ describe('ObstacleCardComponent', () => {
 
     expect(dispatch).toHaveBeenCalledWith(updateObstacle({ obstacle: component.editableObstacle }));
     expect(component.isEditing).toBe(false);
+  });
+
+  it('saves the number of squares entered in the form', async () => {
+    const dispatch = vi.spyOn(store, 'dispatch');
+    component.toggleEdit();
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const input: HTMLInputElement = fixture.nativeElement.querySelector('input[name="numberOfSquares"]');
+    expect(input.value).toBe('3');
+    input.value = '5';
+    input.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+
+    component.saveChanges();
+
+    expect(dispatch).toHaveBeenCalledWith(updateObstacle({ obstacle: expect.objectContaining({ NumberOfSquares: 5 }) }));
+    expect(component.obstacle.NumberOfSquares).toBe(3);
   });
 
   it('discards edits when cancelled', () => {

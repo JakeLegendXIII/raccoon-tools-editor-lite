@@ -24,6 +24,9 @@
           <strong>Size:</strong> {{obstacle.Width}} x {{obstacle.Height}}
         </div>
         <div class="property-row">
+          <strong>Number of Squares:</strong> {{obstacle.NumberOfSquares}}
+        </div>
+        <div class="property-row">
           <strong>Walkable:</strong> {{ obstacle.IsWalkable ? 'Yes' : 'No' }}
         </div>
         <div class="property-row">
@@ -77,6 +80,13 @@
               <input matInput type="number" [(ngModel)]="editableObstacle.Height" name="height" min="1">
             </mat-form-field>
           </div>
+        </div>
+
+        <div class="form-section">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Number of Squares</mat-label>
+            <input matInput type="number" [(ngModel)]="editableObstacle.NumberOfSquares" name="numberOfSquares" min="0" step="1">
+          </mat-form-field>
         </div>
 
         <div class="form-section">
