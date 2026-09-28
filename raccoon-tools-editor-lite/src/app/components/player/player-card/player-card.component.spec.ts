@@ -17,6 +17,7 @@ describe('PlayerCardComponent', () => {
     Health: 8,
     Height: 64,
     Width: 48,
+    NumberOfSquares: 3,
     StartPosition: { X: 2, Y: 3 }
   }, overrides);
 
@@ -49,6 +50,7 @@ describe('PlayerCardComponent', () => {
     expect(content).toContain('Fighter');
     expect(content).toContain('Health: 8');
     expect(content).toContain('Size: 48 x 64');
+    expect(content).toContain('Number of Squares: 3');
     expect(content).toContain('Start Position: (2, 3)');
   });
 
@@ -82,6 +84,24 @@ describe('PlayerCardComponent', () => {
 
     expect(dispatch).toHaveBeenCalledWith(updatePlayer({ player: component.editablePlayer }));
     expect(component.isEditing).toBe(false);
+  });
+
+  it('saves the number of squares entered in the form', async () => {
+    const dispatch = vi.spyOn(store, 'dispatch');
+    component.toggleEdit();
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const input: HTMLInputElement = fixture.nativeElement.querySelector('input[name="numberOfSquares"]');
+    expect(input.value).toBe('3');
+    input.value = '5';
+    input.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+
+    component.saveChanges();
+
+    expect(dispatch).toHaveBeenCalledWith(updatePlayer({ player: expect.objectContaining({ NumberOfSquares: 5 }) }));
+    expect(component.player.NumberOfSquares).toBe(3);
   });
 
   it('discards edits when cancelled', () => {
