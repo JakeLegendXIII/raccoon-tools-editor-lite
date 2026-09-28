@@ -84,6 +84,7 @@ describe('PlayerListComponent', () => {
         Health: 3,
         Height: 64,
         Width: 64,
+        NumberOfSquares: 1,
         StartPosition: expect.objectContaining({ X: 0, Y: 0 })
       }) as PlayerData
     }));

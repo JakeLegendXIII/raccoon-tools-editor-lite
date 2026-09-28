@@ -112,6 +112,7 @@ describe('ImportComponent', () => {
         Health: 12000,
         Height: 0,
         Width: 150,
+        NumberOfSquares: 4,
         StartPosition: { X: 4, Y: 20 }
       }],
       Enemies: [{
@@ -120,6 +121,7 @@ describe('ImportComponent', () => {
         Health: 25,
         Height: 2,
         Width: 2,
+        NumberOfSquares: 0,
         StartPosition: { X: 3, Y: 4 }
       }],
       Obstacles: [{
@@ -157,16 +159,19 @@ describe('ImportComponent', () => {
         Health: 9999,
         Height: 1,
         Width: 100,
+        NumberOfSquares: 4,
         StartPosition: expect.objectContaining({ X: 4, Y: 7 })
       })],
       Enemies: [expect.objectContaining({
         ID: 8,
         EnemyType: BaseEnemyType.Boss,
+        NumberOfSquares: 0,
         StartPosition: expect.objectContaining({ X: 3, Y: 4 })
       })],
       Obstacles: [expect.objectContaining({
         ID: 9,
         ObstacleType: ObstacleType.Wall,
+        NumberOfSquares: 1,
         IsWalkable: true,
         IsDestructible: false,
         IsInteractive: true,

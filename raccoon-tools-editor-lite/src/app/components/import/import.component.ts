@@ -196,6 +196,7 @@ export class ImportComponent {
       player.Health = this.toClampedInteger(p?.Health, 0, 0, MAX_ENTITY_STAT);
       player.Height = this.toClampedInteger(p?.Height, 1, 1, MAX_GRID_SIZE);
       player.Width = this.toClampedInteger(p?.Width, 1, 1, MAX_GRID_SIZE);
+      player.NumberOfSquares = this.toClampedInteger(p?.NumberOfSquares, 1, 0, MAX_ENTITY_STAT);
       player.StartPosition = this.toLevelPoint(p?.StartPosition, maxGridX, maxGridY);
       return player;
     });
@@ -207,6 +208,7 @@ export class ImportComponent {
       enemy.Health = this.toClampedInteger(e?.Health, 0, 0, MAX_ENTITY_STAT);
       enemy.Height = this.toClampedInteger(e?.Height, 1, 1, MAX_GRID_SIZE);
       enemy.Width = this.toClampedInteger(e?.Width, 1, 1, MAX_GRID_SIZE);
+      enemy.NumberOfSquares = this.toClampedInteger(e?.NumberOfSquares, 1, 0, MAX_ENTITY_STAT);
       enemy.StartPosition = this.toLevelPoint(e?.StartPosition, maxGridX, maxGridY);
       return enemy;
     });
@@ -217,6 +219,7 @@ export class ImportComponent {
       obstacle.Health = this.toClampedInteger(o?.Health, 0, 0, MAX_ENTITY_STAT);
       obstacle.Height = this.toClampedInteger(o?.Height, 1, 1, MAX_GRID_SIZE);
       obstacle.Width = this.toClampedInteger(o?.Width, 1, 1, MAX_GRID_SIZE);
+      obstacle.NumberOfSquares = this.toClampedInteger(o?.NumberOfSquares, 1, 0, MAX_ENTITY_STAT);
       obstacle.ObstacleType = this.toEnumValue(ObstacleType, o?.ObstacleType, ObstacleType.Mountain);
       obstacle.IsWalkable = this.toBoolean(o?.IsWalkable, false);
       obstacle.IsDestructible = this.toBoolean(o?.IsDestructible, false);
