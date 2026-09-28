@@ -24,6 +24,9 @@
           <strong>Size:</strong> {{enemy.Width}} x {{enemy.Height}}
         </div>
         <div class="property-row">
+          <strong>Number of Squares:</strong> {{enemy.NumberOfSquares}}
+        </div>
+        <div class="property-row">
           <strong>Start Position:</strong> ({{enemy.StartPosition.X}}, {{enemy.StartPosition.Y}})
         </div>
       </div>
@@ -62,6 +65,13 @@
               <input matInput type="number" [(ngModel)]="editableEnemy.Height" name="height" min="1">
             </mat-form-field>
           </div>
+        </div>
+
+        <div class="form-section">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Number of Squares</mat-label>
+            <input matInput type="number" [(ngModel)]="editableEnemy.NumberOfSquares" name="numberOfSquares" min="0" step="1">
+          </mat-form-field>
         </div>
 
         <div class="form-section">
