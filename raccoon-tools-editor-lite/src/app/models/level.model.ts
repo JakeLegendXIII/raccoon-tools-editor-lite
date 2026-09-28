@@ -76,6 +76,7 @@ export class PlayerData {
     Health: number = 0;
     Height: number = 0;
     Width: number = 0;
+    NumberOfSquares: number = 0;
     StartPosition: LevelPoint = new LevelPoint();
 }
 
@@ -88,6 +89,7 @@ export class EnemyData {
     Health: number = 0;
     Height: number = 0;
     Width: number = 0;
+    NumberOfSquares: number = 0;
     StartPosition: LevelPoint = new LevelPoint();
 }
 
@@ -99,6 +101,7 @@ export class ObstacleData {
     Health: number = 0;
     Height: number = 0;
     Width: number = 0;
+    NumberOfSquares: number = 0;
     ObstacleType: number = 0;
     IsWalkable: boolean = false;
     IsDestructible: boolean = false;
