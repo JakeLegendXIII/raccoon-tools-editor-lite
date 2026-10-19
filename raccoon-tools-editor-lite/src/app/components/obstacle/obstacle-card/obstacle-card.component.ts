@@ -138,7 +138,7 @@ export class ObstacleCardComponent {
         target.IsWalkable = false;
         target.IsDestructible = true;
         target.IsInteractive = false;
-        target.Health = 2;
+        target.Health = 1;
         break;
       case ObstacleType.Ice:
         target.IsWalkable = true;
